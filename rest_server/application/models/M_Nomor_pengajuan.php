@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * 
+ */
+class M_Nomor_pengajuan extends CI_Model
+{
+
+	public function __construct()
+	{
+		# code...
+	}
+
+	public function getFullday()
+	{
+		$sql = " SELECT * FROM absensi_new.`tbl_izin_full_day`
+		ORDER BY absensi_new.`tbl_izin_full_day`.`id_full_day` DESC
+		LIMIT 0, 1
+		";
+		$hasil = $this->db2->query($sql);
+		return $hasil->result_array();
+	}
+
+	public function getNonfullday()
+	{
+		$sql = " SELECT * FROM absensi_new.`tbl_izin_non_full`
+		ORDER BY absensi_new.`tbl_izin_non_full`.`id_non_full` DESC
+		LIMIT 0, 1
+		";
+		$hasil = $this->db2->query($sql);
+		return $hasil->result_array();
+	}
+
+	public function getCutikhusus()
+	{
+		$sql = " SELECT * FROM absensi.`tbl_karyawan_cuti_khusus`
+		ORDER BY absensi.`tbl_karyawan_cuti_khusus`.`id_cuti_khusus` DESC
+		LIMIT 0, 1";
+		$hasil = $this->db_absensi->query($sql);
+		return $hasil->result_array();
+	}
+
+	public function getCutitahunan()
+	{
+		$sql = " SELECT * FROM absensi.`tbl_karyawan_cuti_tahunan`
+		ORDER BY absensi.`tbl_karyawan_cuti_tahunan`.`id_sisa_cuti` DESC
+		LIMIT 0, 1";
+		$hasil = $this->db_absensi->query($sql);
+		return $hasil->result_array();
+	}
+
+	public function getKontrak()
+	{
+		$sql = " SELECT * FROM absensi_new.`tbl_karyawan_kontrak`
+		ORDER BY absensi_new.`tbl_karyawan_kontrak`.`no_urut` DESC
+		LIMIT 0, 1
+		";
+		$hasil = $this->db2->query($sql);
+		return $hasil->result_array();
+	}
+
+	public function getFullday_new()
+	{
+		$sql = " SELECT * FROM absensi.`tbl_izin_full_day`
+		ORDER BY absensi.`tbl_izin_full_day`.`id_full_day` DESC
+		LIMIT 0, 1
+		";
+		$hasil = $this->db_absensi->query($sql);
+		return $hasil->result_array();
+	}
+}

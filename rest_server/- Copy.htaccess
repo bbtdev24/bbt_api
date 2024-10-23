@@ -1,0 +1,9 @@
+AuthName "This is REST SERVER HRIS, Please login first! "
+AuthType Basic
+AuthUserFile D:\xampp\htdocs\rest_server\.htpasswd
+require valid-user
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]

@@ -1,0 +1,504 @@
+public class ListViewAdapterStockOpname extends ArrayAdapter<sparepart_pojos> implements Filterable {
+        private Context context;
+        ArrayList<sparepart_pojos> sparepart_pojosList;
+        ArrayList<sparepart_pojos> sparepart_pojosList_filtered;
+        LayoutInflater inflater;
+
+        ListView listView;
+
+        private class ViewHolder {
+
+            int i;
+            EditText Updatestock_fisik;
+            MaterialCardView add;
+            MaterialCardView addUpdate;
+            TextView akhir;
+            TextView awal;
+            MaterialCardView cardview;
+            int count;
+            TextView fisik;
+
+            /* renamed from: in */
+            TextView in, positions;
+            RelativeLayout layout_fisik;
+            MaterialCardView minus;
+            MaterialCardView minusUpdate;
+            TextView nama_produk;
+            TextView orderid;
+            TextView out;
+            RelativeLayout postStockFisik;
+            MaterialButton simpan;
+            Chip status;
+            EditText stock_fisik;
+            MaterialCardView undo;
+            RelativeLayout updateStockFisik;
+
+            private ViewHolder() {
+            }
+        }
+
+        public ListViewAdapterStockOpname(ArrayList<sparepart_pojos> item, Context context2) {
+            super(context2, 0, item);
+            this.sparepart_pojosList = item;
+            this.sparepart_pojosList_filtered = item;
+            this.context = context2;
+            inflater = LayoutInflater.from(context2);
+        }
+
+        public Filter getFilter() {
+
+            Filter filter = new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults results = new FilterResults();
+                    ArrayList<sparepart_pojos> arrayListFilter = new ArrayList<sparepart_pojos>();
+
+                    if (constraint == null || constraint.length() == 0) {
+                        results.count = sparepart_pojosList_filtered.size();
+                        results.values = sparepart_pojosList_filtered;
+
+                    } else {
+                        for (sparepart_pojos modelData : sparepart_pojosList_filtered) {
+
+                            if (modelData.getOrder_name().toLowerCase().contains(constraint.toString().toLowerCase()) ||
+                                    modelData.getOrder_id().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                                arrayListFilter.add(modelData);
+                            }
+                        }
+
+                        results.count = arrayListFilter.size();
+                        results.values = arrayListFilter;
+                    }
+                    return results;
+                }
+
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    sparepart_pojosList = (ArrayList<sparepart_pojos>) results.values;
+                    adapter.notifyDataSetChanged();
+                }
+            };
+            return filter;
+        }
+
+        public int getCount() {
+            return this.sparepart_pojosList.size();
+        }
+
+        public sparepart_pojos getItem(int position) {
+            return sparepart_pojosList.get(position); // Line 54.
+        }
+
+        public int getViewTypeCount() {
+            int count;
+            if(sparepart_pojosList.size() >0){
+                count = getCount();
+            } else {
+                count = 1;
+            }
+            return count;
+        }
+
+        public int getItemViewType(int position) {
+            return position;
+        }
+
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View convertView2;
+            final ViewHolder viewHolder;
+            final sparepart_pojos movieItem = getItem(position);
+
+
+            if (convertView == null) {
+                viewHolder = new ViewHolder();
+                convertView2 = inflater.inflate(R.layout.listitem_stock_opname, null, true);
+                viewHolder.nama_produk = (TextView) convertView2.findViewById(R.id.nama_produk);
+                viewHolder.in = (TextView) convertView2.findViewById(R.id.in);
+                viewHolder.out = (TextView) convertView2.findViewById(R.id.out);
+                viewHolder.awal = (TextView) convertView2.findViewById(R.id.awal);
+                viewHolder.akhir = (TextView) convertView2.findViewById(R.id.akhir);
+                viewHolder.fisik = (TextView) convertView2.findViewById(R.id.fisik);
+                viewHolder.orderid = (TextView) convertView2.findViewById(R.id.orderid);
+                viewHolder.positions = (TextView) convertView2.findViewById(R.id.positions);
+
+                viewHolder.undo = (MaterialCardView) convertView2.findViewById(R.id.undo);
+                viewHolder.minus = (MaterialCardView) convertView2.findViewById(R.id.minus);
+                viewHolder.stock_fisik = (EditText) convertView2.findViewById(R.id.stock_fisik);
+                viewHolder.minus = (MaterialCardView) convertView2.findViewById(R.id.minus);
+                viewHolder.add = (MaterialCardView) convertView2.findViewById(R.id.add);
+                viewHolder.postStockFisik = (RelativeLayout) convertView2.findViewById(R.id.postStockFisik);
+                viewHolder.updateStockFisik = (RelativeLayout) convertView2.findViewById(R.id.updateStockFisik);
+                viewHolder.simpan = (MaterialButton) convertView2.findViewById(R.id.simpan);
+                viewHolder.minusUpdate = (MaterialCardView) convertView2.findViewById(R.id.minusUpdate);
+                viewHolder.addUpdate = (MaterialCardView) convertView2.findViewById(R.id.addUpdate);
+                viewHolder.Updatestock_fisik = (EditText) convertView2.findViewById(R.id.Updatestock_fisik);
+                viewHolder.status = (Chip) convertView2.findViewById(R.id.status);
+                viewHolder.cardview = (MaterialCardView) convertView2.findViewById(R.id.cardview);
+                viewHolder.layout_fisik = (RelativeLayout) convertView2.findViewById(R.id.layout_fisik);
+
+
+                convertView2.setTag(viewHolder);
+            } else {
+                ViewGroup viewGroup = parent;
+                viewHolder = (ViewHolder) convertView.getTag();
+                convertView2 = convertView;
+            }
+
+
+            viewHolder.positions.setTag(getItem(position).getId());
+
+
+            viewHolder.nama_produk.setTag(getItem(position).getId());
+            viewHolder.in.setTag(getItem(position).getId());
+            viewHolder.out.setTag(getItem(position).getId());
+            viewHolder.awal.setTag(getItem(position).getId());
+            viewHolder.akhir.setTag(getItem(position).getId());
+            viewHolder.fisik.setTag(getItem(position).getId());
+            viewHolder.orderid.setTag(getItem(position).getId());
+            viewHolder.positions.setTag(getItem(position).getId());
+
+            viewHolder.undo.setTag(getItem(position).getId());
+            viewHolder.minus.setTag(getItem(position).getId());
+            viewHolder.stock_fisik.setTag(position);
+            viewHolder.minus.setTag(getItem(position).getId());
+            viewHolder.add.setTag(getItem(position).getId());
+
+            viewHolder.postStockFisik.setTag(getItem(position).getId());
+            viewHolder.updateStockFisik.setTag(getItem(position).getId());
+            viewHolder.simpan.setTag(getItem(position).getId());
+            viewHolder.minusUpdate.setTag(getItem(position).getId());
+            viewHolder.addUpdate.setTag(getItem(position).getId());
+            viewHolder.Updatestock_fisik.setTag(getItem(position).getId());
+            viewHolder.status.setTag(getItem(position).getId());
+            viewHolder.cardview.setTag(getItem(position).getId());
+            viewHolder.layout_fisik.setTag(getItem(position).getId());
+
+            if (movieItem.getCondition().equals("None")) {
+                viewHolder.updateStockFisik.setVisibility(View.GONE);
+                viewHolder.postStockFisik.setVisibility(View.VISIBLE);
+                viewHolder.status.setVisibility(View.GONE);
+                viewHolder.layout_fisik.setVisibility(View.GONE);
+                viewHolder.cardview.setBackgroundColor(Color.parseColor("#ffffff"));
+
+                viewHolder.count = 0;
+                viewHolder.postStockFisik.setVisibility(View.VISIBLE);
+                viewHolder.updateStockFisik.setVisibility(View.GONE);
+                viewHolder.status.setVisibility(View.GONE);
+                viewHolder.layout_fisik.setVisibility(View.GONE);
+
+                viewHolder.stock_fisik.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        {
+                            if (viewHolder.stock_fisik.getText().toString().length() > 0) {
+                                viewHolder.count = Integer.parseInt(viewHolder.stock_fisik.getText().toString());
+                                viewHolder.stock_fisik.setSelection(viewHolder.Updatestock_fisik.getText().length());
+
+                                viewHolder.stock_fisik.setSelection(viewHolder.stock_fisik.getText().length());
+                            }
+                            viewHolder.stock_fisik.setSelection(viewHolder.stock_fisik.getText().length());
+                            movieItem.setStock_fisik(viewHolder.stock_fisik.getText().toString());
+                            total.setText("0/" + String.valueOf(number) + " Item");
+                            if (viewHolder.stock_fisik.getText().toString().length() == 0) {
+                                movieItem.setStock_fisik((String) null);
+                            }
+                            int counting = 0;
+                            for (int e = 0; e <= ListViewAdapterStockOpname.this.sparepart_pojosList.size() - 1; e++) {
+                                if (adapter.getItem(e).getStock_fisik() != null) {
+                                    counting++;
+                                    total.setText(String.valueOf(counting) + "/" + String.valueOf(number) + " Item");
+                                }
+                            }
+
+                            // adapter.notifyDataSetChanged();
+                            if (counting == ListViewAdapterStockOpname.this.sparepart_pojosList.size()) {
+                                total.setChipStrokeColor(ColorStateList.valueOf(Color.parseColor("#B9EED0")));
+                                total.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E8FFF2")));
+                                total.setTextColor(Color.parseColor("#2ECC71"));
+                                return;
+                            }
+                            total.setChipStrokeColor(ColorStateList.valueOf(Color.parseColor("#FEC0C0")));
+                            total.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFF1F1")));
+                            total.setTextColor(Color.parseColor("#FB4141"));
+
+                            adapter.notifyDataSetChanged();
+
+                        }
+                    }
+                });
+
+
+                viewHolder.minus.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        int counting = 0;
+                        if (viewHolder.count == 0) {
+                            viewHolder.count = 0;
+                            movieItem.setStock_fisik("0");
+                            viewHolder.stock_fisik.setText("0");
+                            total.setText("0/" + String.valueOf(number) + " Item");
+                            counting = 0;
+                            for (int e = 0; e <= ListViewAdapterStockOpname.this.sparepart_pojosList.size() - 1; e++) {
+                                if (adapter.getItem(e).getStock_fisik() != null) {
+                                    counting++;
+                                    total.setText(String.valueOf(counting) + "/" + String.valueOf(number) + " Item");
+                                }
+                            }
+//                            total.setChipStrokeColor(ColorStateList.valueOf(Color.parseColor("#FEC0C0")));
+//                            total.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFF1F1")));
+//                            total.setTextColor(Color.parseColor("#FB4141"));
+                        } else {
+                            viewHolder.count--;
+                            movieItem.setStock_fisik(String.valueOf(viewHolder.count));
+                            viewHolder.stock_fisik.setText(movieItem.getStock_fisik());
+                            total.setText("0/" + String.valueOf(number) + " Item");
+
+                            for (int e = 0; e <= ListViewAdapterStockOpname.this.sparepart_pojosList.size() - 1; e++) {
+                                if (adapter.getItem(e).getStock_fisik() != null) {
+                                    counting++;
+                                    total.setText(String.valueOf(counting) + "/" + String.valueOf(number) + " Item");
+                                }
+                            }
+                            // adapter.notifyDataSetChanged();
+//                            total.setChipStrokeColor(ColorStateList.valueOf(Color.parseColor("#FEC0C0")));
+//                            total.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFF1F1")));
+//                            total.setTextColor(Color.parseColor("#FB4141"));
+                        }
+                    }
+                });
+                viewHolder.add.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        viewHolder.count++;
+                        movieItem.setStock_fisik(String.valueOf(viewHolder.count));
+                        viewHolder.stock_fisik.setText(ListViewAdapterStockOpname.this.getItem(position).getStock_fisik());
+                        total.setText("0/" + String.valueOf(number) + " Item");
+                        int counting = 0;
+                        for (int e = 0; e <= ListViewAdapterStockOpname.this.sparepart_pojosList.size() - 1; e++) {
+                            if (adapter.getItem(e).getStock_fisik() != null) {
+                                counting++;
+                                total.setText(String.valueOf(counting) + "/" + String.valueOf(number) + " Item");
+                            }
+                        }
+                        // adapter.notifyDataSetChanged();
+                        if (counting == ListViewAdapterStockOpname.this.sparepart_pojosList.size()) {
+                            total.setChipStrokeColor(ColorStateList.valueOf(Color.parseColor("#B9EED0")));
+                            total.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E8FFF2")));
+                            total.setTextColor(Color.parseColor("#2ECC71"));
+                            return;
+                        }
+                        total.setChipStrokeColor(ColorStateList.valueOf(Color.parseColor("#FEC0C0")));
+                        total.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFF1F1")));
+                        total.setTextColor(Color.parseColor("#FB4141"));
+                    }
+                });
+                viewHolder.undo.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        viewHolder.count = 0;
+                        movieItem.setStock_fisik((String) null);
+                        viewHolder.stock_fisik.setText("");
+                        total.setText("0/" + String.valueOf(number) + " Item");
+                        int counting = 0;
+                        for (int e = 0; e <= ListViewAdapterStockOpname.this.sparepart_pojosList.size() - 1; e++) {
+                            if (adapter.getItem(e).getStock_fisik() != null) {
+                                counting++;
+                                total.setText(String.valueOf(counting) + "/" + String.valueOf(number) + " Item");
+                            }
+                        }
+                        total.setChipStrokeColor(ColorStateList.valueOf(Color.parseColor("#FEC0C0")));
+                        total.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFF1F1")));
+                        total.setTextColor(Color.parseColor("#FB4141"));
+                        // adapter.notifyDataSetChanged();
+                    }
+                });
+            } else if (movieItem.getCondition().equals("Pass")) {
+                viewHolder.updateStockFisik.setVisibility(View.GONE);
+                viewHolder.postStockFisik.setVisibility(View.GONE);
+                viewHolder.status.setVisibility(View.VISIBLE);
+                viewHolder.layout_fisik.setVisibility(View.VISIBLE);
+
+                viewHolder.cardview.setBackgroundColor(Color.parseColor("#D3D3D3"));
+
+                viewHolder.cardview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(), detail_stock.class);
+                        intent.putExtra("id", movieItem.getOrder_id());
+                        intent.putExtra("name", movieItem.getOrder_name());
+                        intent.putExtra("lokasi", lokasiHrd);
+                        startActivity(intent);
+                    }
+                });
+
+                viewHolder.status.setText("Pass");
+
+                viewHolder.status.setChipStrokeColor(ColorStateList.valueOf(Color.parseColor("#B9EED0")));
+                viewHolder.status.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E8FFF2")));
+                viewHolder.status.setTextColor(Color.parseColor("#2ECC71"));
+
+                viewHolder.fisik.setText(movieItem.getStock_fisik() + " Pcs");
+
+
+            } else if (movieItem.getCondition().equals("Invalid")) {
+                viewHolder.updateStockFisik.setVisibility(View.VISIBLE);
+                viewHolder.postStockFisik.setVisibility(View.GONE);
+                viewHolder.status.setVisibility(View.VISIBLE);
+                viewHolder.layout_fisik.setVisibility(View.GONE);
+                viewHolder.cardview.setBackgroundColor(Color.parseColor("#ffffff"));
+
+                viewHolder.status.setText("Invalid");
+
+                viewHolder.status.setChipStrokeColor(ColorStateList.valueOf(Color.parseColor("#FEC0C0")));
+                viewHolder.status.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFF1F1")));
+                viewHolder.status.setTextColor(Color.parseColor("#FB4141"));
+
+                viewHolder.count = Integer.parseInt(movieItem.getStock_fisik());
+                viewHolder.postStockFisik.setVisibility(View.GONE);
+                viewHolder.updateStockFisik.setVisibility(View.VISIBLE);
+                viewHolder.status.setVisibility(View.VISIBLE);
+
+                viewHolder.Updatestock_fisik.setText(movieItem.getStock_fisik());
+
+
+                viewHolder.addUpdate.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        viewHolder.count++;
+                        movieItem.setStock_fisik(String.valueOf(viewHolder.count));
+                        viewHolder.Updatestock_fisik.setText(movieItem.getStock_fisik());
+                    }
+                });
+                viewHolder.minusUpdate.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        if (viewHolder.count != 0) {
+                            viewHolder.count--;
+                            movieItem.setStock_fisik(String.valueOf(viewHolder.count));
+                            viewHolder.Updatestock_fisik.setText(movieItem.getStock_fisik());
+                        }
+                    }
+                });
+
+                viewHolder.Updatestock_fisik.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if(viewHolder.Updatestock_fisik.getText().toString().length() == 0){
+
+                        } else if(viewHolder.Updatestock_fisik.getText().toString().length() > 0 || movieItem.getId() == Integer.parseInt(viewHolder.positions.getText().toString())){
+                            viewHolder.count = Integer.parseInt(viewHolder.Updatestock_fisik.getText().toString());
+                            getItem(position).setStock_fisik(String.valueOf(viewHolder.count));
+                            viewHolder.Updatestock_fisik.setSelection(viewHolder.Updatestock_fisik.getText().length());
+                            System.out.println("Data yang berubah = " + movieItem.getStock_fisik() + " Di posisi = " + getItem(position).getId());
+                        }
+                    }
+                });
+
+
+
+                viewHolder.simpan.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        if (viewHolder.Updatestock_fisik.getText().toString().length() == 0) {
+                            viewHolder.Updatestock_fisik.setError("Data Masih Kosong");
+                        } else {
+                            ListViewAdapterStockOpname.this.updateData(movieItem.getTgl_closing(), movieItem.getOrder_id(), viewHolder.Updatestock_fisik.getText().toString(), movieItem.getStok_awal(), movieItem.getStok_akhir());
+                        }
+                    }
+                });
+            }
+
+            if (movieItem.getStock_fisik() == null) {
+                viewHolder.stock_fisik.setText(movieItem.getStock_fisik());
+            } else {
+                viewHolder.stock_fisik.setText(movieItem.getStock_fisik());
+            }
+            viewHolder.positions.setText(String.valueOf(movieItem.getId()));
+            viewHolder.nama_produk.setText(movieItem.getOrder_name());
+            viewHolder.in.setText(movieItem.getIn() + " Pcs");
+            viewHolder.out.setText(movieItem.getOut() + " Pcs");
+            viewHolder.awal.setText(movieItem.getStok_awal() + " Pcs");
+            viewHolder.akhir.setText(movieItem.getStok_akhir() + " Pcs");
+
+            viewHolder.orderid.setText(movieItem.getOrder_id());
+
+
+
+
+            return convertView2;
+        }
+        public void updateData(String tgl_closing, String order_id, String stock_fisik, String stok_awal, String stok_akhir) {
+            pDialog = new SweetAlertDialog(list_stockopname.this, 5);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("Harap Menunggu");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+            StringRequest r1 = new StringRequest(2, "https://apisec.tvip.co.id/rest_server_stock_opname/Stock/index_stock", new Response.Listener<String>() {
+                public void onResponse(String response) {
+                    postHistory(tgl_closing, order_id, stok_awal, stok_akhir);
+                }
+            }, new Response.ErrorListener() {
+                public void onErrorResponse(VolleyError error) {
+                    pDialog.dismissWithAnimation();
+                    success = new SweetAlertDialog(list_stockopname.this, 2);
+                    success.setContentText("Data Berhasil Disimpan");
+                    success.setCancelable(false);
+                    success.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismissWithAnimation();
+                            getData("0", "https://apisec.tvip.co.id/rest_server_stock_opname/Stock/index_Stock?warehouse=");
+                        }
+                    });
+                    success.show();
+                }
+            }) {
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> params = new HashMap<>();
+                    params.put("Authorization", "Basic " + Base64.encodeToString(String.format("%s:%s", new Object[]{"admin", "Databa53"}).getBytes(), 0));
+                    return params;
+                }
+
+                /* access modifiers changed from: protected */
+                public Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    String currentDateandTime2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+                    sharedPreferences = getSharedPreferences("user_details", 0);
+                    String nik_baru = sharedPreferences.getString("nik_baru", (String) null);
+
+                    params.put("tgl_closing", tgl_closing);
+                    params.put("warehouse", lokasiHrd);
+                    params.put("order_id", order_id);
+                    params.put("stok_fisik", stock_fisik);
+                    params.put("last_update", currentDateandTime2);
+                    params.put("nik_update", nik_baru);
+                    System.out.println("Params = " + params);
+                    return params;
+
+                }
+            };
+            r1.setRetryPolicy(new DefaultRetryPolicy(5000, 1, 1.0f));
+            RequestQueue requestQueue2 = Volley.newRequestQueue(list_stockopname.this);
+            requestQueue2.getCache().clear();
+            requestQueue2.add(r1);
+        }
+    }

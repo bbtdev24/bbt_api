@@ -1,0 +1,272 @@
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.Chip;
+
+import java.util.ArrayList;
+
+public class ListViewAdapterStockOpname extends BaseAdapter implements Filterable {
+
+    private Context context;
+    private ArrayList<sparepart_pojos> originalList;
+    private ArrayList<sparepart_pojos> filteredList;
+    private LayoutInflater inflater;
+    private ListViewAdapterStockOpname adapter;
+
+    private static class ViewHolder {
+        EditText stock_fisik, Updatestock_fisik;
+        MaterialCardView add, addUpdate, cardview, minus, minusUpdate, undo;
+        TextView akhir, awal, fisik, in, orderid, out, positions, nama_produk;
+        RelativeLayout layout_fisik, postStockFisik, updateStockFisik;
+        MaterialButton simpan;
+        Chip status;
+        int count = 0;
+    }
+
+    public ListViewAdapterStockOpname(ArrayList<sparepart_pojos> item, Context context) {
+        this.originalList = new ArrayList<>(item);
+        this.filteredList = item;
+        this.context = context;
+        this.inflater = LayoutInflater.from(context);
+        this.adapter = this;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results = new FilterResults();
+                ArrayList<sparepart_pojos> arrayListFilter = new ArrayList<>();
+
+                if (constraint == null || constraint.length() == 0) {
+                    results.count = originalList.size();
+                    results.values = originalList;
+                } else {
+                    for (sparepart_pojos modelData : originalList) {
+                        if (modelData.getOrder_name().toLowerCase().contains(constraint.toString().toLowerCase()) ||
+                                modelData.getOrder_id().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                            arrayListFilter.add(modelData);
+                        }
+                    }
+                    results.count = arrayListFilter.size();
+                    results.values = arrayListFilter;
+                }
+                return results;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                filteredList = (ArrayList<sparepart_pojos>) results.values;
+                adapter.notifyDataSetChanged();
+            }
+        };
+    }
+
+    @Override
+    public int getCount() {
+        return filteredList.size();
+    }
+
+    @Override
+    public sparepart_pojos getItem(int position) {
+        return filteredList.get(position);
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return (filteredList.size() > 0) ? getCount() : 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
+        final sparepart_pojos item = getItem(position);
+
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
+            convertView = inflater.inflate(R.layout.listitem_stock_opname, null, true);
+            viewHolder.nama_produk = convertView.findViewById(R.id.nama_produk);
+            viewHolder.in = convertView.findViewById(R.id.in);
+            viewHolder.out = convertView.findViewById(R.id.out);
+            viewHolder.awal = convertView.findViewById(R.id.awal);
+            viewHolder.akhir = convertView.findViewById(R.id.akhir);
+            viewHolder.fisik = convertView.findViewById(R.id.fisik);
+            viewHolder.orderid = convertView.findViewById(R.id.orderid);
+            viewHolder.positions = convertView.findViewById(R.id.positions);
+            viewHolder.undo = convertView.findViewById(R.id.undo);
+            viewHolder.minus = convertView.findViewById(R.id.minus);
+            viewHolder.stock_fisik = convertView.findViewById(R.id.stock_fisik);
+            viewHolder.add = convertView.findViewById(R.id.add);
+            viewHolder.postStockFisik = convertView.findViewById(R.id.postStockFisik);
+            viewHolder.updateStockFisik = convertView.findViewById(R.id.updateStockFisik);
+            viewHolder.simpan = convertView.findViewById(R.id.simpan);
+            viewHolder.minusUpdate = convertView.findViewById(R.id.minusUpdate);
+            viewHolder.addUpdate = convertView.findViewById(R.id.addUpdate);
+            viewHolder.Updatestock_fisik = convertView.findViewById(R.id.Updatestock_fisik);
+            viewHolder.status = convertView.findViewById(R.id.status);
+            viewHolder.cardview = convertView.findViewById(R.id.cardview);
+            viewHolder.layout_fisik = convertView.findViewById(R.id.layout_fisik);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        viewHolder.positions.setTag(item.getId());
+        viewHolder.nama_produk.setTag(item.getId());
+        viewHolder.in.setTag(item.getId());
+        viewHolder.out.setTag(item.getId());
+        viewHolder.awal.setTag(item.getId());
+        viewHolder.akhir.setTag(item.getId());
+        viewHolder.fisik.setTag(item.getId());
+        viewHolder.orderid.setTag(item.getId());
+        viewHolder.undo.setTag(item.getId());
+        viewHolder.minus.setTag(item.getId());
+        viewHolder.stock_fisik.setTag(item.getId());
+        viewHolder.add.setTag(item.getId());
+        viewHolder.postStockFisik.setTag(item.getId());
+        viewHolder.updateStockFisik.setTag(item.getId());
+        viewHolder.simpan.setTag(item.getId());
+        viewHolder.minusUpdate.setTag(item.getId());
+        viewHolder.addUpdate.setTag(item.getId());
+        viewHolder.Updatestock_fisik.setTag(item.getId());
+        viewHolder.status.setTag(item.getId());
+        viewHolder.cardview.setTag(item.getId());
+        viewHolder.layout_fisik.setTag(item.getId());
+
+        if (item.getCondition().equals("None")) {
+            viewHolder.updateStockFisik.setVisibility(View.GONE);
+            viewHolder.postStockFisik.setVisibility(View.VISIBLE);
+            viewHolder.status.setVisibility(View.GONE);
+            viewHolder.layout_fisik.setVisibility(View.GONE);
+            viewHolder.cardview.setBackgroundColor(Color.parseColor("#ffffff"));
+
+            viewHolder.count = 0;
+            viewHolder.postStockFisik.setVisibility(View.VISIBLE);
+            viewHolder.updateStockFisik.setVisibility(View.GONE);
+            viewHolder.status.setVisibility(View.GONE);
+            viewHolder.layout_fisik.setVisibility(View.GONE);
+
+            viewHolder.stock_fisik.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    try {
+                        item.setStock_fisik(s.toString());
+                    } catch (Exception e) {
+                    }
+                }
+            });
+
+        } else if (item.getCondition().equals("Pass")) {
+            viewHolder.updateStockFisik.setVisibility(View.GONE);
+            viewHolder.postStockFisik.setVisibility(View.GONE);
+            viewHolder.status.setVisibility(View.VISIBLE);
+            viewHolder.layout_fisik.setVisibility(View.VISIBLE);
+            viewHolder.cardview.setBackgroundColor(Color.parseColor("#D3D3D3"));
+
+            viewHolder.status.setText("Pass");
+            viewHolder.status.setChipStrokeColor(ColorStateList.valueOf(Color.parseColor("#B9EED0")));
+            viewHolder.status.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#E8FFF2")));
+            viewHolder.status.setTextColor(Color.parseColor("#2ECC71"));
+
+            viewHolder.fisik.setText(item.getStock_fisik() + " Pcs");
+        } else if (item.getCondition().equals("Invalid")) {
+            viewHolder.updateStockFisik.setVisibility(View.VISIBLE);
+            viewHolder.postStockFisik.setVisibility(View.GONE);
+            viewHolder.status.setVisibility(View.VISIBLE);
+            viewHolder.layout_fisik.setVisibility(View.GONE);
+            viewHolder.cardview.setBackgroundColor(Color.parseColor("#ffffff"));
+
+            viewHolder.status.setText("Invalid");
+            viewHolder.status.setChipStrokeColor(ColorStateList.valueOf(Color.parseColor("#FEC0C0")));
+            viewHolder.status.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#FFF1F1")));
+            viewHolder.status.setTextColor(Color.parseColor("#FB4141"));
+
+            viewHolder.Updatestock_fisik.setText(item.getStock_fisik());
+        }
+
+        viewHolder.positions.setText(item.getId() + "");
+        viewHolder.nama_produk.setText(item.getOrder_name());
+        viewHolder.in.setText(item.getIn() + " Pcs");
+        viewHolder.out.setText(item.getOut() + " Pcs");
+        viewHolder.awal.setText(item.getStok_awal() + " Pcs");
+        viewHolder.akhir.setText(item.getStok_akhir() + " Pcs");
+        viewHolder.orderid.setText(item.getOrder_id());
+        viewHolder.stock_fisik.setText(item.getStock_fisik());
+
+        viewHolder.undo.setOnClickListener(view -> {
+            // Implement undo logic here
+        });
+
+        viewHolder.add.setOnClickListener(view -> {
+            viewHolder.count++;
+            item.setStock_fisik(String.valueOf(viewHolder.count));
+            viewHolder.stock_fisik.setText(String.valueOf(viewHolder.count));
+        });
+
+        viewHolder.minus.setOnClickListener(view -> {
+            if (viewHolder.count > 0) {
+                viewHolder.count--;
+                item.setStock_fisik(String.valueOf(viewHolder.count));
+                viewHolder.stock_fisik.setText(String.valueOf(viewHolder.count));
+            }
+        });
+
+        viewHolder.addUpdate.setOnClickListener(view -> {
+            viewHolder.count++;
+            item.setStock_fisik(String.valueOf(viewHolder.count));
+            viewHolder.Updatestock_fisik.setText(String.valueOf(viewHolder.count));
+        });
+
+        viewHolder.minusUpdate.setOnClickListener(view -> {
+            if (viewHolder.count > 0) {
+                viewHolder.count--;
+                item.setStock_fisik(String.valueOf(viewHolder.count));
+                viewHolder.Updatestock_fisik.setText(String.valueOf(viewHolder.count));
+            }
+        });
+
+        viewHolder.simpan.setOnClickListener(view -> {
+            // Implement save logic here
+        });
+
+        return convertView;
+    }
+}
