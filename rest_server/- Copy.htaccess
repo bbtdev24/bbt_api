@@ -1,22 +1,11 @@
-AuthName "This is REST SERVER HRIS, Please login first! "
-AuthType Basic
-AuthUserFile D:\xampp\htdocs\rest_server\.htpasswd
-require valid-user
-
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php/$1 [L]
-
-
 # Set Timezone
 php_value date.timezone 'Asia/Jakarta'
 
 # Basic Authentication
-AuthName "Welcome To RESTSERVER API"
-AuthType Basic
-AuthUserFile /var/www/html/bbt_api/rest_server/.htpasswd
-require valid-user
+# AuthName "Welcome To RESTSERVER API"
+# AuthType Basic
+# AuthUserFile /var/www/html/bbt_api/rest_server/.htpasswd
+# Require valid-user
 
 # CORS Header
 <IfModule mod_headers.c>
@@ -34,10 +23,10 @@ php_flag magic_quotes_gpc on
 php_value post_max_size 300M
 php_value upload_max_filesize 300M
 
-# URL Rewriting
+# URL Rewriting for CodeIgniter
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ ./index.php/$1 [L,QSA]
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 
-# Enable Directory Listing
-Options +Indexes
+# Disable Directory Listing
+Options -Indexes
