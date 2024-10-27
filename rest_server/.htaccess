@@ -4,7 +4,7 @@ php_value date.timezone 'Asia/Jakarta'
 # Basic Authentication
 AuthName "Welcome To RESTSERVER API"
 AuthType Basic
-AuthUserFile C:\xampp\htdocs\project\ess-api-android-bt\rest_server\.htpasswd
+AuthUserFile /var/www/html/bbt_api/rest_server/.htpasswd
 require valid-user
 
 # CORS Header
