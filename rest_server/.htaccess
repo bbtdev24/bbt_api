@@ -1,14 +1,32 @@
+# Set Timezone
 php_value date.timezone 'Asia/Jakarta'
 
+Basic Authentication
+AuthName "Welcome To RESTSERVER API"
+AuthType Basic
+AuthUserFile /var/www/html/bbt_api/rest_server/.htpasswd
+Require valid-user
+
+# CORS Header
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+# Redirect HTTP to HTTPS
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# PHP Settings
 php_flag register_globals off
 php_flag magic_quotes_gpc on
 php_value post_max_size 300M
 php_value upload_max_filesize 300M
 
-RewriteEngine on
+# URL Rewriting for CodeIgniter
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ ./index.php/$1 [L,QSA]
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 
- # disable directory browsing
-Options All -Indexes
+# Disable Directory Listing
+Options -Indexes
