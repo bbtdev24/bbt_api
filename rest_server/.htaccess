@@ -1,15 +1,15 @@
 php_value date.timezone 'Asia/Jakarta'
 
-# # Basic Authentication
-# AuthName "Welcome To RESTSERVER API"
-# AuthType Basic
-# AuthUserFile /var/www/html/bbt_api/rest_server/.htpasswd
-# Require valid-user
+# Basic Authentication
+AuthName "Welcome To RESTSERVER API"
+AuthType Basic
+AuthUserFile /var/www/html/bbt_api/rest_server/.htpasswd
+Require valid-user
 
-# # CORS Header
-# <IfModule mod_headers.c>
-#     Header set Access-Control-Allow-Origin "*"
-# </IfModule>
+# CORS Header
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
 
 # # Redirect HTTP to HTTPS
 # RewriteEngine On
