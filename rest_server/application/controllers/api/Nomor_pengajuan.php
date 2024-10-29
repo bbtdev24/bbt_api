@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class Nomor_pengajuan extends REST_Controller
+class Nomor_Pengajuan extends REST_Controller
 {
 
 	public function __construct()
@@ -24,12 +24,12 @@ class Nomor_pengajuan extends REST_Controller
 		$this->db_absensi = $this->load->database('db_absensi', TRUE);
 
 
-		$this->load->model('M_Nomor_pengajuan');
+		$this->load->model('M_Nomor_Pengajuan');
 	}
 
 	public function index_full_day_get()
 	{
-		$user = $this->M_Nomor_pengajuan->getFullday();
+		$user = $this->M_Nomor_Pengajuan->getFullday();
 
 		if ($user) {
 			$this->response([
@@ -46,7 +46,7 @@ class Nomor_pengajuan extends REST_Controller
 
 	public function index_non_full_day_get()
 	{
-		$user = $this->M_Nomor_pengajuan->getNonfullday();
+		$user = $this->M_Nomor_Pengajuan->getNonfullday();
 
 		if ($user) {
 			$this->response([
@@ -63,7 +63,7 @@ class Nomor_pengajuan extends REST_Controller
 
 	public function index_cuti_khusus_get()
 	{
-		$user = $this->M_Nomor_pengajuan->getCutikhusus();
+		$user = $this->M_Nomor_Pengajuan->getCutikhusus();
 
 		if ($user) {
 			$this->response([
@@ -80,7 +80,7 @@ class Nomor_pengajuan extends REST_Controller
 
 	public function index_cuti_tahunan_get()
 	{
-		$user = $this->M_Nomor_pengajuan->getCutitahunan();
+		$user = $this->M_Nomor_Pengajuan->getCutitahunan();
 
 		if ($user) {
 			$this->response([
@@ -97,7 +97,7 @@ class Nomor_pengajuan extends REST_Controller
 
 	public function index_kontrak_get()
 	{
-		$user = $this->M_Nomor_pengajuan->getKontrak();
+		$user = $this->M_Nomor_Pengajuan->getKontrak();
 
 		if ($user) {
 			$this->response([
@@ -115,7 +115,7 @@ class Nomor_pengajuan extends REST_Controller
 
 	public function index_last_nomor_pengajuan_get()
 	{
-		$user = $this->M_Nomor_pengajuan->getFullday_new();
+		$user = $this->M_Nomor_Pengajuan->getFullday_new();
 
 		if ($user) {
 			$this->response(

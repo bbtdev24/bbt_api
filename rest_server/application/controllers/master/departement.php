@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class departement extends REST_Controller
+class Departement extends REST_Controller
 {
     
     public function __construct()

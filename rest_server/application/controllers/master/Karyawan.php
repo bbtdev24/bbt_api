@@ -24,7 +24,7 @@ class Karyawan extends REST_Controller
         $this->db_absensi = $this->load->database('db_absensi', TRUE);
 
 
-        $this->load->model('master/M_karyawan');
+        $this->load->model('master/M_Karyawan');
     }
 
     public function index_get()
@@ -34,7 +34,7 @@ class Karyawan extends REST_Controller
         $keyword = $this->get('keyword');
 
 
-        $karyawan = $this->M_karyawan->getKaryawan($lokasi_struktur, $nik, $keyword);
+        $karyawan = $this->M_Karyawan->getKaryawan($lokasi_struktur, $nik, $keyword);
 
         if ($karyawan) {
             $this->response([
@@ -71,7 +71,7 @@ class Karyawan extends REST_Controller
             'sim_b1_umum' => $this->post('sim_b1_umum') != null ? $this->post('sim_b1_umum') : '-',
         ];
 
-        if ($this->M_karyawan->createDataInduk($data) > 0) {
+        if ($this->M_Karyawan->createDataInduk($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -106,7 +106,7 @@ class Karyawan extends REST_Controller
             'alamat_domisili' => $this->post('alamat_domisili') != null ? $this->post('alamat_domisili') : '-',
         ];
 
-        if ($this->M_karyawan->createDataDetail($data) > 0) {
+        if ($this->M_Karyawan->createDataDetail($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -135,7 +135,7 @@ class Karyawan extends REST_Controller
             'pendidikan_keluarga' => $this->post('pendidikan_keluarga') != null ? $this->post('pendidikan_keluarga') : '-',
         ];
 
-        if ($this->M_karyawan->createDataKeluarga($data) > 0) {
+        if ($this->M_Karyawan->createDataKeluarga($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -165,7 +165,7 @@ class Karyawan extends REST_Controller
             'pendidikan_ibu' => $this->post('pendidikan_ibu') != null ? $this->post('pendidikan_ibu') : '-',
         ];
 
-        if ($this->M_karyawan->createDataSusunanKeluarga($data) > 0) {
+        if ($this->M_Karyawan->createDataSusunanKeluarga($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -181,7 +181,7 @@ class Karyawan extends REST_Controller
 
     public function index_anak_post()
     {
-        $getNik = $this->M_karyawan->get_NoUrut($this->post('nik_baru'));
+        $getNik = $this->M_Karyawan->get_NoUrut($this->post('nik_baru'));
         foreach ($getNik as $row) {
             $no_urut = $row['no_urut'];
         }
@@ -201,7 +201,7 @@ class Karyawan extends REST_Controller
             'pendidikan_anak' => $this->post('pendidikan_anak') != null ? $this->post('pendidikan_anak') : '-',
         ];
 
-        if ($this->M_karyawan->createDataAnak($data) > 0) {
+        if ($this->M_Karyawan->createDataAnak($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -224,7 +224,7 @@ class Karyawan extends REST_Controller
             'alamat_darurat' => $this->post('alamat_darurat') != null ? $this->post('alamat_darurat') : '-',
         ];
 
-        if ($this->M_karyawan->createDarurat($data) > 0) {
+        if ($this->M_Karyawan->createDarurat($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -250,7 +250,7 @@ class Karyawan extends REST_Controller
             'pendidikan_saudara' => $this->post('pendidikan_saudara') != null ? $this->post('pendidikan_saudara') : '-',
         ];
 
-        if ($this->M_karyawan->createSaudara($data) > 0) {
+        if ($this->M_Karyawan->createSaudara($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -317,7 +317,7 @@ class Karyawan extends REST_Controller
             'tingkat_s3' => $this->post('tingkat_s3')  != null ? $this->post('tingkat_s3') : '-',
         ];
 
-        if ($this->M_karyawan->createPendidikan($data) > 0) {
+        if ($this->M_Karyawan->createPendidikan($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -355,7 +355,7 @@ class Karyawan extends REST_Controller
             'upload_paklaring' => $this->post('upload_paklaring') != null ? $this->post('upload_paklaring') : '-',
         ];
 
-        if ($this->M_karyawan->createPengalaman($data) > 0) {
+        if ($this->M_Karyawan->createPengalaman($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -381,7 +381,7 @@ class Karyawan extends REST_Controller
             'tanggal_pelatihan' => $this->post('tanggal_pelatihan') != null ? $this->post('tanggal_pelatihan') : '-',
         ];
 
-        if ($this->M_karyawan->createPelatihan($data) > 0) {
+        if ($this->M_Karyawan->createPelatihan($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -405,7 +405,7 @@ class Karyawan extends REST_Controller
             'baca' => $this->post('baca') != null ? $this->post('baca') : '-',
         ];
 
-        if ($this->M_karyawan->createBahasa($data) > 0) {
+        if ($this->M_Karyawan->createBahasa($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -431,7 +431,7 @@ class Karyawan extends REST_Controller
             'ket_hobi_3' => $this->post('ket_hobi_3') != null ? $this->post('ket_hobi_3') : '-',
         ];
 
-        if ($this->M_karyawan->createHobi($data) > 0) {
+        if ($this->M_Karyawan->createHobi($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -457,7 +457,7 @@ class Karyawan extends REST_Controller
             'deskripsi_organisasi' => $this->post('deskripsi_organisasi') != null ? $this->post('deskripsi_organisasi') : '-',
         ];
 
-        if ($this->M_karyawan->createOrganisasi($data) > 0) {
+        if ($this->M_Karyawan->createOrganisasi($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -480,7 +480,7 @@ class Karyawan extends REST_Controller
             'minat_3' => $this->post('minat_3') != null ? $this->post('minat_3') : '-',
         ];
 
-        if ($this->M_karyawan->createMinat($data) > 0) {
+        if ($this->M_Karyawan->createMinat($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -525,7 +525,7 @@ class Karyawan extends REST_Controller
             'jabatan_hrd' => $this->post('jabatan_struktur') != null ? $this->post('jabatan_struktur') : '-',
         ];
 
-        if ($this->M_karyawan->createStruktur($data) > 0) {
+        if ($this->M_Karyawan->createStruktur($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -550,7 +550,7 @@ class Karyawan extends REST_Controller
             'end_date' => $this->post('end_date'),
         ];
 
-        if ($this->M_karyawan->createKontrak($data) > 0) {
+        if ($this->M_Karyawan->createKontrak($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -566,7 +566,7 @@ class Karyawan extends REST_Controller
 
     public function index_seragam_post()
     {
-        $get = $this->M_karyawan->getIdSeragam();
+        $get = $this->M_Karyawan->getIdSeragam();
         foreach ($get as $row) {
             $id = $row['id'];
         }
@@ -596,7 +596,7 @@ class Karyawan extends REST_Controller
 
         ];
 
-        if ($this->M_karyawan->createSeragam($data) > 0) {
+        if ($this->M_Karyawan->createSeragam($data) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -613,7 +613,7 @@ class Karyawan extends REST_Controller
     public function index_noUrut_get()
     {
 
-        $get = $this->M_karyawan->getNoUrut();
+        $get = $this->M_Karyawan->getNoUrut();
 
         if ($get) {
             $this->response([
@@ -632,7 +632,7 @@ class Karyawan extends REST_Controller
     {
         $szId = $this->get('szId');
 
-        $get = $this->M_karyawan->getNoUrutPerId($szId);
+        $get = $this->M_Karyawan->getNoUrutPerId($szId);
 
         if ($get) {
             $this->response([
@@ -657,7 +657,7 @@ class Karyawan extends REST_Controller
 
         ];
 
-        if ($this->M_karyawan->updateNoUrut($data, $szName) > 0) {
+        if ($this->M_Karyawan->updateNoUrut($data, $szName) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
@@ -681,7 +681,7 @@ class Karyawan extends REST_Controller
 
         ];
 
-        if ($this->M_karyawan->updateNoUrutPerId($data, $szId) > 0) {
+        if ($this->M_Karyawan->updateNoUrutPerId($data, $szId) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
@@ -702,7 +702,7 @@ class Karyawan extends REST_Controller
     {
         $nik_baru = $this->get('nik_baru');
 
-        $karyawan = $this->M_karyawan->getDataInduk($nik_baru);
+        $karyawan = $this->M_Karyawan->getDataInduk($nik_baru);
 
         if ($karyawan) {
             $this->response([
@@ -721,7 +721,7 @@ class Karyawan extends REST_Controller
     {
         $nik_baru = $this->get('nik_baru');
 
-        $karyawan = $this->M_karyawan->getDataDetail($nik_baru);
+        $karyawan = $this->M_Karyawan->getDataDetail($nik_baru);
 
         if ($karyawan) {
             $this->response([
@@ -740,7 +740,7 @@ class Karyawan extends REST_Controller
     {
         $nik_baru = $this->get('nik_baru');
 
-        $karyawan = $this->M_karyawan->getSuamiIstri($nik_baru);
+        $karyawan = $this->M_Karyawan->getSuamiIstri($nik_baru);
 
         if ($karyawan) {
             $this->response([
@@ -759,7 +759,7 @@ class Karyawan extends REST_Controller
     {
         $nik_baru = $this->get('nik_baru');
 
-        $karyawan = $this->M_karyawan->getAnak($nik_baru);
+        $karyawan = $this->M_Karyawan->getAnak($nik_baru);
 
         if ($karyawan) {
             $this->response([
@@ -778,7 +778,7 @@ class Karyawan extends REST_Controller
     {
         $nik_baru = $this->get('nik_baru');
 
-        $karyawan = $this->M_karyawan->getSusunanKeluarga($nik_baru);
+        $karyawan = $this->M_Karyawan->getSusunanKeluarga($nik_baru);
 
         if ($karyawan) {
             $this->response([
@@ -797,7 +797,7 @@ class Karyawan extends REST_Controller
     {
         $nik_baru = $this->get('nik_baru');
 
-        $karyawan = $this->M_karyawan->getDarurat($nik_baru);
+        $karyawan = $this->M_Karyawan->getDarurat($nik_baru);
 
         if ($karyawan) {
             $this->response([
@@ -815,7 +815,7 @@ class Karyawan extends REST_Controller
     public function index_idSeragam_get()
     {
 
-        $karyawan = $this->M_karyawan->getIdSeragam();
+        $karyawan = $this->M_Karyawan->getIdSeragam();
 
         if ($karyawan) {
             $this->response([
@@ -834,7 +834,7 @@ class Karyawan extends REST_Controller
     {
         $nik_baru = $this->get('nik_baru');
 
-        $karyawan = $this->M_karyawan->getPendidikan($nik_baru);
+        $karyawan = $this->M_Karyawan->getPendidikan($nik_baru);
 
         if ($karyawan) {
             $this->response([
@@ -861,7 +861,7 @@ class Karyawan extends REST_Controller
             'digit_kk' => $this->put('digit_kk'),
         ];
 
-        if ($this->M_karyawan->updateInduk($data, $nik_baru) > 0) {
+        if ($this->M_Karyawan->updateInduk($data, $nik_baru) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
@@ -893,13 +893,13 @@ class Karyawan extends REST_Controller
             'alamat_domisili' => $this->put('alamat_domisili'),
         ];
 
-        if ($this->M_karyawan->updateDetail($data, $nik_baru) > 0) {
+        if ($this->M_Karyawan->updateDetail($data, $nik_baru) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $getNik = $this->M_karyawan->get_NoUrut($this->put('nik_baru'));
+            $getNik = $this->M_Karyawan->get_NoUrut($this->put('nik_baru'));
             foreach ($getNik as $row) {
                 $no_urut = $row['no_urut'];
             }
@@ -921,7 +921,7 @@ class Karyawan extends REST_Controller
 
             ];
 
-            if ($this->M_karyawan->createDataDetail($data) > 0) {
+            if ($this->M_Karyawan->createDataDetail($data) > 0) {
                 $this->response([
                     'status' => true,
                     'message' => 'new pengajuan has been updated',
@@ -956,17 +956,17 @@ class Karyawan extends REST_Controller
 
         ];
 
-        if ($this->M_karyawan->updateKeluarga($data, $nik_baru) > 0) {
+        if ($this->M_Karyawan->updateKeluarga($data, $nik_baru) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $karyawan = $this->M_karyawan->getSuamiIstri($nik_baru);
+            $karyawan = $this->M_Karyawan->getSuamiIstri($nik_baru);
 
             if ($karyawan) {
             } else {
-                $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+                $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
                 foreach ($getNik as $row) {
                     $no_urut = $row['no_urut'];
                 }
@@ -984,7 +984,7 @@ class Karyawan extends REST_Controller
                     'pendidikan_keluarga' => $this->put('pendidikan_keluarga'),
                 ];
 
-                $this->M_karyawan->createDataKeluarga($data);
+                $this->M_Karyawan->createDataKeluarga($data);
             }
             // Gagal
             $this->response([
@@ -1013,17 +1013,17 @@ class Karyawan extends REST_Controller
 
         ];
 
-        if ($this->M_karyawan->updateSusunanKeluarga($data, $nik_baru) > 0) {
+        if ($this->M_Karyawan->updateSusunanKeluarga($data, $nik_baru) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $karyawan = $this->M_karyawan->getSusunanKeluarga($nik_baru);
+            $karyawan = $this->M_Karyawan->getSusunanKeluarga($nik_baru);
 
             if ($karyawan) {
             } else {
-                $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+                $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
                 foreach ($getNik as $row) {
                     $no_urut = $row['no_urut'];
                 }
@@ -1043,7 +1043,7 @@ class Karyawan extends REST_Controller
                     'pendidikan_ibu' => $this->put('pendidikan_ibu'),
                 ];
 
-                $this->M_karyawan->createDataSusunanKeluarga($data);
+                $this->M_Karyawan->createDataSusunanKeluarga($data);
             }
 
             // Gagal
@@ -1065,7 +1065,7 @@ class Karyawan extends REST_Controller
 
         ];
 
-        if ($this->M_karyawan->updateHapusAnak($data, $id_anak) > 0) {
+        if ($this->M_Karyawan->updateHapusAnak($data, $id_anak) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
@@ -1092,16 +1092,16 @@ class Karyawan extends REST_Controller
 
         ];
 
-        if ($this->M_karyawan->updateDarurat($data, $nik_baru) > 0) {
+        if ($this->M_Karyawan->updateDarurat($data, $nik_baru) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $karyawan = $this->M_karyawan->getDarurat($nik_baru);
+            $karyawan = $this->M_Karyawan->getDarurat($nik_baru);
             if ($karyawan) {
             } else {
-                $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+                $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
                 foreach ($getNik as $row) {
                     $no_urut = $row['no_urut'];
                 }
@@ -1113,7 +1113,7 @@ class Karyawan extends REST_Controller
                     'alamat_darurat' => $this->put('alamat_darurat'),
                 ];
 
-                $this->M_karyawan->createDarurat($data);
+                $this->M_Karyawan->createDarurat($data);
             }
 
 
@@ -1131,7 +1131,7 @@ class Karyawan extends REST_Controller
         $data2 = [
             'status_update' => '1',
         ];
-        $this->M_karyawan->updateStatus($data2, $nik_baru);
+        $this->M_Karyawan->updateStatus($data2, $nik_baru);
 
         $data = [
             'status_sd' => $this->put('status_sd'),
@@ -1154,13 +1154,13 @@ class Karyawan extends REST_Controller
             'nilai_smk' => $this->put('nilai_smk'),
         ];
 
-        if ($this->M_karyawan->updatePendidikan($data, $nik_baru) > 0) {
+        if ($this->M_Karyawan->updatePendidikan($data, $nik_baru) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+            $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
             foreach ($getNik as $row) {
                 $no_urut = $row['no_urut'];
             }
@@ -1187,9 +1187,9 @@ class Karyawan extends REST_Controller
                 'nilai_smk' => $this->put('nilai_smk'),
             ];
 
-            if ($this->M_karyawan->getPendidikan($nik_baru)) {
+            if ($this->M_Karyawan->getPendidikan($nik_baru)) {
             } else {
-                $this->M_karyawan->createPendidikan($data);
+                $this->M_Karyawan->createPendidikan($data);
             }
 
             // Gagal
@@ -1214,13 +1214,13 @@ class Karyawan extends REST_Controller
             'tingkat_st' => $this->put('tingkat_st'),
         ];
 
-        if ($this->M_karyawan->updatePendidikan($data, $nik_baru) > 0) {
+        if ($this->M_Karyawan->updatePendidikan($data, $nik_baru) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+            $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
             foreach ($getNik as $row) {
                 $no_urut = $row['no_urut'];
             }
@@ -1241,9 +1241,9 @@ class Karyawan extends REST_Controller
                 'ket_smk' => '',
             ];
 
-            if ($this->M_karyawan->getPendidikan($nik_baru)) {
+            if ($this->M_Karyawan->getPendidikan($nik_baru)) {
             } else {
-                $this->M_karyawan->createPendidikan($data);
+                $this->M_Karyawan->createPendidikan($data);
             }
             $this->response([
                 'status' => false,
@@ -1266,13 +1266,13 @@ class Karyawan extends REST_Controller
             'tingkat_s1' => $this->put('tingkat_s1'),
         ];
 
-        if ($this->M_karyawan->updatePendidikan($data, $nik_baru) > 0) {
+        if ($this->M_Karyawan->updatePendidikan($data, $nik_baru) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+            $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
             foreach ($getNik as $row) {
                 $no_urut = $row['no_urut'];
             }
@@ -1293,9 +1293,9 @@ class Karyawan extends REST_Controller
                 'ket_smk' => '',
             ];
 
-            if ($this->M_karyawan->getPendidikan($nik_baru)) {
+            if ($this->M_Karyawan->getPendidikan($nik_baru)) {
             } else {
-                $this->M_karyawan->createPendidikan($data);
+                $this->M_Karyawan->createPendidikan($data);
             }
             $this->response([
                 'status' => false,
@@ -1318,13 +1318,13 @@ class Karyawan extends REST_Controller
             'tingkat_s2' => $this->put('tingkat_s2'),
         ];
 
-        if ($this->M_karyawan->updatePendidikan($data, $nik_baru) > 0) {
+        if ($this->M_Karyawan->updatePendidikan($data, $nik_baru) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+            $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
             foreach ($getNik as $row) {
                 $no_urut = $row['no_urut'];
             }
@@ -1345,9 +1345,9 @@ class Karyawan extends REST_Controller
                 'ket_smk' => '',
             ];
 
-            if ($this->M_karyawan->getPendidikan($nik_baru)) {
+            if ($this->M_Karyawan->getPendidikan($nik_baru)) {
             } else {
-                $this->M_karyawan->createPendidikan($data);
+                $this->M_Karyawan->createPendidikan($data);
             }
             $this->response([
                 'status' => false,
@@ -1370,13 +1370,13 @@ class Karyawan extends REST_Controller
             'tingkat_s3' => $this->put('tingkat_s3'),
         ];
 
-        if ($this->M_karyawan->updatePendidikan($data, $nik_baru) > 0) {
+        if ($this->M_Karyawan->updatePendidikan($data, $nik_baru) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+            $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
             foreach ($getNik as $row) {
                 $no_urut = $row['no_urut'];
             }
@@ -1397,9 +1397,9 @@ class Karyawan extends REST_Controller
                 'ket_smk' => '',
             ];
 
-            if ($this->M_karyawan->getPendidikan($nik_baru)) {
+            if ($this->M_Karyawan->getPendidikan($nik_baru)) {
             } else {
-                $this->M_karyawan->createPendidikan($data);
+                $this->M_Karyawan->createPendidikan($data);
             }
             $this->response([
                 'status' => false,
@@ -1426,7 +1426,7 @@ class Karyawan extends REST_Controller
             'pendidikan_anak' => $this->put('pendidikan_anak') != null ? $this->put('pendidikan_anak') : '-',
         ];
 
-        if ($this->M_karyawan->updateHapusAnak($data, $id_anak) > 0) {
+        if ($this->M_Karyawan->updateHapusAnak($data, $id_anak) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been created',
@@ -1444,7 +1444,7 @@ class Karyawan extends REST_Controller
     public function index_kontak_get()
     {
 
-        $karyawan = $this->M_karyawan->getContact();
+        $karyawan = $this->M_Karyawan->getContact();
 
         if ($karyawan) {
             $this->response([
@@ -1468,7 +1468,7 @@ class Karyawan extends REST_Controller
     {
         $nik_baru = $this->get('nik_baru');
 
-        $karyawan = $this->M_karyawan->getNikNoUrut($nik_baru);
+        $karyawan = $this->M_Karyawan->getNikNoUrut($nik_baru);
 
         if ($karyawan) {
             $this->response([
@@ -1487,7 +1487,7 @@ class Karyawan extends REST_Controller
     {
         $no_urut = $this->get('no_urut');
 
-        $karyawan = $this->M_karyawan->getDataIndukNoUrut($no_urut);
+        $karyawan = $this->M_Karyawan->getDataIndukNoUrut($no_urut);
 
         if ($karyawan) {
             $this->response([
@@ -1506,7 +1506,7 @@ class Karyawan extends REST_Controller
     {
         $no_urut = $this->get('no_urut');
 
-        $karyawan = $this->M_karyawan->getDataDetailNoUrut($no_urut);
+        $karyawan = $this->M_Karyawan->getDataDetailNoUrut($no_urut);
 
         if ($karyawan) {
             $this->response([
@@ -1525,7 +1525,7 @@ class Karyawan extends REST_Controller
     {
         $no_urut = $this->get('no_urut');
 
-        $karyawan = $this->M_karyawan->getSuamiIstriNoUrut($no_urut);
+        $karyawan = $this->M_Karyawan->getSuamiIstriNoUrut($no_urut);
 
         if ($karyawan) {
             $this->response([
@@ -1544,7 +1544,7 @@ class Karyawan extends REST_Controller
     {
         $no_urut = $this->get('no_urut');
 
-        $karyawan = $this->M_karyawan->getAnakNoUrut($no_urut);
+        $karyawan = $this->M_Karyawan->getAnakNoUrut($no_urut);
 
         if ($karyawan) {
             $this->response([
@@ -1563,7 +1563,7 @@ class Karyawan extends REST_Controller
     {
         $no_urut = $this->get('no_urut');
 
-        $karyawan = $this->M_karyawan->getSusunanKeluargaNoUrut($no_urut);
+        $karyawan = $this->M_Karyawan->getSusunanKeluargaNoUrut($no_urut);
 
         if ($karyawan) {
             $this->response([
@@ -1582,7 +1582,7 @@ class Karyawan extends REST_Controller
     {
         $no_urut = $this->get('no_urut');
 
-        $karyawan = $this->M_karyawan->getDaruratNoUrut($no_urut);
+        $karyawan = $this->M_Karyawan->getDaruratNoUrut($no_urut);
 
         if ($karyawan) {
             $this->response([
@@ -1601,7 +1601,7 @@ class Karyawan extends REST_Controller
     {
         $no_urut = $this->get('no_urut');
 
-        $karyawan = $this->M_karyawan->getPendidikanNoUrut($no_urut);
+        $karyawan = $this->M_Karyawan->getPendidikanNoUrut($no_urut);
 
         if ($karyawan) {
             $this->response([
@@ -1636,13 +1636,13 @@ class Karyawan extends REST_Controller
             'alamat_domisili' => $this->put('alamat_domisili'),
         ];
 
-        if ($this->M_karyawan->updateDetailNoUrut($data, $noUrut) > 0) {
+        if ($this->M_Karyawan->updateDetailNoUrut($data, $noUrut) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $getNik = $this->M_karyawan->get_NoUrut($this->put('nik_baru'));
+            $getNik = $this->M_Karyawan->get_NoUrut($this->put('nik_baru'));
             foreach ($getNik as $row) {
                 $no_urut = $row['no_urut'];
             }
@@ -1664,7 +1664,7 @@ class Karyawan extends REST_Controller
 
             ];
 
-            if ($this->M_karyawan->createDataDetail($data) > 0) {
+            if ($this->M_Karyawan->createDataDetail($data) > 0) {
                 $this->response([
                     'status' => true,
                     'message' => 'new pengajuan has been updated',
@@ -1699,17 +1699,17 @@ class Karyawan extends REST_Controller
 
         ];
 
-        if ($this->M_karyawan->updateKeluargaNoUrut($data, $noUrut) > 0) {
+        if ($this->M_Karyawan->updateKeluargaNoUrut($data, $noUrut) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $karyawan = $this->M_karyawan->getSuamiIstri($nik_baru);
+            $karyawan = $this->M_Karyawan->getSuamiIstri($nik_baru);
 
             if ($karyawan) {
             } else {
-                $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+                $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
                 foreach ($getNik as $row) {
                     $no_urut = $row['no_urut'];
                 }
@@ -1727,7 +1727,7 @@ class Karyawan extends REST_Controller
                     'pendidikan_keluarga' => $this->put('pendidikan_keluarga'),
                 ];
 
-                $this->M_karyawan->createDataKeluarga($data);
+                $this->M_Karyawan->createDataKeluarga($data);
             }
             // Gagal
             $this->response([
@@ -1757,17 +1757,17 @@ class Karyawan extends REST_Controller
 
         ];
 
-        if ($this->M_karyawan->updateSusunanKeluargaNoUrut($data, $noUrut) > 0) {
+        if ($this->M_Karyawan->updateSusunanKeluargaNoUrut($data, $noUrut) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $karyawan = $this->M_karyawan->getSusunanKeluarga($nik_baru);
+            $karyawan = $this->M_Karyawan->getSusunanKeluarga($nik_baru);
 
             if ($karyawan) {
             } else {
-                $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+                $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
                 foreach ($getNik as $row) {
                     $no_urut = $row['no_urut'];
                 }
@@ -1787,7 +1787,7 @@ class Karyawan extends REST_Controller
                     'pendidikan_ibu' => $this->put('pendidikan_ibu'),
                 ];
 
-                $this->M_karyawan->createDataSusunanKeluarga($data);
+                $this->M_Karyawan->createDataSusunanKeluarga($data);
             }
 
             // Gagal
@@ -1807,7 +1807,7 @@ class Karyawan extends REST_Controller
         $data2 = [
             'status_update' => '1',
         ];
-        $this->M_karyawan->updateStatus($data2, $nik_baru);
+        $this->M_Karyawan->updateStatus($data2, $nik_baru);
 
         $data = [
             'status_sd' => $this->put('status_sd'),
@@ -1830,13 +1830,13 @@ class Karyawan extends REST_Controller
             'nilai_smk' => $this->put('nilai_smk'),
         ];
 
-        if ($this->M_karyawan->updatePendidikanNoUrut($data, $noUrut) > 0) {
+        if ($this->M_Karyawan->updatePendidikanNoUrut($data, $noUrut) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+            $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
             foreach ($getNik as $row) {
                 $no_urut = $row['no_urut'];
             }
@@ -1863,9 +1863,9 @@ class Karyawan extends REST_Controller
                 'nilai_smk' => $this->put('nilai_smk'),
             ];
 
-            if ($this->M_karyawan->getPendidikan($nik_baru)) {
+            if ($this->M_Karyawan->getPendidikan($nik_baru)) {
             } else {
-                $this->M_karyawan->createPendidikan($data);
+                $this->M_Karyawan->createPendidikan($data);
             }
 
             // Gagal
@@ -1890,13 +1890,13 @@ class Karyawan extends REST_Controller
             'tingkat_st' => $this->put('tingkat_st'),
         ];
 
-        if ($this->M_karyawan->updatePendidikanNoUrut($data, $noUrut) > 0) {
+        if ($this->M_Karyawan->updatePendidikanNoUrut($data, $noUrut) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+            $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
             foreach ($getNik as $row) {
                 $no_urut = $row['no_urut'];
             }
@@ -1917,9 +1917,9 @@ class Karyawan extends REST_Controller
                 'ket_smk' => '',
             ];
 
-            if ($this->M_karyawan->getPendidikan($nik_baru)) {
+            if ($this->M_Karyawan->getPendidikan($nik_baru)) {
             } else {
-                $this->M_karyawan->createPendidikan($data);
+                $this->M_Karyawan->createPendidikan($data);
             }
             $this->response([
                 'status' => false,
@@ -1943,13 +1943,13 @@ class Karyawan extends REST_Controller
             'tingkat_s1' => $this->put('tingkat_s1'),
         ];
 
-        if ($this->M_karyawan->updatePendidikanNoUrut($data, $noUrut) > 0) {
+        if ($this->M_Karyawan->updatePendidikanNoUrut($data, $noUrut) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+            $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
             foreach ($getNik as $row) {
                 $no_urut = $row['no_urut'];
             }
@@ -1970,9 +1970,9 @@ class Karyawan extends REST_Controller
                 'ket_smk' => '',
             ];
 
-            if ($this->M_karyawan->getPendidikan($nik_baru)) {
+            if ($this->M_Karyawan->getPendidikan($nik_baru)) {
             } else {
-                $this->M_karyawan->createPendidikan($data);
+                $this->M_Karyawan->createPendidikan($data);
             }
             $this->response([
                 'status' => false,
@@ -1996,13 +1996,13 @@ class Karyawan extends REST_Controller
             'tingkat_s2' => $this->put('tingkat_s2'),
         ];
 
-        if ($this->M_karyawan->updatePendidikanNoUrut($data, $no_urut) > 0) {
+        if ($this->M_Karyawan->updatePendidikanNoUrut($data, $no_urut) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+            $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
             foreach ($getNik as $row) {
                 $no_urut = $row['no_urut'];
             }
@@ -2023,9 +2023,9 @@ class Karyawan extends REST_Controller
                 'ket_smk' => '',
             ];
 
-            if ($this->M_karyawan->getPendidikan($nik_baru)) {
+            if ($this->M_Karyawan->getPendidikan($nik_baru)) {
             } else {
-                $this->M_karyawan->createPendidikan($data);
+                $this->M_Karyawan->createPendidikan($data);
             }
             $this->response([
                 'status' => false,
@@ -2049,13 +2049,13 @@ class Karyawan extends REST_Controller
             'tingkat_s3' => $this->put('tingkat_s3'),
         ];
 
-        if ($this->M_karyawan->updatePendidikanNoUrut($data, $noUrut) > 0) {
+        if ($this->M_Karyawan->updatePendidikanNoUrut($data, $noUrut) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+            $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
             foreach ($getNik as $row) {
                 $no_urut = $row['no_urut'];
             }
@@ -2076,9 +2076,9 @@ class Karyawan extends REST_Controller
                 'ket_smk' => '',
             ];
 
-            if ($this->M_karyawan->getPendidikan($nik_baru)) {
+            if ($this->M_Karyawan->getPendidikan($nik_baru)) {
             } else {
-                $this->M_karyawan->createPendidikan($data);
+                $this->M_Karyawan->createPendidikan($data);
             }
             $this->response([
                 'status' => false,
@@ -2100,16 +2100,16 @@ class Karyawan extends REST_Controller
 
         ];
 
-        if ($this->M_karyawan->updateDarurat($data, $nik_baru) > 0) {
+        if ($this->M_Karyawan->updateDarurat($data, $nik_baru) > 0) {
             $this->response([
                 'status' => true,
                 'message' => 'new pengajuan has been updated',
             ], REST_Controller::HTTP_OK);
         } else {
-            $karyawan = $this->M_karyawan->getDarurat($nik_baru);
+            $karyawan = $this->M_Karyawan->getDarurat($nik_baru);
             if ($karyawan) {
             } else {
-                $getNik = $this->M_karyawan->get_NoUrut($nik_baru);
+                $getNik = $this->M_Karyawan->get_NoUrut($nik_baru);
                 foreach ($getNik as $row) {
                     $no_urut = $row['no_urut'];
                 }
@@ -2121,7 +2121,7 @@ class Karyawan extends REST_Controller
                     'alamat_darurat' => $this->put('alamat_darurat'),
                 ];
 
-                $this->M_karyawan->createDarurat($data);
+                $this->M_Karyawan->createDarurat($data);
             }
 
 
@@ -2138,7 +2138,7 @@ class Karyawan extends REST_Controller
     public function index_get_kontak_hrd_get()
     {
 
-        $karyawan = $this->M_karyawan->getContact_hrd();
+        $karyawan = $this->M_Karyawan->getContact_hrd();
 
         if ($karyawan) {
             $this->response([
@@ -2159,7 +2159,7 @@ class Karyawan extends REST_Controller
         $lokasi_struktur = $this->get('lokasi_struktur');
         $keyword = $this->get('keyword');
 
-        $karyawan = $this->M_karyawan->get_master_karyawan($lokasi_struktur, $nik, $keyword);
+        $karyawan = $this->M_Karyawan->get_master_karyawan($lokasi_struktur, $nik, $keyword);
 
         if ($karyawan) {
             $this->response([

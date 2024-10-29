@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class event extends REST_Controller
+class Event extends REST_Controller
 {
     
     public function __construct()

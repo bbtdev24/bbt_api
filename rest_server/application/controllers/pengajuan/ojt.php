@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class ojt extends REST_Controller
+class Ojt extends REST_Controller
 {
 	
 	public function __construct()

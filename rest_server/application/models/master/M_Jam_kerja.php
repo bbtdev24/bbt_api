@@ -3,7 +3,7 @@
 /**
  * 
  */
-class M_Jam_kerja extends CI_Model
+class M_Jam_Kerja extends CI_Model
 {
 	
 	public function __construct()

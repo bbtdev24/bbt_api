@@ -23,7 +23,7 @@ class Absen_manual2 extends REST_Controller
 		$this->db2 = $this->load->database('db2', TRUE);
 		$this->db_absensi = $this->load->database('db_absensi', TRUE);
 
-		$this->load->model('pengajuan/M_Absen_manual');
+		$this->load->model('pengajuan/M_Absen_Manual');
 	}
 
 	public function index_get()
@@ -32,9 +32,9 @@ class Absen_manual2 extends REST_Controller
 		$id = $this->get('id_absen');
 
 		if ($nik_baru === null and $id === null) {
-			$user = $this->M_Absen_manual->get_index_absen_manual();
+			$user = $this->M_Absen_Manual->get_index_absen_manual();
 		} else {
-			$user = $this->M_Absen_manual->get_index_absen_manual($nik_baru, $id);
+			$user = $this->M_Absen_Manual->get_index_absen_manual($nik_baru, $id);
 		}
 
 		if ($user) {
@@ -55,9 +55,9 @@ class Absen_manual2 extends REST_Controller
 		$jabatan = $this->get('jabatan_struktur');
 
 		if ($jabatan === null) {
-			$team = $this->M_Absen_manual->get_index_absen_manual_atasan();
+			$team = $this->M_Absen_Manual->get_index_absen_manual_atasan();
 		} else {
-			$team = $this->M_Absen_manual->get_index_absen_manual_atasan($jabatan);
+			$team = $this->M_Absen_Manual->get_index_absen_manual_atasan($jabatan);
 		}
 
 		if ($team) {
@@ -90,7 +90,7 @@ class Absen_manual2 extends REST_Controller
 			'tanggal_2' => '0000-00-00',
 		];
 
-		if ($this->M_Absen_manual->createAbsenManual($data) > 0) {
+		if ($this->M_Absen_Manual->createAbsenManual($data) > 0) {
 			$this->response([
 				'status' => true,
 				'message' => 'new pengajuan has been created',
@@ -113,7 +113,7 @@ class Absen_manual2 extends REST_Controller
 			'in_manual' => $this->put('in_manual'),
 		];
 
-		if ($this->M_Absen_manual->updateJam($data, $badgenumber, $shift_day) > 0) {
+		if ($this->M_Absen_Manual->updateJam($data, $badgenumber, $shift_day) > 0) {
 			$this->response([
 				'status' => true,
 				'message' => 'new pengajuan has been updated',
@@ -136,7 +136,7 @@ class Absen_manual2 extends REST_Controller
 			'out_manual' => $this->put('out_manual'),
 		];
 
-		if ($this->M_Absen_manual->updateJam($data, $badgenumber, $shift_day) > 0) {
+		if ($this->M_Absen_Manual->updateJam($data, $badgenumber, $shift_day) > 0) {
 			$this->response([
 				'status' => true,
 				'message' => 'new pengajuan has been updated',
@@ -158,7 +158,7 @@ class Absen_manual2 extends REST_Controller
 			'tanggal' => $this->put('tanggal'),
 		];
 
-		if ($this->M_Absen_manual->updateApproval($data, $id_absen) > 0) {
+		if ($this->M_Absen_Manual->updateApproval($data, $id_absen) > 0) {
 			$this->response([
 				'status' => true,
 				'message' => 'new pengajuan has been updated',
@@ -177,7 +177,7 @@ class Absen_manual2 extends REST_Controller
 		$lokasi = $this->get('lokasi');
 
 
-		$team = $this->M_Absen_manual->get_index_absen_atasan_lokasi($jabatan, $lokasi);
+		$team = $this->M_Absen_Manual->get_index_absen_atasan_lokasi($jabatan, $lokasi);
 
 
 		if ($team) {
@@ -197,7 +197,7 @@ class Absen_manual2 extends REST_Controller
 	{
 		$no_urut_karyawan = $this->get('noUrut');
 
-		$get = $this->M_Absen_manual->get_karyawan_lokasi_absen($no_urut_karyawan);
+		$get = $this->M_Absen_Manual->get_karyawan_lokasi_absen($no_urut_karyawan);
 		$totaldata = count($get);
 		if ($get) {
 			$this->response([

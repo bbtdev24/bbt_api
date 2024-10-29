@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class lokasi extends REST_Controller
+class Lokasi extends REST_Controller
 {
     
     public function __construct()
@@ -22,7 +22,7 @@ class lokasi extends REST_Controller
         $this->db = $this->load->database('default', TRUE);
         $this->db2 = $this->load->database('db2', TRUE);
 
-        $this->load->model('master/M_lokasi');
+        $this->load->model('master/M_Lokasi');
     }
 
     public function index_get()
@@ -30,9 +30,9 @@ class lokasi extends REST_Controller
         $lokasi = $this->get('lokasi');
         
         if ($lokasi === null) {
-            $user = $this->M_lokasi->getLokasi();
+            $user = $this->M_Lokasi->getLokasi();
         } else {
-            $user = $this->M_lokasi->getLokasi($lokasi);
+            $user = $this->M_Lokasi->getLokasi($lokasi);
         }
        
         if ($user) {
@@ -52,7 +52,7 @@ class lokasi extends REST_Controller
     {
         $namadepo = $this->get('namadepo');
         
-        $user = $this->M_lokasi->getkodeLokasi($namadepo);
+        $user = $this->M_Lokasi->getkodeLokasi($namadepo);
         
        
         if ($user) {
@@ -73,9 +73,9 @@ class lokasi extends REST_Controller
         $kode = $this->get('kode_nik_depo');
         
         if ($kode === null) {
-            $user = $this->M_lokasi->getLokasi_kode();
+            $user = $this->M_Lokasi->getLokasi_kode();
         } else {
-            $user = $this->M_lokasi->getLokasi_kode($kode);
+            $user = $this->M_Lokasi->getLokasi_kode($kode);
         }
        
         if ($user) {
@@ -95,7 +95,7 @@ class lokasi extends REST_Controller
     {
         $kode_dms = $this->get('kode_dms');
         
-        $user = $this->M_lokasi->getkodenikdepo($kode_dms);
+        $user = $this->M_Lokasi->getkodenikdepo($kode_dms);
         
        
         if ($user) {
@@ -115,7 +115,7 @@ class lokasi extends REST_Controller
     {
         $depo_nama = $this->get('depo_nama');
         
-        $user = $this->M_lokasi->getDepo($depo_nama);
+        $user = $this->M_Lokasi->getDepo($depo_nama);
         
        
         if ($user) {

@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class materi extends REST_Controller
+class Materi extends REST_Controller
 {
 	
 	public function __construct()

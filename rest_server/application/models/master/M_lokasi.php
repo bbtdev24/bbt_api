@@ -3,7 +3,7 @@
 /**
  * 
  */
-class M_lokasi extends CI_Model
+class M_Lokasi extends CI_Model
 {
 	
 	public function __construct()

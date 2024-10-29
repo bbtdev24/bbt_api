@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class Jam_kerja extends REST_Controller
+class Jam_Kerja extends REST_Controller
 {
     
     public function __construct()
@@ -22,7 +22,7 @@ class Jam_kerja extends REST_Controller
         $this->db = $this->load->database('default', TRUE);
         $this->db2 = $this->load->database('db2', TRUE);
         
-        $this->load->model('master/M_Jam_kerja');
+        $this->load->model('master/M_Jam_Kerja');
     }
 
     public function index_get()
@@ -30,9 +30,9 @@ class Jam_kerja extends REST_Controller
         $id = $this->get('id_shifting');
 
         if ($id === null) {
-            $jam_kerja = $this->M_Jam_kerja->getJamkerja();
+            $jam_kerja = $this->M_Jam_Kerja->getJamkerja();
         } else {
-            $jam_kerja = $this->M_Jam_kerja->getJamkerja($id);
+            $jam_kerja = $this->M_Jam_Kerja->getJamkerja($id);
         }
 
         if ($jam_kerja) {

@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class assessment extends REST_Controller
+class Assessment extends REST_Controller
 {
 
     public function __construct()
