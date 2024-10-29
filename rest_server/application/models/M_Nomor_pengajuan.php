@@ -3,7 +3,7 @@
 /**
  * 
  */
-class M_Nomor_pengajuan extends CI_Model
+class M_Nomor_Pengajuan extends CI_Model
 {
 
 	public function __construct()
