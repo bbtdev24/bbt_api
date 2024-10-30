@@ -3,7 +3,7 @@
 /**
  * 
  */
-class M_Absen_manual extends CI_Model
+class M_Absen_Manual extends CI_Model
 {
 
 	public function __construct()
