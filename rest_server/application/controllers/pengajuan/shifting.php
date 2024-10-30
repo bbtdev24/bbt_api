@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class shifting extends REST_Controller
+class Shifting extends REST_Controller
 {
 	
 	public function __construct()

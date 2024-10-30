@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class refund extends REST_Controller
+class Refund extends REST_Controller
 {
 	
 	public function __construct()

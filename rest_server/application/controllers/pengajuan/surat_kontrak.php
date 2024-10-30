@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class surat_kontrak extends REST_Controller
+class Surat_Kontrak extends REST_Controller
 {
 
 	public function __construct()

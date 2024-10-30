@@ -6,7 +6,7 @@ use Restserver\Libraries\REST_Controller;
 require APPPATH . '/libraries/REST_Controller.php';
 require APPPATH . '/libraries/Format.php';
 
-class vaksin extends REST_Controller
+class Vaksin extends REST_Controller
 {
 
 	public function __construct()

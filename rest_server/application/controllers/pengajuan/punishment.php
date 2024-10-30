@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class punishment extends REST_Controller
+class Punishment extends REST_Controller
 {
 
 	public function __construct()

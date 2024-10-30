@@ -13,7 +13,7 @@ require APPPATH . '/libraries/Format.php';
 /**
  * 
  */
-class resign extends REST_Controller
+class Resign extends REST_Controller
 {
 	
 	public function __construct()
