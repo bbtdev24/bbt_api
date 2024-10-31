@@ -76,9 +76,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use \Firebase\JWT\JWT;
 
 // Path to your service account file
-$serviceAccountPath = __DIR__ . '/mobile-eaeaa-bbt-3b1a0d5542f7.json'; // Jika file ada di direktori yang sama
+$serviceAccountPath = __DIR__ . '/mobile-ess-bbt-3b1a0d5542f7.json'; // Jika file ada di direktori yang sama
 $tokenUri = 'https://oauth2.googleapis.com/token';
-$fcmUrl = 'https://fcm.googleapis.com/v1/projects/eaea-ess-bbt/messages:send';
+$fcmUrl = 'https://fcm.googleapis.com/v1/projects/mobile-ess-bbt/messages:send';
 
 // Step 1: Get OAuth 2.0 Token (as described earlier)
 $serviceAccountData = json_decode(file_get_contents($serviceAccountPath), true);
