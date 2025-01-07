@@ -73,13 +73,83 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+// $db['default'] = array(
+// 	'dsn'	=> '',
+// 	'hostname' => '203.100.57.36',
+// 	'username' => 'pandu',
+// 	'password' => 'tester@',
+// 	'database' => 'adms_db',
+// 	'port'	=> '3306',
+// 	'dbdriver' => 'mysqli',
+// 	'dbprefix' => '',
+// 	'pconnect' => FALSE,
+// 	'db_debug' => (ENVIRONMENT !== 'production'),
+// 	'cache_on' => FALSE,
+// 	'cachedir' => '',
+// 	'char_set' => 'utf8',
+// 	'dbcollat' => 'utf8_general_ci',
+// 	'swap_pre' => '',
+// 	'encrypt' => FALSE,
+// 	'compress' => FALSE,
+// 	'stricton' => FALSE,
+// 	'failover' => array(),
+// 	'save_queries' => TRUE
+// );
+
+// $db['db2'] = array(
+// 	'dsn'	=> '',
+// 	'hostname' => '203.100.57.36',
+// 	'username' => 'pandu',
+// 	'password' => 'tester@',
+// 	'database' => 'absensi_new',
+// 	'port'	=> '3306',
+// 	'dbdriver' => 'mysqli',
+// 	'dbprefix' => '',
+// 	'pconnect' => FALSE,
+// 	'db_debug' => (ENVIRONMENT !== 'production'),
+// 	'cache_on' => FALSE,
+// 	'cachedir' => '',
+// 	'char_set' => 'utf8',
+// 	'dbcollat' => 'utf8_general_ci',
+// 	'swap_pre' => '',
+// 	'encrypt' => FALSE,
+// 	'compress' => FALSE,
+// 	'stricton' => FALSE,
+// 	'failover' => array(),
+// 	'save_queries' => TRUE
+// );
+
+// $db['db_absensi'] = array(
+// 	'dsn'	=> '',
+// 	'hostname' => '203.100.57.36',
+// 	'username' => 'pandu',
+// 	'password' => 'tester@',
+// 	'database' => 'absensi',
+// 	'port'	=> '3306',
+// 	'dbdriver' => 'mysqli',
+// 	'dbprefix' => '',
+// 	'pconnect' => FALSE,
+// 	'db_debug' => (ENVIRONMENT !== 'production'),
+// 	'cache_on' => FALSE,
+// 	'cachedir' => '',
+// 	'char_set' => 'utf8',
+// 	'dbcollat' => 'utf8_general_ci',
+// 	'swap_pre' => '',
+// 	'encrypt' => FALSE,
+// 	'compress' => FALSE,
+// 	'stricton' => FALSE,
+// 	'failover' => array(),
+// 	'save_queries' => TRUE
+// );
+
+
 $db['default'] = array(
-	'dsn'	=> '',
-	'hostname' => '203.100.57.36',
-	'username' => 'pandu',
-	'password' => 'tester@',
-	'database' => 'adms_db',
-	'port'	=> '3306',
+	'dsn'	   => '',
+	'hostname' => '36.88.110.134',
+	'username' => 'banktanah',
+	'password' => 'Ul4rT$nah2023',
+	'database' => 'absensi',
+	'port'	   => '28',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -89,7 +159,7 @@ $db['default'] = array(
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt' => FALSE,
+	'encrypt'  => FALSE,
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
@@ -98,11 +168,11 @@ $db['default'] = array(
 
 $db['db2'] = array(
 	'dsn'	=> '',
-	'hostname' => '203.100.57.36',
-	'username' => 'pandu',
-	'password' => 'tester@',
-	'database' => 'absensi_new',
-	'port'	=> '3306',
+	'hostname' => '36.88.110.134',
+	'username' => 'banktanah',
+	'password' => 'Ul4rT$nah2023',
+	'database' => 'absensi',
+	'port'	   => '28',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -112,7 +182,7 @@ $db['db2'] = array(
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt' => FALSE,
+	'encrypt'  => FALSE,
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
@@ -121,11 +191,11 @@ $db['db2'] = array(
 
 $db['db_absensi'] = array(
 	'dsn'	=> '',
-	'hostname' => '203.100.57.36',
-	'username' => 'pandu',
-	'password' => 'tester@',
+	'hostname' => '36.88.110.134',
+	'username' => 'banktanah',
+	'password' => 'Ul4rT$nah2023',
 	'database' => 'absensi',
-	'port'	=> '3306',
+	'port'	   => '28',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -135,11 +205,12 @@ $db['db_absensi'] = array(
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt' => FALSE,
+	'encrypt'  => FALSE,
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
 
 
