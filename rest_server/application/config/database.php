@@ -145,7 +145,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	   => '',
-	'hostname' => '36.88.110.134',
+	'hostname' => 'localhost',
 	'username' => 'banktanah',
 	'password' => 'Ul4rT$nah2023',
 	'database' => 'absensi',
@@ -168,7 +168,7 @@ $db['default'] = array(
 
 $db['db2'] = array(
 	'dsn'	=> '',
-	'hostname' => '36.88.110.134',
+	'hostname' => 'localhost',
 	'username' => 'banktanah',
 	'password' => 'Ul4rT$nah2023',
 	'database' => 'absensi',
@@ -191,7 +191,7 @@ $db['db2'] = array(
 
 $db['db_absensi'] = array(
 	'dsn'	=> '',
-	'hostname' => '36.88.110.134',
+	'hostname' => 'localhost',
 	'username' => 'banktanah',
 	'password' => 'Ul4rT$nah2023',
 	'database' => 'absensi',
