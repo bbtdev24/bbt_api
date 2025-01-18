@@ -3,7 +3,8 @@ php_value date.timezone 'Asia/Jakarta'
 # Basic Authentication
 AuthName "Welcome To RESTSERVER API"
 AuthType Basic
-AuthUserFile /var/www/html/bbt_api/rest_server/.htpasswd
+# AuthUserFile /var/www/html/bbt_api/rest_server/.htpasswd
+AuthUserFile public_html/ess.banktanah.id/bbt_api/rest_server/.htpasswd
 Require valid-user
 
 # CORS Header
