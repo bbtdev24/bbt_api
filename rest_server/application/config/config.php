@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -23,14 +23,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-if((isset($_SERVER["SERVER_NAME"]))){
-	$base_url = (empty($_SERVER['HTTPS']) OR strtolower($_SERVER['HTTPS']) === 'off') ? 'http' : 'https';
-	$base_url .= '://'.$_SERVER['SERVER_NAME'];
-	if(isset($_SERVER['SERVER_PORT'])){
-		$base_url .= ':'.$_SERVER['SERVER_PORT'];
+if ((isset($_SERVER["SERVER_NAME"]))) {
+	$base_url = (empty($_SERVER['HTTPS']) or strtolower($_SERVER['HTTPS']) === 'off') ? 'http' : 'https';
+	$base_url .= '://' . $_SERVER['SERVER_NAME'];
+	if (isset($_SERVER['SERVER_PORT'])) {
+		$base_url .= ':' . $_SERVER['SERVER_PORT'];
 	}
-	$base_url .= substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'], basename($_SERVER['SCRIPT_FILENAME'])));	
-}else{
+	$base_url .= substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'], basename($_SERVER['SCRIPT_FILENAME'])));
+} else {
 	$base_url = '';
 }
 $config['base_url'] = $base_url;
@@ -111,7 +111,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = FALSE;
+$config['enable_hooks'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

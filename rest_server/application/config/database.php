@@ -141,15 +141,44 @@ $query_builder = TRUE;
 // 	'failover' => array(),
 // 	'save_queries' => TRUE
 // );
+// Konfigurasi database berdasarkan hostname
+if ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1') {
+	// Konfigurasi untuk localhost
+	$hostname = '36.88.110.134';
+	$username = 'banktanah';
+	$password = 'Ul4rT$nah2023';
+	$database_absensi = 'absensi';
+	$database_payroll = 'payroll';
+	$database_adms = 'adms_db';
+	$port = '28';
+} elseif ($_SERVER['HTTP_HOST'] === 'ess.banktanah.id') {
+	// Konfigurasi untuk domain ess.banktanah.id
+	$hostname = 'localhost';
+	$username = 'u1721210_usrbadantanah';
+	$password = 'masukbang';
+	$database_absensi = 'u1721210_absensi';
+	$database_payroll = 'u1721210_payroll';
+	$database_adms = 'u1721210_adms_db';
+	$port = '3306';
+} else if ($_SERVER['HTTP_HOST'] === '36.88.110.134') {
+	// Konfigurasi 36.88.110.134
+	$hostname = 'localhost';
+	$username = 'banktanah';
+	$password = 'Ul4rT$nah2023';
+	$database_absensi = 'absensi';
+	$database_payroll = 'payroll';
+	$database_adms = 'adms_db';
+	$port = '28';
+}
 
-
+// Konfigurasi database default
 $db['default'] = array(
-	'dsn'	   => '',
-	'hostname' => 'localhost',
-	'username' => 'banktanah',
-	'password' => 'Ul4rT$nah2023',
-	'database' => 'absensi',
-	'port'	   => '28',
+	'dsn'      => '',
+	'hostname' => $hostname,
+	'username' => $username,
+	'password' => $password,
+	'database' => $database_absensi,
+	'port'     => $port,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -159,20 +188,22 @@ $db['default'] = array(
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt'  => FALSE,
+	'encrypt' => FALSE,
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
 );
 
+
+// Konfigurasi database default
 $db['db2'] = array(
-	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'banktanah',
-	'password' => 'Ul4rT$nah2023',
-	'database' => 'absensi',
-	'port'	   => '28',
+	'dsn'      => '',
+	'hostname' => $hostname,
+	'username' => $username,
+	'password' => $password,
+	'database' => $database_absensi,
+	'port'     => $port,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -182,20 +213,22 @@ $db['db2'] = array(
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt'  => FALSE,
+	'encrypt' => FALSE,
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
 );
 
+
+// Konfigurasi database default
 $db['db_absensi'] = array(
-	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'banktanah',
-	'password' => 'Ul4rT$nah2023',
-	'database' => 'absensi',
-	'port'	   => '28',
+	'dsn'      => '',
+	'hostname' => $hostname,
+	'username' => $username,
+	'password' => $password,
+	'database' => $database_absensi,
+	'port'     => $port,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -205,12 +238,9 @@ $db['db_absensi'] = array(
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt'  => FALSE,
+	'encrypt' => FALSE,
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-
-
-
