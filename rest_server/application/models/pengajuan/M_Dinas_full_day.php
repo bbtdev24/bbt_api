@@ -133,7 +133,7 @@ class M_Dinas_full_day extends CI_Model
 		            ,tbl_izin_full_day.`status_full_day_2`
 		            ,tbl_izin_full_day.`feedback_full_day_2`
 		            ,tbl_izin_full_day.`tanggal_approval_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_izin_full_day`
@@ -164,7 +164,7 @@ class M_Dinas_full_day extends CI_Model
 			            ,tbl_izin_full_day.`status_full_day_2`
 			            ,tbl_izin_full_day.`feedback_full_day_2`
 			            ,tbl_izin_full_day.`tanggal_approval_2`
-			        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+			        FROM `tbl_jabatan_karyawan_approval`
 			        INNER JOIN `tbl_jabatan_karyawan` 
 			            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 			        INNER JOIN `tbl_izin_full_day`
@@ -197,7 +197,7 @@ class M_Dinas_full_day extends CI_Model
 		            ,tbl_izin_full_day.`status_full_day_2`
 		            ,tbl_izin_full_day.`feedback_full_day_2`
 		            ,tbl_izin_full_day.`tanggal_approval_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_izin_full_day`
@@ -309,7 +309,7 @@ class M_Dinas_full_day extends CI_Model
 				tbl_izin_full_day.`status_full_day_2`,
 				tbl_izin_full_day.`feedback_full_day_2`,
 				tbl_izin_full_day.`tanggal_approval_2`
-			FROM `absensi`.`tbl_jabatan_approval` 
+			FROM `tbl_jabatan_approval` 
 			INNER JOIN `tbl_jabatan` ON tbl_jabatan.`idJabatan` = tbl_jabatan_approval.`idJabatan` 
 			INNER JOIN `tbl_izin_full_day` ON tbl_izin_full_day.`jabatan_full_day` = tbl_jabatan_approval.`idJabatan` 
 			INNER JOIN `tbl_karyawan_struktur` ON tbl_karyawan_struktur.`nip` = tbl_izin_full_day.`nik_full_day` 
