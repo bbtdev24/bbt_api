@@ -13,27 +13,27 @@ class M_Gallup extends CI_Model
 
 	public function getGallup($nik = null, $depo = null, $pt = null, $jabatan = null, $dept = null)
 	{
-		$where = " absensi_new.`tbl_karyawan_struktur`.`nik_baru` NOT LIKE '%.%'
-            AND absensi_new.`tbl_karyawan_struktur`.`status_karyawan` = '0'
-            AND absensi_new.`tbl_karyawan_struktur`.`nik_baru` <> 'victor' 
-            AND absensi_new.`tbl_karyawan_struktur`.`nik_baru` <> '12345'
-            AND (absensi_new.`tbl_karyawan_struktur`.`perusahaan_struktur` <> 'MPB PAKET'
-            AND absensi_new.`tbl_karyawan_struktur`.`perusahaan_struktur` <> 'SDUP'
-            AND absensi_new.`tbl_karyawan_struktur`.`perusahaan_struktur` <> 'BSP')";
+		$where = " `tbl_karyawan_struktur`.`nik_baru` NOT LIKE '%.%'
+            AND `tbl_karyawan_struktur`.`status_karyawan` = '0'
+            AND `tbl_karyawan_struktur`.`nik_baru` <> 'victor' 
+            AND `tbl_karyawan_struktur`.`nik_baru` <> '12345'
+            AND (`tbl_karyawan_struktur`.`perusahaan_struktur` <> 'MPB PAKET'
+            AND `tbl_karyawan_struktur`.`perusahaan_struktur` <> 'SDUP'
+            AND `tbl_karyawan_struktur`.`perusahaan_struktur` <> 'BSP')";
         if ($nik!='') {
-            $where .= " and absensi_new.`tbl_karyawan_struktur`.`nik_baru` = '$nik'";
+            $where .= " and `tbl_karyawan_struktur`.`nik_baru` = '$nik'";
         }
         if ($depo!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur` = '$depo'";
+            $where .= "  and `tbl_karyawan_struktur`.`lokasi_struktur` = '$depo'";
         }
         if ($jabatan!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.`jabatan_struktur` = '$jabatan'";
+            $where .= "  and `tbl_karyawan_struktur`.`jabatan_struktur` = '$jabatan'";
         }
         if ($dept!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.`dept_struktur` = '$dept'";
+            $where .= "  and `tbl_karyawan_struktur`.`dept_struktur` = '$dept'";
         }
         if ($pt!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.perusahaan_struktur = '$pt'";
+            $where .= "  and `tbl_karyawan_struktur`.perusahaan_struktur = '$pt'";
         }
 
         $sql = "
@@ -82,45 +82,45 @@ class M_Gallup extends CI_Model
                 , tbl_karyawan.`join_date_struktur`
                 , tbl_karyawan.`perusahaan_struktur`
                 , tbl_karyawan.`masa_kerja`
-                , IFNULL((SELECT SUM(absensi_new.`tbl_karyawan_gallup_essay`.`angka_mutu_atasan`)
-                FROM absensi_new.`tbl_karyawan_gallup_essay`
-                LEFT JOIN absensi_new.`tbl_pertanyaan_gallup_essay`
-                    ON absensi_new.`tbl_pertanyaan_gallup_essay`.`no_pertanyaan` = absensi_new.`tbl_karyawan_gallup_essay`.`pertanyaan`
-                WHERE absensi_new.`tbl_karyawan_gallup_essay`.`nik_baru` = tbl_karyawan.`nik_baru`
-                AND absensi_new.`tbl_pertanyaan_gallup_essay`.`status` = '0'),0) AS assesor_1
+                , IFNULL((SELECT SUM(`tbl_karyawan_gallup_essay`.`angka_mutu_atasan`)
+                FROM `tbl_karyawan_gallup_essay`
+                LEFT JOIN `tbl_pertanyaan_gallup_essay`
+                    ON `tbl_pertanyaan_gallup_essay`.`no_pertanyaan` = `tbl_karyawan_gallup_essay`.`pertanyaan`
+                WHERE `tbl_karyawan_gallup_essay`.`nik_baru` = tbl_karyawan.`nik_baru`
+                AND `tbl_pertanyaan_gallup_essay`.`status` = '0'),0) AS assesor_1
                 
-                , IFNULL((SELECT SUM(absensi_new.`tbl_karyawan_gallup_essay`.`angka_mutu_atasan_2`)
-                FROM absensi_new.`tbl_karyawan_gallup_essay`
-                LEFT JOIN absensi_new.`tbl_pertanyaan_gallup_essay`
-                    ON absensi_new.`tbl_pertanyaan_gallup_essay`.`no_pertanyaan` = absensi_new.`tbl_karyawan_gallup_essay`.`pertanyaan`
-                WHERE absensi_new.`tbl_karyawan_gallup_essay`.`nik_baru` = tbl_karyawan.`nik_baru`
-                AND absensi_new.`tbl_pertanyaan_gallup_essay`.`status` = '0'),0) AS assesor_2
+                , IFNULL((SELECT SUM(`tbl_karyawan_gallup_essay`.`angka_mutu_atasan_2`)
+                FROM `tbl_karyawan_gallup_essay`
+                LEFT JOIN `tbl_pertanyaan_gallup_essay`
+                    ON `tbl_pertanyaan_gallup_essay`.`no_pertanyaan` = `tbl_karyawan_gallup_essay`.`pertanyaan`
+                WHERE `tbl_karyawan_gallup_essay`.`nik_baru` = tbl_karyawan.`nik_baru`
+                AND `tbl_pertanyaan_gallup_essay`.`status` = '0'),0) AS assesor_2
                 
-                , (IFNULL((SELECT SUM(absensi_new.`tbl_karyawan_gallup_essay`.`angka_mutu_atasan`)
-                FROM absensi_new.`tbl_karyawan_gallup_essay`
-                LEFT JOIN absensi_new.`tbl_pertanyaan_gallup_essay`
-                    ON absensi_new.`tbl_pertanyaan_gallup_essay`.`no_pertanyaan` = absensi_new.`tbl_karyawan_gallup_essay`.`pertanyaan`
-                WHERE absensi_new.`tbl_karyawan_gallup_essay`.`nik_baru` = tbl_karyawan.`nik_baru`
-                AND absensi_new.`tbl_pertanyaan_gallup_essay`.`status` = '0'),0) + 
-                IFNULL((SELECT SUM(absensi_new.`tbl_karyawan_gallup_essay`.`angka_mutu_atasan_2`)
-                FROM absensi_new.`tbl_karyawan_gallup_essay`
-                LEFT JOIN absensi_new.`tbl_pertanyaan_gallup_essay`
-                    ON absensi_new.`tbl_pertanyaan_gallup_essay`.`no_pertanyaan` = absensi_new.`tbl_karyawan_gallup_essay`.`pertanyaan`
-                WHERE absensi_new.`tbl_karyawan_gallup_essay`.`nik_baru` = tbl_karyawan.`nik_baru`
-                AND absensi_new.`tbl_pertanyaan_gallup_essay`.`status` = '0'),0)) / 2 AS nilai
+                , (IFNULL((SELECT SUM(`tbl_karyawan_gallup_essay`.`angka_mutu_atasan`)
+                FROM `tbl_karyawan_gallup_essay`
+                LEFT JOIN `tbl_pertanyaan_gallup_essay`
+                    ON `tbl_pertanyaan_gallup_essay`.`no_pertanyaan` = `tbl_karyawan_gallup_essay`.`pertanyaan`
+                WHERE `tbl_karyawan_gallup_essay`.`nik_baru` = tbl_karyawan.`nik_baru`
+                AND `tbl_pertanyaan_gallup_essay`.`status` = '0'),0) + 
+                IFNULL((SELECT SUM(`tbl_karyawan_gallup_essay`.`angka_mutu_atasan_2`)
+                FROM `tbl_karyawan_gallup_essay`
+                LEFT JOIN `tbl_pertanyaan_gallup_essay`
+                    ON `tbl_pertanyaan_gallup_essay`.`no_pertanyaan` = `tbl_karyawan_gallup_essay`.`pertanyaan`
+                WHERE `tbl_karyawan_gallup_essay`.`nik_baru` = tbl_karyawan.`nik_baru`
+                AND `tbl_pertanyaan_gallup_essay`.`status` = '0'),0)) / 2 AS nilai
             FROM (SELECT 
-                absensi_new.`tbl_karyawan_struktur`.`nik_baru`
-                , absensi_new.`tbl_karyawan_struktur`.`nama_karyawan_struktur`
-                , absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan`
-                , absensi_new.`tbl_karyawan_struktur`.`jabatan_struktur`
-                , absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur`
-                , absensi_new.`tbl_karyawan_struktur`.`dept_struktur`
-                , absensi_new.`tbl_karyawan_struktur`.`perusahaan_struktur`
-                , absensi_new.`tbl_karyawan_struktur`.`join_date_struktur`
-                , DATEDIFF('2021-01-20', absensi_new.`tbl_karyawan_struktur`.`join_date_struktur`) AS masa_kerja
-            FROM absensi_new.`tbl_karyawan_struktur`
-            INNER JOIN absensi_new.`tbl_jabatan_karyawan`
-                ON absensi_new.`tbl_karyawan_struktur`.`jabatan_struktur` = absensi_new.`tbl_jabatan_karyawan`.`no_jabatan_karyawan`
+                `tbl_karyawan_struktur`.`nik_baru`
+                , `tbl_karyawan_struktur`.`nama_karyawan_struktur`
+                , `tbl_jabatan_karyawan`.`jabatan_karyawan`
+                , `tbl_karyawan_struktur`.`jabatan_struktur`
+                , `tbl_karyawan_struktur`.`lokasi_struktur`
+                , `tbl_karyawan_struktur`.`dept_struktur`
+                , `tbl_karyawan_struktur`.`perusahaan_struktur`
+                , `tbl_karyawan_struktur`.`join_date_struktur`
+                , DATEDIFF('2021-01-20', `tbl_karyawan_struktur`.`join_date_struktur`) AS masa_kerja
+            FROM `tbl_karyawan_struktur`
+            INNER JOIN `tbl_jabatan_karyawan`
+                ON `tbl_karyawan_struktur`.`jabatan_struktur` = `tbl_jabatan_karyawan`.`no_jabatan_karyawan`
             WHERE $where) tbl_karyawan
             WHERE tbl_karyawan.`masa_kerja` >= '364'
             ORDER BY tbl_karyawan.`nik_baru` ASC ) tbl_penilaian
@@ -132,57 +132,57 @@ class M_Gallup extends CI_Model
 
     public function getSurvey($nik = null, $depo = null, $pt = null, $jabatan = null, $dept = null, $tahun = null)
     {
-        $where = " absensi_new.`tbl_karyawan_struktur`.`status_karyawan` = '0'
-            AND (absensi_new.`tbl_karyawan_struktur`.`perusahaan_struktur` <> 'MPB PAKET'
-            AND absensi_new.`tbl_karyawan_struktur`.`perusahaan_struktur` <> 'SDUP'
-            AND absensi_new.`tbl_karyawan_struktur`.`perusahaan_struktur` <> 'BSP')
-            AND DATEDIFF('2021-01-20', absensi_new.`tbl_karyawan_struktur`.`join_date_struktur`) >= '364'";
+        $where = " `tbl_karyawan_struktur`.`status_karyawan` = '0'
+            AND (`tbl_karyawan_struktur`.`perusahaan_struktur` <> 'MPB PAKET'
+            AND `tbl_karyawan_struktur`.`perusahaan_struktur` <> 'SDUP'
+            AND `tbl_karyawan_struktur`.`perusahaan_struktur` <> 'BSP')
+            AND DATEDIFF('2021-01-20', `tbl_karyawan_struktur`.`join_date_struktur`) >= '364'";
         if ($nik!='') {
-            $where .= " and absensi_new.`tbl_karyawan_struktur`.`nik_baru` = '$nik'";
+            $where .= " and `tbl_karyawan_struktur`.`nik_baru` = '$nik'";
         }
         if ($depo!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur` = '$depo'";
+            $where .= "  and `tbl_karyawan_struktur`.`lokasi_struktur` = '$depo'";
         }
         if ($jabatan!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.`jabatan_struktur` = '$jabatan'";
+            $where .= "  and `tbl_karyawan_struktur`.`jabatan_struktur` = '$jabatan'";
         }
         if ($dept!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.`dept_struktur` = '$dept'";
+            $where .= "  and `tbl_karyawan_struktur`.`dept_struktur` = '$dept'";
         }
         if ($pt!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.perusahaan_struktur = '$pt'";
+            $where .= "  and `tbl_karyawan_struktur`.perusahaan_struktur = '$pt'";
         }
         if ($tahun!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_gallup`.`tahun` = '$tahun'";
+            $where .= "  and `tbl_karyawan_gallup`.`tahun` = '$tahun'";
         }
 
         $sql = "
             SELECT 
-                absensi_new.`tbl_karyawan_struktur`.`nik_baru`
-                , absensi_new.`tbl_karyawan_struktur`.`nama_karyawan_struktur`
-                , absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan`
-                , absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur`
-                , absensi_new.`tbl_karyawan_struktur`.`dept_struktur`
-                , absensi_new.`tbl_karyawan_struktur`.`perusahaan_struktur`
-                , absensi_new.`tbl_karyawan_gallup`.`tahun`
-                , absensi_new.`tbl_karyawan_gallup`.`jawaban_1`
-                , absensi_new.`tbl_karyawan_gallup`.`jawaban_2`
-                , absensi_new.`tbl_karyawan_gallup`.`jawaban_3`
-                , absensi_new.`tbl_karyawan_gallup`.`jawaban_4`
-                , absensi_new.`tbl_karyawan_gallup`.`jawaban_5`
-                , absensi_new.`tbl_karyawan_gallup`.`jawaban_6`
-                , absensi_new.`tbl_karyawan_gallup`.`jawaban_7`
-                , absensi_new.`tbl_karyawan_gallup`.`jawaban_8`
-                , absensi_new.`tbl_karyawan_gallup`.`jawaban_9`
-                , absensi_new.`tbl_karyawan_gallup`.`jawaban_10`
-                , absensi_new.`tbl_karyawan_gallup`.`jawaban_11`
-                , absensi_new.`tbl_karyawan_gallup`.`jawaban_12`
-                , DATEDIFF('2021-10-12', absensi_new.`tbl_karyawan_struktur`.`join_date_struktur`) AS masa_kerja
-            FROM absensi_new.`tbl_karyawan_gallup`
-            INNER JOIN absensi_new.`tbl_karyawan_struktur`
-                ON absensi_new.`tbl_karyawan_struktur`.`nik_baru` = absensi_new.`tbl_karyawan_gallup`.`nik_baru`
-            INNER JOIN absensi_new.`tbl_jabatan_karyawan`
-                ON absensi_new.`tbl_jabatan_karyawan`.`no_jabatan_karyawan` = absensi_new.`tbl_karyawan_struktur`.`jabatan_struktur`
+                `tbl_karyawan_struktur`.`nik_baru`
+                , `tbl_karyawan_struktur`.`nama_karyawan_struktur`
+                , `tbl_jabatan_karyawan`.`jabatan_karyawan`
+                , `tbl_karyawan_struktur`.`lokasi_struktur`
+                , `tbl_karyawan_struktur`.`dept_struktur`
+                , `tbl_karyawan_struktur`.`perusahaan_struktur`
+                , `tbl_karyawan_gallup`.`tahun`
+                , `tbl_karyawan_gallup`.`jawaban_1`
+                , `tbl_karyawan_gallup`.`jawaban_2`
+                , `tbl_karyawan_gallup`.`jawaban_3`
+                , `tbl_karyawan_gallup`.`jawaban_4`
+                , `tbl_karyawan_gallup`.`jawaban_5`
+                , `tbl_karyawan_gallup`.`jawaban_6`
+                , `tbl_karyawan_gallup`.`jawaban_7`
+                , `tbl_karyawan_gallup`.`jawaban_8`
+                , `tbl_karyawan_gallup`.`jawaban_9`
+                , `tbl_karyawan_gallup`.`jawaban_10`
+                , `tbl_karyawan_gallup`.`jawaban_11`
+                , `tbl_karyawan_gallup`.`jawaban_12`
+                , DATEDIFF('2021-10-12', `tbl_karyawan_struktur`.`join_date_struktur`) AS masa_kerja
+            FROM `tbl_karyawan_gallup`
+            INNER JOIN `tbl_karyawan_struktur`
+                ON `tbl_karyawan_struktur`.`nik_baru` = `tbl_karyawan_gallup`.`nik_baru`
+            INNER JOIN `tbl_jabatan_karyawan`
+                ON `tbl_jabatan_karyawan`.`no_jabatan_karyawan` = `tbl_karyawan_struktur`.`jabatan_struktur`
             WHERE $where
         ";
         $hasil = $this->db->query($sql);
@@ -192,47 +192,47 @@ class M_Gallup extends CI_Model
 
     public function getSurvey_saran($nik = null, $depo = null, $pt = null, $jabatan = null, $dept = null, $tahun = null)
     {
-        $where = " absensi_new.`tbl_karyawan_struktur`.`status_karyawan` = '0'
-            AND (absensi_new.`tbl_karyawan_struktur`.`perusahaan_struktur` <> 'MPB PAKET'
-            AND absensi_new.`tbl_karyawan_struktur`.`perusahaan_struktur` <> 'SDUP'
-            AND absensi_new.`tbl_karyawan_struktur`.`perusahaan_struktur` <> 'BSP')
-            AND DATEDIFF('2021-01-20', absensi_new.`tbl_karyawan_struktur`.`join_date_struktur`) >= '364'";
+        $where = " `tbl_karyawan_struktur`.`status_karyawan` = '0'
+            AND (`tbl_karyawan_struktur`.`perusahaan_struktur` <> 'MPB PAKET'
+            AND `tbl_karyawan_struktur`.`perusahaan_struktur` <> 'SDUP'
+            AND `tbl_karyawan_struktur`.`perusahaan_struktur` <> 'BSP')
+            AND DATEDIFF('2021-01-20', `tbl_karyawan_struktur`.`join_date_struktur`) >= '364'";
         if ($nik!='') {
-            $where .= " and absensi_new.`tbl_karyawan_struktur`.`nik_baru` = '$nik'";
+            $where .= " and `tbl_karyawan_struktur`.`nik_baru` = '$nik'";
         }
         if ($depo!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur` = '$depo'";
+            $where .= "  and `tbl_karyawan_struktur`.`lokasi_struktur` = '$depo'";
         }
         if ($jabatan!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.`jabatan_struktur` = '$jabatan'";
+            $where .= "  and `tbl_karyawan_struktur`.`jabatan_struktur` = '$jabatan'";
         }
         if ($dept!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.`dept_struktur` = '$dept'";
+            $where .= "  and `tbl_karyawan_struktur`.`dept_struktur` = '$dept'";
         }
         if ($pt!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.perusahaan_struktur = '$pt'";
+            $where .= "  and `tbl_karyawan_struktur`.perusahaan_struktur = '$pt'";
         }
         if ($tahun!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_gallup_saran`.`tahun` = '$tahun'";
+            $where .= "  and `tbl_karyawan_gallup_saran`.`tahun` = '$tahun'";
         }
 
         $sql = "
             SELECT 
-                absensi_new.`tbl_karyawan_struktur`.`nik_baru`
-                , absensi_new.`tbl_karyawan_struktur`.`nama_karyawan_struktur`
-                , absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan`
-                , absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur`
-                , absensi_new.`tbl_karyawan_struktur`.`dept_struktur`
-                , absensi_new.`tbl_karyawan_struktur`.`perusahaan_struktur`
-                , absensi_new.`tbl_karyawan_gallup_saran`.`nomor_saran`
-                , absensi_new.`tbl_karyawan_gallup_saran`.`saran`
-                , absensi_new.`tbl_karyawan_gallup_saran`.`tahun`
-                , DATEDIFF('2021-01-20', absensi_new.`tbl_karyawan_struktur`.`join_date_struktur`) AS masa_kerja
-            FROM absensi_new.`tbl_karyawan_gallup_saran`
-            INNER JOIN absensi_new.`tbl_karyawan_struktur`
-                ON absensi_new.`tbl_karyawan_struktur`.`nik_baru` = absensi_new.`tbl_karyawan_gallup_saran`.`nik_baru`
-            INNER JOIN absensi_new.`tbl_jabatan_karyawan`
-                ON absensi_new.`tbl_jabatan_karyawan`.`no_jabatan_karyawan` = absensi_new.`tbl_karyawan_struktur`.`jabatan_struktur`
+                `tbl_karyawan_struktur`.`nik_baru`
+                , `tbl_karyawan_struktur`.`nama_karyawan_struktur`
+                , `tbl_jabatan_karyawan`.`jabatan_karyawan`
+                , `tbl_karyawan_struktur`.`lokasi_struktur`
+                , `tbl_karyawan_struktur`.`dept_struktur`
+                , `tbl_karyawan_struktur`.`perusahaan_struktur`
+                , `tbl_karyawan_gallup_saran`.`nomor_saran`
+                , `tbl_karyawan_gallup_saran`.`saran`
+                , `tbl_karyawan_gallup_saran`.`tahun`
+                , DATEDIFF('2021-01-20', `tbl_karyawan_struktur`.`join_date_struktur`) AS masa_kerja
+            FROM `tbl_karyawan_gallup_saran`
+            INNER JOIN `tbl_karyawan_struktur`
+                ON `tbl_karyawan_struktur`.`nik_baru` = `tbl_karyawan_gallup_saran`.`nik_baru`
+            INNER JOIN `tbl_jabatan_karyawan`
+                ON `tbl_jabatan_karyawan`.`no_jabatan_karyawan` = `tbl_karyawan_struktur`.`jabatan_struktur`
             WHERE $where
         ";
         $hasil = $this->db->query($sql);

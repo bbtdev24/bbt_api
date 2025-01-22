@@ -50,7 +50,7 @@ class M_Gratifikasi extends CI_Model
   				  CONCAT('Rp. ', FORMAT(a.`nominal`, 0, 'id_ID')) AS 'nominal' 
 				FROM
 				  `companyprofile`.`datagratifikasi` a 
-				  INNER JOIN `absensi_new`.`tbl_karyawan_struktur` b 
+				  INNER JOIN `tbl_karyawan_struktur` b 
 				    ON a.`namaPenerima` = b.`nik_baru` 
 				WHERE a.`userCreated` = '$nik_baru' 
 				  AND DATE(a.`dtmCreated`) BETWEEN '$date' 

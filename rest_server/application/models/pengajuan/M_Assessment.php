@@ -21,8 +21,8 @@ class M_Assessment extends CI_Model
 	public function get_count($nik_baru = null, $tanggal = null)
 	{
 		$sql = "SELECT SUM(b.`bobot`) AS hasil
-				FROM `absensi`.`tbl_self_covid` `a`
-				INNER JOIN `absensi`.`tbl_jawaban_covid` `b` ON a.`id_jawaban` = b.`id`
+				FROM `tbl_self_covid` `a`
+				INNER JOIN `tbl_jawaban_covid` `b` ON a.`id_jawaban` = b.`id`
 				WHERE a.`nik_baru` = '$nik_baru'
 				AND DATE(a.submit_date) = '$tanggal'";
 		$hasil = $this->db_absensi->query($sql);

@@ -13,61 +13,61 @@ class M_Cuti_khusus extends CI_Model
 
 	public function get_index_cuti_khusus($nik_baru = null, $id = null)
 	{
-		$where = " absensi.`tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus` is not null";
+		$where = " `tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus` is not null";
 		if ($id != '') {
-			$where .= " and absensi.`tbl_karyawan_cuti_khusus`.`id_cuti_khusus` = '$id'";
+			$where .= " and `tbl_karyawan_cuti_khusus`.`id_cuti_khusus` = '$id'";
 		}
 		if ($nik_baru != '') {
-			$where .= "  and absensi.`tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` = '$nik_baru'";
+			$where .= "  and `tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` = '$nik_baru'";
 		}
 
 		if ($nik_baru === null and $id === null) {
 			$sql = "SELECT 
-				absensi_new.`tbl_karyawan_cuti_khusus`.`id_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_pengajuan`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` AS nik_baru
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`jabatan_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`jenis_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`kondisi`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`start_cuti_khusus` AS tanggal_absen
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`ket_tambahan_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`status_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`status_cuti_khusus_2`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus_2`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus_2`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`dokumen_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`lat`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`lon`
-			FROM absensi_new.`tbl_karyawan_cuti_khusus`
+				`tbl_karyawan_cuti_khusus`.`id_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_pengajuan`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
+				, `tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` AS nik_baru
+				, `tbl_karyawan_cuti_khusus`.`jabatan_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`jenis_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`kondisi`
+				, `tbl_karyawan_cuti_khusus`.`start_cuti_khusus` AS tanggal_absen
+				, `tbl_karyawan_cuti_khusus`.`ket_tambahan_khusus`
+				, `tbl_karyawan_cuti_khusus`.`status_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`status_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`dokumen_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`lat`
+				, `tbl_karyawan_cuti_khusus`.`lon`
+			FROM `tbl_karyawan_cuti_khusus`
 			WHERE $where";
 			$hasil = $this->db_absensi->query($sql);
 			return $hasil->result_array();
 		} else {
 			$sql = "SELECT 
-				absensi.`tbl_karyawan_cuti_khusus`.`id_cuti_khusus`
-				, absensi.`tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus`
-				, absensi.`tbl_karyawan_cuti_khusus`.`tanggal_pengajuan`
-				, absensi.`tbl_karyawan_cuti_khusus`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
-				, absensi.`tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` AS nik_baru
-				, absensi.`tbl_karyawan_cuti_khusus`.`jabatan_cuti_khusus`
-				, absensi.`tbl_karyawan_cuti_khusus`.`jenis_cuti_khusus`
-				, absensi.`tbl_karyawan_cuti_khusus`.`kondisi`
-				, absensi.`tbl_karyawan_cuti_khusus`.`start_cuti_khusus` AS tanggal_absen
-				, absensi.`tbl_karyawan_cuti_khusus`.`ket_tambahan_khusus`
-				, absensi.`tbl_karyawan_cuti_khusus`.`status_cuti_khusus`
-				, absensi.`tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus`
-				, absensi.`tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus`
-				, absensi.`tbl_karyawan_cuti_khusus`.`status_cuti_khusus_2`
-				, absensi.`tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus_2`
-				, absensi.`tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus_2`
-				, absensi.`tbl_karyawan_cuti_khusus`.`dokumen_cuti_khusus`
-				, absensi.`tbl_karyawan_cuti_khusus`.`lat`
-				, absensi.`tbl_karyawan_cuti_khusus`.`lon`
-			FROM absensi.`tbl_karyawan_cuti_khusus`
+				`tbl_karyawan_cuti_khusus`.`id_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_pengajuan`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
+				, `tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` AS nik_baru
+				, `tbl_karyawan_cuti_khusus`.`jabatan_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`jenis_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`kondisi`
+				, `tbl_karyawan_cuti_khusus`.`start_cuti_khusus` AS tanggal_absen
+				, `tbl_karyawan_cuti_khusus`.`ket_tambahan_khusus`
+				, `tbl_karyawan_cuti_khusus`.`status_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`status_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`dokumen_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`lat`
+				, `tbl_karyawan_cuti_khusus`.`lon`
+			FROM `tbl_karyawan_cuti_khusus`
 			WHERE $where";
 			$hasil = $this->db_absensi->query($sql);
 			return $hasil->result_array();
@@ -119,7 +119,7 @@ class M_Cuti_khusus extends CI_Model
 		            ,tbl_karyawan_cuti_khusus.`status_cuti_khusus_2`
 		            ,tbl_karyawan_cuti_khusus.`tanggal_approval_cuti_khusus_2`
 		            ,tbl_karyawan_cuti_khusus.`feedback_cuti_khusus_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_karyawan_cuti_khusus`
@@ -151,7 +151,7 @@ class M_Cuti_khusus extends CI_Model
 		            ,tbl_karyawan_cuti_khusus.`status_cuti_khusus_2`
 		            ,tbl_karyawan_cuti_khusus.`tanggal_approval_cuti_khusus_2`
 		            ,tbl_karyawan_cuti_khusus.`feedback_cuti_khusus_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_karyawan_cuti_khusus`
@@ -205,7 +205,7 @@ class M_Cuti_khusus extends CI_Model
 		            ,tbl_karyawan_cuti_khusus.`status_cuti_khusus_2`
 		            ,tbl_karyawan_cuti_khusus.`tanggal_approval_cuti_khusus_2`
 		            ,tbl_karyawan_cuti_khusus.`feedback_cuti_khusus_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_karyawan_cuti_khusus`
@@ -239,7 +239,7 @@ class M_Cuti_khusus extends CI_Model
 		            ,tbl_karyawan_cuti_khusus.`status_cuti_khusus_2`
 		            ,tbl_karyawan_cuti_khusus.`tanggal_approval_cuti_khusus_2`
 		            ,tbl_karyawan_cuti_khusus.`feedback_cuti_khusus_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_karyawan_cuti_khusus`
@@ -258,26 +258,26 @@ class M_Cuti_khusus extends CI_Model
 	public function get_index_khusus_feedback($nik_baru = null, $tanggal = null)
 	{
 		$sql = "SELECT 
-				absensi_new.`tbl_karyawan_cuti_khusus`.`id_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_pengajuan`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` AS nik_baru
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`jabatan_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`jenis_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`kondisi`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`start_cuti_khusus` AS tanggal_absen
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`ket_tambahan_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`status_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`status_cuti_khusus_2`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus_2`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus_2`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`dokumen_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`lat`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`lon`
-			FROM absensi_new.`tbl_karyawan_cuti_khusus`
+				`tbl_karyawan_cuti_khusus`.`id_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_pengajuan`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
+				, `tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` AS nik_baru
+				, `tbl_karyawan_cuti_khusus`.`jabatan_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`jenis_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`kondisi`
+				, `tbl_karyawan_cuti_khusus`.`start_cuti_khusus` AS tanggal_absen
+				, `tbl_karyawan_cuti_khusus`.`ket_tambahan_khusus`
+				, `tbl_karyawan_cuti_khusus`.`status_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`status_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`dokumen_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`lat`
+				, `tbl_karyawan_cuti_khusus`.`lon`
+			FROM `tbl_karyawan_cuti_khusus`
 		WHERE nik_cuti_khusus = '$nik_baru' AND tanggal_approval_cuti_khusus = '$tanggal'";
 		$hasil = $this->db2->query($sql);
 		return $hasil->result_array();
@@ -286,28 +286,28 @@ class M_Cuti_khusus extends CI_Model
 	public function get_index_groupby_cuti_khusus($nik_baru = null)
 	{
 		$sql = "SELECT 
-				absensi_new.`tbl_karyawan_cuti_khusus`.`id_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_pengajuan`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` AS nik_baru
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`jabatan_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`jenis_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`kondisi`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`start_cuti_khusus` AS tanggal_absen
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`ket_tambahan_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`status_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`status_cuti_khusus_2`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus_2`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus_2`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`dokumen_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`lat`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`lon`
-			FROM absensi_new.`tbl_karyawan_cuti_khusus`
-			WHERE absensi_new.`tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` = '$nik_baru'
-			GROUP BY absensi_new.`tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus`";
+				`tbl_karyawan_cuti_khusus`.`id_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_pengajuan`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
+				, `tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` AS nik_baru
+				, `tbl_karyawan_cuti_khusus`.`jabatan_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`jenis_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`kondisi`
+				, `tbl_karyawan_cuti_khusus`.`start_cuti_khusus` AS tanggal_absen
+				, `tbl_karyawan_cuti_khusus`.`ket_tambahan_khusus`
+				, `tbl_karyawan_cuti_khusus`.`status_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`status_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`dokumen_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`lat`
+				, `tbl_karyawan_cuti_khusus`.`lon`
+			FROM `tbl_karyawan_cuti_khusus`
+			WHERE `tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` = '$nik_baru'
+			GROUP BY `tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus`";
 		$hasil = $this->db2->query($sql);
 		return $hasil->result_array();
 	}
@@ -315,26 +315,26 @@ class M_Cuti_khusus extends CI_Model
 	public function get_index_khusus_approval($nik_baru = null, $no_pengajuan_khusus = null)
 	{
 		$sql = "SELECT 
-				absensi_new.`tbl_karyawan_cuti_khusus`.`id_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_pengajuan`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` AS nik_baru
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`jabatan_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`jenis_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`kondisi`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`start_cuti_khusus` AS tanggal_absen
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`ket_tambahan_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`status_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`status_cuti_khusus_2`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus_2`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus_2`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`dokumen_cuti_khusus`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`lat`
-				, absensi_new.`tbl_karyawan_cuti_khusus`.`lon`
-			FROM absensi_new.`tbl_karyawan_cuti_khusus`
+				`tbl_karyawan_cuti_khusus`.`id_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`no_pengajuan_khusus`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_pengajuan`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
+				, `tbl_karyawan_cuti_khusus`.`nik_cuti_khusus` AS nik_baru
+				, `tbl_karyawan_cuti_khusus`.`jabatan_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`jenis_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`kondisi`
+				, `tbl_karyawan_cuti_khusus`.`start_cuti_khusus` AS tanggal_absen
+				, `tbl_karyawan_cuti_khusus`.`ket_tambahan_khusus`
+				, `tbl_karyawan_cuti_khusus`.`status_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`status_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`tanggal_approval_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`feedback_cuti_khusus_2`
+				, `tbl_karyawan_cuti_khusus`.`dokumen_cuti_khusus`
+				, `tbl_karyawan_cuti_khusus`.`lat`
+				, `tbl_karyawan_cuti_khusus`.`lon`
+			FROM `tbl_karyawan_cuti_khusus`
 		WHERE nik_cuti_khusus = '$nik_baru' AND no_pengajuan_khusus = '$no_pengajuan_khusus'";
 		$hasil = $this->db2->query($sql);
 		return $hasil->result_array();
@@ -363,7 +363,7 @@ class M_Cuti_khusus extends CI_Model
 				tbl_karyawan_cuti_khusus.`tanggal_approval_cuti_khusus_2`,
 				tbl_karyawan_cuti_khusus.`feedback_cuti_khusus_2` 
 				FROM
-				`absensi`.`tbl_jabatan_approval` 
+				`tbl_jabatan_approval` 
 				INNER JOIN `tbl_jabatan` 
 					ON tbl_jabatan.`idJabatan` = tbl_jabatan_approval.`idJabatan` 
 				INNER JOIN `tbl_karyawan_cuti_khusus` 

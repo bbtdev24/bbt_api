@@ -13,8 +13,8 @@ class M_Refund extends CI_Model
 
     public function getNomor()
 	{
-		$sql = "SELECT * FROM absensi_new.`tbl_karyawan_refund`
-		ORDER BY absensi_new.`tbl_karyawan_refund`.`id` DESC
+		$sql = "SELECT * FROM `tbl_karyawan_refund`
+		ORDER BY `tbl_karyawan_refund`.`id` DESC
 		LIMIT 0, 1
 		";
         $hasil = $this->db2->query($sql);

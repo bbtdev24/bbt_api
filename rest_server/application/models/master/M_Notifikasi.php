@@ -66,11 +66,11 @@ class M_Notifikasi extends CI_Model
 			c.jabatanKaryawan,
 			d.device_token 
 			FROM
-			absensi.tbl_jabatan_approval a 
-			LEFT JOIN absensi.tbl_karyawan_struktur b ON a.idJabatanAtasan1 = b.idJabatanHrd
-			INNER JOIN absensi.tbl_jabatan c 
+			tbl_jabatan_approval a 
+			LEFT JOIN tbl_karyawan_struktur b ON a.idJabatanAtasan1 = b.idJabatanHrd
+			INNER JOIN tbl_jabatan c 
 				ON b.idJabatanHrd = c.idJabatan
-			INNER JOIN absensi.master_device_info d 
+			INNER JOIN master_device_info d 
 				ON    b.nip            = d.nik_baru
 				WHERE a.idJabatan      = '$no_jabatan_karyawan'
 				AND   b.idlokasiHrd    = '$lokasi_hrd'
@@ -88,10 +88,10 @@ class M_Notifikasi extends CI_Model
 		b.namakaryawan,
 		c.jabatanKaryawan,
 		d.device_token 
-		FROM absensi.tbl_jabatan_approval a 
-		LEFT JOIN absensi.tbl_karyawan_struktur b ON a.idJabatanAtasan1 = b.idJabatanHrd 
-		INNER JOIN absensi.tbl_jabatan c ON b.idJabatanHrd = c.idJabatan 
-		INNER JOIN absensi.master_device_info d ON b.nip = d.nik_baru 
+		FROM tbl_jabatan_approval a 
+		LEFT JOIN tbl_karyawan_struktur b ON a.idJabatanAtasan1 = b.idJabatanHrd 
+		INNER JOIN tbl_jabatan c ON b.idJabatanHrd = c.idJabatan 
+		INNER JOIN master_device_info d ON b.nip = d.nik_baru 
 		WHERE a.idJabatan = '$id_jabatan_karyawan' 
 		AND b.idlokasiHrd = '$lokasi_hrd' 
 		AND b.statusKaryawan = '0' 

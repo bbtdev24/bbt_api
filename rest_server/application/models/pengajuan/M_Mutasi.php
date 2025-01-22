@@ -13,80 +13,80 @@ class M_Mutasi extends CI_Model
 
 	public function get_index_mutasi($nik_baru = null, $id = null)
 	{
-		$where = " absensi_new.`tbl_karyawan_historical_mutasi`.`no_pengajuan` is not null";
+		$where = " `tbl_karyawan_historical_mutasi`.`no_pengajuan` is not null";
         if ($id!='') {
-            $where .= " and absensi_new.`tbl_karyawan_historical_mutasi`.`id_mutasi_rotasi` = '$id'";
+            $where .= " and `tbl_karyawan_historical_mutasi`.`id_mutasi_rotasi` = '$id'";
         }
         if ($nik_baru!='') {
-            $where .= "  and absensi_new.`tbl_karyawan_historical_mutasi`.`nik_pengajuan` = '$nik_baru'";
+            $where .= "  and `tbl_karyawan_historical_mutasi`.`nik_pengajuan` = '$nik_baru'";
         }
 
 		if ($nik_baru === null and $id === null) {
 			$sql="SELECT 
-				absensi_new.`tbl_karyawan_historical_mutasi`.`id_mutasi_rotasi`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nik_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nik_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`no_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`opsi`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nama_karyawan_mutasi`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`pt_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`dept_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`lokasi_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`level_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`permintaan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`pt_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`dept_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`lokasi_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_baru`
-				, absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan` AS `nama_jabatan_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`level_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`rekomendasi_tanggal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_atasan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_approval`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_1`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_dokumen`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nik_lama`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_manager`
-			FROM absensi_new.`tbl_karyawan_historical_mutasi` INNER JOIN absensi_new.`tbl_jabatan_karyawan`
-				ON absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_baru` = absensi_new.`tbl_jabatan_karyawan`.`no_jabatan_karyawan`" ;
+				`tbl_karyawan_historical_mutasi`.`id_mutasi_rotasi`
+				, `tbl_karyawan_historical_mutasi`.`nik_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`jabatan_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`nik_baru`
+				, `tbl_karyawan_historical_mutasi`.`no_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`opsi`
+				, `tbl_karyawan_historical_mutasi`.`nama_karyawan_mutasi`
+				, `tbl_karyawan_historical_mutasi`.`pt_awal`
+				, `tbl_karyawan_historical_mutasi`.`dept_awal`
+				, `tbl_karyawan_historical_mutasi`.`lokasi_awal`
+				, `tbl_karyawan_historical_mutasi`.`jabatan_awal`
+				, `tbl_karyawan_historical_mutasi`.`level_awal`
+				, `tbl_karyawan_historical_mutasi`.`permintaan`
+				, `tbl_karyawan_historical_mutasi`.`pt_baru`
+				, `tbl_karyawan_historical_mutasi`.`dept_baru`
+				, `tbl_karyawan_historical_mutasi`.`lokasi_baru`
+				, `tbl_karyawan_historical_mutasi`.`jabatan_baru`
+				, `tbl_jabatan_karyawan`.`jabatan_karyawan` AS `nama_jabatan_baru`
+				, `tbl_karyawan_historical_mutasi`.`level_baru`
+				, `tbl_karyawan_historical_mutasi`.`rekomendasi_tanggal`
+				, `tbl_karyawan_historical_mutasi`.`status_atasan`
+				, `tbl_karyawan_historical_mutasi`.`tanggal_approval`
+				, `tbl_karyawan_historical_mutasi`.`status_1`
+				, `tbl_karyawan_historical_mutasi`.`status_dokumen`
+				, `tbl_karyawan_historical_mutasi`.`status_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`nik_lama`
+				, `tbl_karyawan_historical_mutasi`.`status_manager`
+			FROM `tbl_karyawan_historical_mutasi` INNER JOIN `tbl_jabatan_karyawan`
+				ON `tbl_karyawan_historical_mutasi`.`jabatan_baru` = `tbl_jabatan_karyawan`.`no_jabatan_karyawan`" ;
 	        $hasil = $this->db2->query($sql);
 	    	return $hasil->result_array();
 		} else {
 			$sql="SELECT 
-				absensi_new.`tbl_karyawan_historical_mutasi`.`id_mutasi_rotasi`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nik_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nik_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`no_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`opsi`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nama_karyawan_mutasi`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`pt_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`dept_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`lokasi_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`level_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`permintaan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`pt_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`dept_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`lokasi_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_baru`
-				, absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan` AS `nama_jabatan_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`level_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`rekomendasi_tanggal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_atasan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_approval`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_1`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_dokumen`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nik_lama`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_manager`
-			FROM absensi_new.`tbl_karyawan_historical_mutasi` INNER JOIN absensi_new.`tbl_jabatan_karyawan`
-				ON absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_baru` = absensi_new.`tbl_jabatan_karyawan`.`no_jabatan_karyawan`
+				`tbl_karyawan_historical_mutasi`.`id_mutasi_rotasi`
+				, `tbl_karyawan_historical_mutasi`.`nik_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`jabatan_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`nik_baru`
+				, `tbl_karyawan_historical_mutasi`.`no_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`opsi`
+				, `tbl_karyawan_historical_mutasi`.`nama_karyawan_mutasi`
+				, `tbl_karyawan_historical_mutasi`.`pt_awal`
+				, `tbl_karyawan_historical_mutasi`.`dept_awal`
+				, `tbl_karyawan_historical_mutasi`.`lokasi_awal`
+				, `tbl_karyawan_historical_mutasi`.`jabatan_awal`
+				, `tbl_karyawan_historical_mutasi`.`level_awal`
+				, `tbl_karyawan_historical_mutasi`.`permintaan`
+				, `tbl_karyawan_historical_mutasi`.`pt_baru`
+				, `tbl_karyawan_historical_mutasi`.`dept_baru`
+				, `tbl_karyawan_historical_mutasi`.`lokasi_baru`
+				, `tbl_karyawan_historical_mutasi`.`jabatan_baru`
+				, `tbl_jabatan_karyawan`.`jabatan_karyawan` AS `nama_jabatan_baru`
+				, `tbl_karyawan_historical_mutasi`.`level_baru`
+				, `tbl_karyawan_historical_mutasi`.`rekomendasi_tanggal`
+				, `tbl_karyawan_historical_mutasi`.`status_atasan`
+				, `tbl_karyawan_historical_mutasi`.`tanggal_approval`
+				, `tbl_karyawan_historical_mutasi`.`status_1`
+				, `tbl_karyawan_historical_mutasi`.`status_dokumen`
+				, `tbl_karyawan_historical_mutasi`.`status_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`nik_lama`
+				, `tbl_karyawan_historical_mutasi`.`status_manager`
+			FROM `tbl_karyawan_historical_mutasi` INNER JOIN `tbl_jabatan_karyawan`
+				ON `tbl_karyawan_historical_mutasi`.`jabatan_baru` = `tbl_jabatan_karyawan`.`no_jabatan_karyawan`
 			WHERE $where";
 	        $hasil = $this->db2->query($sql);
 	    	return $hasil->result_array();
@@ -110,69 +110,69 @@ class M_Mutasi extends CI_Model
 		// return $this->db->get('tbl_user')->result_array();
 		if ($jabatan === null) {
 			$sql = "SELECT
-		        absensi_new.`tbl_karyawan_historical_mutasi`.`id_mutasi_rotasi`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nik_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nik_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`no_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`opsi`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nama_karyawan_mutasi`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`pt_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`dept_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`lokasi_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`level_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`permintaan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`pt_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`dept_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`lokasi_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_baru`
-				, absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan` AS `nama_jabatan_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`level_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`rekomendasi_tanggal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_atasan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_approval`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_1`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_dokumen`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nik_lama`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_manager`
-			FROM absensi_new.`tbl_karyawan_historical_mutasi` INNER JOIN absensi_new.`tbl_jabatan_karyawan`
-				ON absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_baru` = absensi_new.`tbl_jabatan_karyawan`.`no_jabatan_karyawan`";
+		        `tbl_karyawan_historical_mutasi`.`id_mutasi_rotasi`
+				, `tbl_karyawan_historical_mutasi`.`nik_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`jabatan_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`nik_baru`
+				, `tbl_karyawan_historical_mutasi`.`no_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`opsi`
+				, `tbl_karyawan_historical_mutasi`.`nama_karyawan_mutasi`
+				, `tbl_karyawan_historical_mutasi`.`pt_awal`
+				, `tbl_karyawan_historical_mutasi`.`dept_awal`
+				, `tbl_karyawan_historical_mutasi`.`lokasi_awal`
+				, `tbl_karyawan_historical_mutasi`.`jabatan_awal`
+				, `tbl_karyawan_historical_mutasi`.`level_awal`
+				, `tbl_karyawan_historical_mutasi`.`permintaan`
+				, `tbl_karyawan_historical_mutasi`.`pt_baru`
+				, `tbl_karyawan_historical_mutasi`.`dept_baru`
+				, `tbl_karyawan_historical_mutasi`.`lokasi_baru`
+				, `tbl_karyawan_historical_mutasi`.`jabatan_baru`
+				, `tbl_jabatan_karyawan`.`jabatan_karyawan` AS `nama_jabatan_baru`
+				, `tbl_karyawan_historical_mutasi`.`level_baru`
+				, `tbl_karyawan_historical_mutasi`.`rekomendasi_tanggal`
+				, `tbl_karyawan_historical_mutasi`.`status_atasan`
+				, `tbl_karyawan_historical_mutasi`.`tanggal_approval`
+				, `tbl_karyawan_historical_mutasi`.`status_1`
+				, `tbl_karyawan_historical_mutasi`.`status_dokumen`
+				, `tbl_karyawan_historical_mutasi`.`status_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`nik_lama`
+				, `tbl_karyawan_historical_mutasi`.`status_manager`
+			FROM `tbl_karyawan_historical_mutasi` INNER JOIN `tbl_jabatan_karyawan`
+				ON `tbl_karyawan_historical_mutasi`.`jabatan_baru` = `tbl_jabatan_karyawan`.`no_jabatan_karyawan`";
 	        $hasil = $this->db2->query($sql);
 	        return $hasil->result_array();
 		} else {
 			$sql = "SELECT
-		        absensi_new.`tbl_karyawan_historical_mutasi`.`id_mutasi_rotasi`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nik_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nik_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`no_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`opsi`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nama_karyawan_mutasi`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`pt_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`dept_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`lokasi_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`level_awal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`permintaan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`pt_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`dept_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`lokasi_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_baru`
-				, absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan` AS `nama_jabatan_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`level_baru`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`rekomendasi_tanggal`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_atasan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_approval`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_1`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_dokumen`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_pengajuan`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`nik_lama`
-				, absensi_new.`tbl_karyawan_historical_mutasi`.`status_manager`
-		    FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        `tbl_karyawan_historical_mutasi`.`id_mutasi_rotasi`
+				, `tbl_karyawan_historical_mutasi`.`nik_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`jabatan_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`nik_baru`
+				, `tbl_karyawan_historical_mutasi`.`no_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`opsi`
+				, `tbl_karyawan_historical_mutasi`.`nama_karyawan_mutasi`
+				, `tbl_karyawan_historical_mutasi`.`pt_awal`
+				, `tbl_karyawan_historical_mutasi`.`dept_awal`
+				, `tbl_karyawan_historical_mutasi`.`lokasi_awal`
+				, `tbl_karyawan_historical_mutasi`.`jabatan_awal`
+				, `tbl_karyawan_historical_mutasi`.`level_awal`
+				, `tbl_karyawan_historical_mutasi`.`permintaan`
+				, `tbl_karyawan_historical_mutasi`.`pt_baru`
+				, `tbl_karyawan_historical_mutasi`.`dept_baru`
+				, `tbl_karyawan_historical_mutasi`.`lokasi_baru`
+				, `tbl_karyawan_historical_mutasi`.`jabatan_baru`
+				, `tbl_jabatan_karyawan`.`jabatan_karyawan` AS `nama_jabatan_baru`
+				, `tbl_karyawan_historical_mutasi`.`level_baru`
+				, `tbl_karyawan_historical_mutasi`.`rekomendasi_tanggal`
+				, `tbl_karyawan_historical_mutasi`.`status_atasan`
+				, `tbl_karyawan_historical_mutasi`.`tanggal_approval`
+				, `tbl_karyawan_historical_mutasi`.`status_1`
+				, `tbl_karyawan_historical_mutasi`.`status_dokumen`
+				, `tbl_karyawan_historical_mutasi`.`status_pengajuan`
+				, `tbl_karyawan_historical_mutasi`.`nik_lama`
+				, `tbl_karyawan_historical_mutasi`.`status_manager`
+		    FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_karyawan_historical_mutasi`
@@ -192,46 +192,46 @@ class M_Mutasi extends CI_Model
 	public function get_index_Mutasi_manager($kondisi = null, $date1 = null, $date2 = null)
 	{
 		$sql = "SELECT 
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`id_mutasi_rotasi`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`nik_pengajuan`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_pengajuan`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`nik_baru`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`no_pengajuan`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`opsi`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`nama_karyawan_mutasi`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`pt_awal`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`dept_awal`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`lokasi_awal`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_awal`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`level_awal`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`permintaan`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`pt_baru`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`dept_baru`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`lokasi_baru`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_baru`,
-				  absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan` AS `nama_jabatan_baru`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`level_baru`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`rekomendasi_tanggal`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`status_atasan`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_approval`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`status_1`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`status_dokumen`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`status_pengajuan`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`nik_lama`,
-				  absensi_new.`tbl_karyawan_historical_mutasi`.`status_manager` 
+				  `tbl_karyawan_historical_mutasi`.`id_mutasi_rotasi`,
+				  `tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`,
+				  `tbl_karyawan_historical_mutasi`.`nik_pengajuan`,
+				  `tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`,
+				  `tbl_karyawan_historical_mutasi`.`jabatan_pengajuan`,
+				  `tbl_karyawan_historical_mutasi`.`nik_baru`,
+				  `tbl_karyawan_historical_mutasi`.`no_pengajuan`,
+				  `tbl_karyawan_historical_mutasi`.`opsi`,
+				  `tbl_karyawan_historical_mutasi`.`nama_karyawan_mutasi`,
+				  `tbl_karyawan_historical_mutasi`.`pt_awal`,
+				  `tbl_karyawan_historical_mutasi`.`dept_awal`,
+				  `tbl_karyawan_historical_mutasi`.`lokasi_awal`,
+				  `tbl_karyawan_historical_mutasi`.`jabatan_awal`,
+				  `tbl_karyawan_historical_mutasi`.`level_awal`,
+				  `tbl_karyawan_historical_mutasi`.`permintaan`,
+				  `tbl_karyawan_historical_mutasi`.`pt_baru`,
+				  `tbl_karyawan_historical_mutasi`.`dept_baru`,
+				  `tbl_karyawan_historical_mutasi`.`lokasi_baru`,
+				  `tbl_karyawan_historical_mutasi`.`jabatan_baru`,
+				  `tbl_jabatan_karyawan`.`jabatan_karyawan` AS `nama_jabatan_baru`,
+				  `tbl_karyawan_historical_mutasi`.`level_baru`,
+				  `tbl_karyawan_historical_mutasi`.`rekomendasi_tanggal`,
+				  `tbl_karyawan_historical_mutasi`.`status_atasan`,
+				  `tbl_karyawan_historical_mutasi`.`tanggal_approval`,
+				  `tbl_karyawan_historical_mutasi`.`status_1`,
+				  `tbl_karyawan_historical_mutasi`.`status_dokumen`,
+				  `tbl_karyawan_historical_mutasi`.`status_pengajuan`,
+				  `tbl_karyawan_historical_mutasi`.`nik_lama`,
+				  `tbl_karyawan_historical_mutasi`.`status_manager` 
 				FROM
-				  absensi_new.`tbl_karyawan_historical_mutasi` 
-				  INNER JOIN absensi_new.`tbl_jabatan_karyawan` 
-				    ON absensi_new.`tbl_karyawan_historical_mutasi`.`jabatan_baru` = absensi_new.`tbl_jabatan_karyawan`.`no_jabatan_karyawan` 
+				  `tbl_karyawan_historical_mutasi` 
+				  INNER JOIN `tbl_jabatan_karyawan` 
+				    ON `tbl_karyawan_historical_mutasi`.`jabatan_baru` = `tbl_jabatan_karyawan`.`no_jabatan_karyawan` 
 				WHERE DATE(
-				    absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`
+				    `tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`
 				  ) BETWEEN '$date1' 
 				  AND '$date2' 
-				  AND absensi_new.`tbl_karyawan_historical_mutasi`.`status_manager` = '$kondisi'
-				  AND absensi_new.`tbl_karyawan_historical_mutasi`.`status_atasan` = '1'
-				  ORDER BY DATE(absensi_new.`tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`) DESC ";
+				  AND `tbl_karyawan_historical_mutasi`.`status_manager` = '$kondisi'
+				  AND `tbl_karyawan_historical_mutasi`.`status_atasan` = '1'
+				  ORDER BY DATE(`tbl_karyawan_historical_mutasi`.`tanggal_pengajuan`) DESC ";
 	        $hasil = $this->db2->query($sql);
 	        return $hasil->result_array();
 		

@@ -973,50 +973,6 @@ class DailyActivity_sales extends REST_Controller
 		}
 	}
 
-	public function index_kelurahan_get()
-	{
-		$kode_dms = $this->get('kode_dms');
-		$user = $this->M_DailyActivity_sales->getPilih_kelurahanTVIP($kode_dms);
-
-		if ($user) {
-			$this->response([
-				'status' => true,
-				'data' => $user
-			], REST_Controller::HTTP_OK);
-		} else {
-			$this->response([
-				'status' => false,
-				'message' => 'Kode Nomor Not Found'
-			], REST_Controller::HTTP_NOT_FOUND);
-		}
-	}
-
-	public function index_customer_retail_get()
-	{
-		$szSoldToBranchId = $this->get('szSoldToBranchId');
-		$szSubDistrict = $this->get('szSubDistrict');
-		$user = $this->M_DailyActivity_sales->getCustomerRetail_TVIP($szSoldToBranchId, $szSubDistrict);
-
-		if ($user) {
-			$this->response([
-				'status' => true,
-				'data' => $user
-			], REST_Controller::HTTP_OK);
-		} else {
-			$user_asa = $this->M_DailyActivity_sales->getCustomerRetail_ASA($szSoldToBranchId, $szSubDistrict);
-			if ($user_asa) {
-				$this->response([
-					'status' => true,
-					'data' => $user_asa
-			], REST_Controller::HTTP_OK);
-				} else {
-				$this->response([
-					'status' => false,
-					'message' => 'Kode Nomor Not Found'
-				], REST_Controller::HTTP_NOT_FOUND);
-			}
-		}
-	}
 
 	public function index_feedbackHeader_get()
 	{

@@ -13,57 +13,57 @@ class M_Shifting extends CI_Model
 
 	public function get_index_shift($nik_baru = null, $id = null, $shift_day = null)
 	{
-		$where = " absensi_new.`tmp_karyawan_shift`.`jam_kerja` IS NOT NULL";
+		$where = " `tmp_karyawan_shift`.`jam_kerja` IS NOT NULL";
         if ($id!='') {
-            $where .= " AND absensi_new.`tmp_karyawan_shift`.`id_karyawan_shift` = '$id'";
+            $where .= " AND `tmp_karyawan_shift`.`id_karyawan_shift` = '$id'";
         }
         if ($nik_baru!='') {
-            $where .= "  AND absensi_new.`tmp_karyawan_shift`.`nik_shift` = '$nik_baru'";
+            $where .= "  AND `tmp_karyawan_shift`.`nik_shift` = '$nik_baru'";
         }
         if ($shift_day!='') {
-            $where .= "  AND absensi_new.`tmp_karyawan_shift`.`tanggal_shift` = '$shift_day'";
+            $where .= "  AND `tmp_karyawan_shift`.`tanggal_shift` = '$shift_day'";
         }
 
 		if ($nik_baru === null and $id === null and $shift_day === null) {
 			$sql="SELECT
-				absensi_new.`tmp_karyawan_shift`.`id_karyawan_shift`
-				, absensi_new.`tmp_karyawan_shift`.`nik_shift` AS nik_baru
-				, absensi_new.`tmp_karyawan_shift`.`nama_karyawan_shift`
-				, absensi_new.`tmp_karyawan_shift`.`lokasi_karyawan_shift`
-				, absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan`
-				, absensi_new.`tmp_karyawan_shift`.`dept_karyawan_shift`
-				, absensi_new.`tmp_karyawan_shift`.`tanggal_shift` AS shift_day
-				, absensi_new.`tbl_shifting`.`waktu_masuk`
-				, absensi_new.`tbl_shifting`.`waktu_keluar`
-				, absensi_new.`tmp_karyawan_shift`.`jam_kerja`
-			FROM absensi_new.`tmp_karyawan_shift`
-			INNER JOIN absensi_new.`tbl_shifting`
-				ON absensi_new.`tbl_shifting`.`id_shifting` = absensi_new.`tmp_karyawan_shift`.`jam_kerja`
-			INNER JOIN absensi_new.`tbl_jabatan_karyawan`
-				ON absensi_new.`tbl_jabatan_karyawan`.`no_jabatan_karyawan` = absensi_new.`tmp_karyawan_shift`.`jabatan_karyawan_shift`
+				`tmp_karyawan_shift`.`id_karyawan_shift`
+				, `tmp_karyawan_shift`.`nik_shift` AS nik_baru
+				, `tmp_karyawan_shift`.`nama_karyawan_shift`
+				, `tmp_karyawan_shift`.`lokasi_karyawan_shift`
+				, `tbl_jabatan_karyawan`.`jabatan_karyawan`
+				, `tmp_karyawan_shift`.`dept_karyawan_shift`
+				, `tmp_karyawan_shift`.`tanggal_shift` AS shift_day
+				, `tbl_shifting`.`waktu_masuk`
+				, `tbl_shifting`.`waktu_keluar`
+				, `tmp_karyawan_shift`.`jam_kerja`
+			FROM `tmp_karyawan_shift`
+			INNER JOIN `tbl_shifting`
+				ON `tbl_shifting`.`id_shifting` = `tmp_karyawan_shift`.`jam_kerja`
+			INNER JOIN `tbl_jabatan_karyawan`
+				ON `tbl_jabatan_karyawan`.`no_jabatan_karyawan` = `tmp_karyawan_shift`.`jabatan_karyawan_shift`
 			WHERE $where
-			ORDER BY absensi_new.`tmp_karyawan_shift`.`tanggal_shift` DESC";
+			ORDER BY `tmp_karyawan_shift`.`tanggal_shift` DESC";
 	        $hasil = $this->db2->query($sql);
 	    	return $hasil->result_array();
 		} else {
 			$sql="SELECT
-				absensi_new.`tmp_karyawan_shift`.`id_karyawan_shift`
-				, absensi_new.`tmp_karyawan_shift`.`nik_shift` AS nik_baru
-				, absensi_new.`tmp_karyawan_shift`.`nama_karyawan_shift`
-				, absensi_new.`tmp_karyawan_shift`.`lokasi_karyawan_shift`
-				, absensi_new.`tmp_karyawan_shift`.`dept_karyawan_shift`
-				, absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan`
-				, absensi_new.`tmp_karyawan_shift`.`tanggal_shift` AS shift_day
-				, absensi_new.`tbl_shifting`.`waktu_masuk`
-				, absensi_new.`tbl_shifting`.`waktu_keluar`
-				, absensi_new.`tmp_karyawan_shift`.`jam_kerja`
-			FROM absensi_new.`tmp_karyawan_shift`
-			INNER JOIN absensi_new.`tbl_shifting`
-				ON absensi_new.`tbl_shifting`.`id_shifting` = absensi_new.`tmp_karyawan_shift`.`jam_kerja`
-			INNER JOIN absensi_new.`tbl_jabatan_karyawan`
-				ON absensi_new.`tbl_jabatan_karyawan`.`no_jabatan_karyawan` = absensi_new.`tmp_karyawan_shift`.`jabatan_karyawan_shift`
+				`tmp_karyawan_shift`.`id_karyawan_shift`
+				, `tmp_karyawan_shift`.`nik_shift` AS nik_baru
+				, `tmp_karyawan_shift`.`nama_karyawan_shift`
+				, `tmp_karyawan_shift`.`lokasi_karyawan_shift`
+				, `tmp_karyawan_shift`.`dept_karyawan_shift`
+				, `tbl_jabatan_karyawan`.`jabatan_karyawan`
+				, `tmp_karyawan_shift`.`tanggal_shift` AS shift_day
+				, `tbl_shifting`.`waktu_masuk`
+				, `tbl_shifting`.`waktu_keluar`
+				, `tmp_karyawan_shift`.`jam_kerja`
+			FROM `tmp_karyawan_shift`
+			INNER JOIN `tbl_shifting`
+				ON `tbl_shifting`.`id_shifting` = `tmp_karyawan_shift`.`jam_kerja`
+			INNER JOIN `tbl_jabatan_karyawan`
+				ON `tbl_jabatan_karyawan`.`no_jabatan_karyawan` = `tmp_karyawan_shift`.`jabatan_karyawan_shift`
 			WHERE $where
-			ORDER BY absensi_new.`tmp_karyawan_shift`.`tanggal_shift` DESC";
+			ORDER BY `tmp_karyawan_shift`.`tanggal_shift` DESC";
 	        $hasil = $this->db2->query($sql);
 	    	return $hasil->result_array();
 		}
@@ -96,51 +96,51 @@ class M_Shifting extends CI_Model
 	{
 		if ($lokasi == 'Pusat') {
 			$sql = "SELECT
-						absensi_new.`tmp_karyawan_shift`.`id_karyawan_shift`
-						, absensi_new.`tmp_karyawan_shift`.`nik_shift` AS nik_baru
-						, absensi_new.`tmp_karyawan_shift`.`nama_karyawan_shift`
-						, absensi_new.`tmp_karyawan_shift`.`lokasi_karyawan_shift`
-						, absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan`
-						, absensi_new.`tmp_karyawan_shift`.`dept_karyawan_shift`
-						, absensi_new.`tmp_karyawan_shift`.`tanggal_shift` AS shift_day
-						, absensi_new.`tbl_shifting`.`waktu_masuk`
-						, absensi_new.`tbl_shifting`.`waktu_keluar`
-						, absensi_new.`tmp_karyawan_shift`.`jam_kerja`
-						FROM absensi_new.`tmp_karyawan_shift`
-						INNER JOIN absensi_new.`tbl_shifting`
-							ON absensi_new.`tbl_shifting`.`id_shifting` = absensi_new.`tmp_karyawan_shift`.`jam_kerja`
-						INNER JOIN absensi_new.`tbl_jabatan_karyawan`
-							ON absensi_new.`tbl_jabatan_karyawan`.`no_jabatan_karyawan` = absensi_new.`tmp_karyawan_shift`.`jabatan_karyawan_shift`
-						INNER JOIN absensi_new.`tbl_jabatan_karyawan_approval` 
+						`tmp_karyawan_shift`.`id_karyawan_shift`
+						, `tmp_karyawan_shift`.`nik_shift` AS nik_baru
+						, `tmp_karyawan_shift`.`nama_karyawan_shift`
+						, `tmp_karyawan_shift`.`lokasi_karyawan_shift`
+						, `tbl_jabatan_karyawan`.`jabatan_karyawan`
+						, `tmp_karyawan_shift`.`dept_karyawan_shift`
+						, `tmp_karyawan_shift`.`tanggal_shift` AS shift_day
+						, `tbl_shifting`.`waktu_masuk`
+						, `tbl_shifting`.`waktu_keluar`
+						, `tmp_karyawan_shift`.`jam_kerja`
+						FROM `tmp_karyawan_shift`
+						INNER JOIN `tbl_shifting`
+							ON `tbl_shifting`.`id_shifting` = `tmp_karyawan_shift`.`jam_kerja`
+						INNER JOIN `tbl_jabatan_karyawan`
+							ON `tbl_jabatan_karyawan`.`no_jabatan_karyawan` = `tmp_karyawan_shift`.`jabatan_karyawan_shift`
+						INNER JOIN `tbl_jabatan_karyawan_approval` 
 							ON tmp_karyawan_shift.`jabatan_karyawan_shift` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 						WHERE (tbl_jabatan_karyawan_approval.`no_jabatan_karyawan_atasan_1`='$jabatan' 
 							OR tbl_jabatan_karyawan_approval.`no_jabatan_karyawan_atasan_2`='$jabatan')
-						ORDER BY absensi_new.`tmp_karyawan_shift`.`tanggal_shift` DESC";
+						ORDER BY `tmp_karyawan_shift`.`tanggal_shift` DESC";
 	        $hasil = $this->db2->query($sql);
 	        return $hasil->result_array();
 		} else {
 			$sql = "SELECT
-					absensi_new.`tmp_karyawan_shift`.`id_karyawan_shift`
-					, absensi_new.`tmp_karyawan_shift`.`nik_shift` AS nik_baru
-					, absensi_new.`tmp_karyawan_shift`.`nama_karyawan_shift`
-					, absensi_new.`tmp_karyawan_shift`.`lokasi_karyawan_shift`
-					, absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan`
-					, absensi_new.`tmp_karyawan_shift`.`dept_karyawan_shift`
-					, absensi_new.`tmp_karyawan_shift`.`tanggal_shift` AS shift_day
-					, absensi_new.`tbl_shifting`.`waktu_masuk`
-					, absensi_new.`tbl_shifting`.`waktu_keluar`
-					, absensi_new.`tmp_karyawan_shift`.`jam_kerja`
-					FROM absensi_new.`tmp_karyawan_shift`
-					INNER JOIN absensi_new.`tbl_shifting`
-						ON absensi_new.`tbl_shifting`.`id_shifting` = absensi_new.`tmp_karyawan_shift`.`jam_kerja`
-					INNER JOIN absensi_new.`tbl_jabatan_karyawan`
-						ON absensi_new.`tbl_jabatan_karyawan`.`no_jabatan_karyawan` = absensi_new.`tmp_karyawan_shift`.`jabatan_karyawan_shift`
-					INNER JOIN absensi_new.`tbl_jabatan_karyawan_approval` 
+					`tmp_karyawan_shift`.`id_karyawan_shift`
+					, `tmp_karyawan_shift`.`nik_shift` AS nik_baru
+					, `tmp_karyawan_shift`.`nama_karyawan_shift`
+					, `tmp_karyawan_shift`.`lokasi_karyawan_shift`
+					, `tbl_jabatan_karyawan`.`jabatan_karyawan`
+					, `tmp_karyawan_shift`.`dept_karyawan_shift`
+					, `tmp_karyawan_shift`.`tanggal_shift` AS shift_day
+					, `tbl_shifting`.`waktu_masuk`
+					, `tbl_shifting`.`waktu_keluar`
+					, `tmp_karyawan_shift`.`jam_kerja`
+					FROM `tmp_karyawan_shift`
+					INNER JOIN `tbl_shifting`
+						ON `tbl_shifting`.`id_shifting` = `tmp_karyawan_shift`.`jam_kerja`
+					INNER JOIN `tbl_jabatan_karyawan`
+						ON `tbl_jabatan_karyawan`.`no_jabatan_karyawan` = `tmp_karyawan_shift`.`jabatan_karyawan_shift`
+					INNER JOIN `tbl_jabatan_karyawan_approval` 
 						ON tmp_karyawan_shift.`jabatan_karyawan_shift` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 					WHERE (tbl_jabatan_karyawan_approval.`no_jabatan_karyawan_atasan_1`='$jabatan' 
 						            OR tbl_jabatan_karyawan_approval.`no_jabatan_karyawan_atasan_2`='$jabatan')
 					AND lokasi_karyawan_shift = '$lokasi'
-					ORDER BY absensi_new.`tmp_karyawan_shift`.`tanggal_shift` DESC";
+					ORDER BY `tmp_karyawan_shift`.`tanggal_shift` DESC";
 	        $hasil = $this->db2->query($sql);
 	        return $hasil->result_array();
 		}

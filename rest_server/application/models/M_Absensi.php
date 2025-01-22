@@ -8,7 +8,11 @@ class M_Absensi extends CI_Model
 
     public function __construct()
     {
-        # code...
+                    $absensi = $this->config->item('db_absensi');
+                    $payroll = $this->config->item('db_payroll');
+                    $adms = $this->config->item('db_adms');
+
+
     }
 
     public function getKeteranganMasukMobile($nik_baru = null, $tanggal = null)
@@ -34,12 +38,12 @@ class M_Absensi extends CI_Model
 
     public function getAbsensi($tanggal1 = null, $tanggal2 = null, $nik = null, $depo = null, $pt = null, $jabatan = null, $dept = null)
     {
-        $where = " DATE(absensi_new.`tarikan_absen_adms`.`shift_day`) >= '$tanggal1' AND DATE(absensi_new.`tarikan_absen_adms`.`shift_day`) <= '$tanggal2'";
+        $where = " DATE(`tarikan_absen_adms`.`shift_day`) >= '$tanggal1' AND DATE(`tarikan_absen_adms`.`shift_day`) <= '$tanggal2'";
         if ($nik != '') {
-            $where .= " and absensi_new.`tarikan_absen_adms`.`badgenumber` = '$nik'";
+            $where .= " and `tarikan_absen_adms`.`badgenumber` = '$nik'";
         }
         if ($depo != '') {
-            $where .= "  and absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur` = '$depo'";
+            $where .= "  and `tbl_karyawan_struktur`.`lokasi_struktur` = '$depo'";
         }
         if ($jabatan != '') {
             $where .= "  and tbl_karyawan_struktur.jabatan_struktur = '$jabatan'";
@@ -105,13 +109,13 @@ class M_Absensi extends CI_Model
                 OR tbl_final.`dept_struktur` <> 'Warehouse Operation')
                 THEN 'LI'
                 WHEN tbl_final.`shift_day` BETWEEN '$tanggal1'
-                and (SELECT absensi_new.`tbl_karyawan_struktur`.`join_date_struktur` FROM absensi_new.`tbl_karyawan_struktur`
-                WHERE absensi_new.`tbl_karyawan_struktur`.`nik_baru` = '$nik' 
-                AND absensi_new.`tbl_karyawan_struktur`.`join_date_struktur` >= '$tanggal1')
+                and (SELECT `tbl_karyawan_struktur`.`join_date_struktur` FROM `tbl_karyawan_struktur`
+                WHERE `tbl_karyawan_struktur`.`nik_baru` = '$nik' 
+                AND `tbl_karyawan_struktur`.`join_date_struktur` >= '$tanggal1')
                 THEN 'NEW'
-                when tbl_final.`shift_day` between (SELECT absensi_new.`tbl_resign`.`tanggal_efektif_resign` FROM absensi_new.`tbl_resign`
-                where absensi_new.`tbl_resign`.`nik_resign` = '$nik' 
-                and absensi_new.`tbl_resign`.`tanggal_efektif_resign` >= '$tanggal1') and '$tanggal2'
+                when tbl_final.`shift_day` between (SELECT `tbl_resign`.`tanggal_efektif_resign` FROM `tbl_resign`
+                where `tbl_resign`.`nik_resign` = '$nik' 
+                and `tbl_resign`.`tanggal_efektif_resign` >= '$tanggal1') and '$tanggal2'
                 then 'RESIGN'
                 WHEN tbl_final.f1 IS NULL
                     AND tbl_final.f4 IS NULL
@@ -136,310 +140,310 @@ class M_Absensi extends CI_Model
                 ELSE ''
                 END  AS `waktu_telat`
                 FROM (SELECT 
-                absensi_new.`tarikan_absen_adms`.`shift_day`
-                , absensi_new.`tarikan_absen_adms`.`badgenumber`
-                , absensi_new.`tarikan_absen_adms`.`name`
-                , absensi_new.`tbl_jabatan_karyawan`.`jabatan_karyawan`
-                , absensi_new.`tbl_karyawan_struktur`.`jabatan_struktur`
-                , absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur`
-                , absensi_new.`tbl_karyawan_struktur`.`dept_struktur`
-                , absensi_new.`tbl_karyawan_struktur`.`join_date_struktur`
+                `tarikan_absen_adms`.`shift_day`
+                , `tarikan_absen_adms`.`badgenumber`
+                , `tarikan_absen_adms`.`name`
+                , `tbl_jabatan_karyawan`.`jabatan_karyawan`
+                , `tbl_karyawan_struktur`.`jabatan_struktur`
+                , `tbl_karyawan_struktur`.`lokasi_struktur`
+                , `tbl_karyawan_struktur`.`dept_struktur`
+                , `tbl_karyawan_struktur`.`join_date_struktur`
                 , CASE
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '7' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '7' 
                 THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`) , ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`) , ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '25' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '25' 
                     THEN CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                    , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                    date(`tarikan_absen_adms`.`shift_day`), ' '
+                    , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                     ) AS DATETIME
                     ) - INTERVAL 5 HOUR 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '28' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '28' 
                     THEN CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                    , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                    date(`tarikan_absen_adms`.`shift_day`), ' '
+                    , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                     ) AS DATETIME
                     ) - INTERVAL 5 HOUR 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` is not null
+                WHEN `tarikan_absen_adms`.`waktu_shift` is not null
                 THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 ) AS DATETIME
                 ) - INTERVAL 5 HOUR 
                 ELSE CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 04:00:01'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 04:00:01'
                 ) AS DATETIME
                 ) 
                 END AS minimum_in
                 , CASE 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '18' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '18' 
                 THEN 'OFF'
-                WHEN absensi_new.`tarikan_absen_adms`.`in_manual` IS NOT NULL 
-                AND absensi_new.`tarikan_absen_adms`.`in_manual` >= '22:00:01'
-                AND absensi_new.`tarikan_absen_adms`.`in_manual` <= '23:59:59'
+                WHEN `tarikan_absen_adms`.`in_manual` IS NOT NULL 
+                AND `tarikan_absen_adms`.`in_manual` >= '22:00:01'
+                AND `tarikan_absen_adms`.`in_manual` <= '23:59:59'
                 THEN  CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , absensi_new.`tarikan_absen_adms`.`in_manual`
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , `tarikan_absen_adms`.`in_manual`
                 ) AS DATETIME
                 ) - INTERVAL 1 DAY
-                WHEN absensi_new.`tarikan_absen_adms`.`in_manual` IS NOT NULL
+                WHEN `tarikan_absen_adms`.`in_manual` IS NOT NULL
                     THEN  CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                    , absensi_new.`tarikan_absen_adms`.`in_manual`
+                    date(`tarikan_absen_adms`.`shift_day`), ' '
+                    , `tarikan_absen_adms`.`in_manual`
                     ) AS DATETIME
                     )   
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` IS NULL
+                WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL
                 THEN (
                 SELECT MIN(checktime)
-                FROM adms_db.checkinout masuk_normal
+                FROM u1721210_adms_db.checkinout masuk_normal
                 WHERE masuk_normal.userid=userinfo.userid
                 AND masuk_normal.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 04:00:01'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 04:00:01'
                 ) AS DATETIME
                 )
                 AND masuk_normal.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 12:00:59'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 12:00:59'
                 ) AS DATETIME
                 ) 
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` <= '2020-05-30'
-                and absensi_new.`tarikan_absen_adms`.`waktu_shift` = '21'
+                WHEN `tarikan_absen_adms`.`shift_day` <= '2020-05-30'
+                and `tarikan_absen_adms`.`waktu_shift` = '21'
                 THEN (
                 SELECT MIN(checktime)
-                FROM adms_db.checkinout masuk_malem
+                FROM u1721210_adms_db.checkinout masuk_malem
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '22:00:00')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '22:00:00')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR
                 AND masuk_malem.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '22:00:00')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '22:00:00')
                 ) AS DATETIME
                 ) + INTERVAL 4 HOUR
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` <= '2020-05-30'
-                AND absensi_new.`tarikan_absen_adms`.`waktu_shift` = '24'
+                WHEN `tarikan_absen_adms`.`shift_day` <= '2020-05-30'
+                AND `tarikan_absen_adms`.`waktu_shift` = '24'
                 THEN (
                 SELECT MIN(checktime)
-                FROM adms_db.checkinout masuk_malem
+                FROM u1721210_adms_db.checkinout masuk_malem
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '13:00:00')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '13:00:00')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR
                 AND masuk_malem.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '13:00:00')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '13:00:00')
                 ) AS DATETIME
                 ) + INTERVAL 4 HOUR
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '25'
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '25'
                 THEN (
                 SELECT MIN(checktime)
-                FROM adms_db.checkinout masuk_malem
+                FROM u1721210_adms_db.checkinout masuk_malem
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR
                 AND masuk_malem.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 ) AS DATETIME
                 ) + INTERVAL 4 HOUR
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '30'
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '30'
                 THEN (
                 SELECT MIN(checktime)
-                FROM adms_db.checkinout masuk_malem
+                FROM u1721210_adms_db.checkinout masuk_malem
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR
                 AND masuk_malem.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '03:00:00')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '03:00:00')
                 ) AS DATETIME
                 ) + INTERVAL 1 day
                 )
                 ELSE (
                 SELECT MIN(checktime)
-                FROM adms_db.checkinout masuk_malem
+                FROM u1721210_adms_db.checkinout masuk_malem
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR
                 AND masuk_malem.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 ) AS DATETIME
                 ) + INTERVAL 4 HOUR
                 )
                 END AS `f1`
                 , CASE  
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` IS NULL
+                WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL
                 THEN (
-                SELECT absensi_new.`tbl_depo`.`depo_nama`
-                FROM adms_db.checkinout masuk_normal
-                LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                SELECT `tbl_depo`.`depo_nama`
+                FROM u1721210_adms_db.checkinout masuk_normal
+                LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                 WHERE masuk_normal.userid=userinfo.userid
                 AND masuk_normal.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 04:00:01'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 04:00:01'
                 ) AS DATETIME
                 )
                 AND masuk_normal.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 12:00:59'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 12:00:59'
                 ) AS DATETIME
                 ) 
                 LIMIT 0, 1
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` <= '2020-05-30'
-                AND absensi_new.`tarikan_absen_adms`.`waktu_shift` = '21'
+                WHEN `tarikan_absen_adms`.`shift_day` <= '2020-05-30'
+                AND `tarikan_absen_adms`.`waktu_shift` = '21'
                 THEN (
-                SELECT absensi_new.`tbl_depo`.`depo_nama`
-                FROM adms_db.checkinout masuk_malem
-                LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_malem.`SN` = absensi_new.`sn_depo`.`SN`
-                LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                SELECT `tbl_depo`.`depo_nama`
+                FROM u1721210_adms_db.checkinout masuk_malem
+                LEFT JOIN `sn_depo`
+                    ON masuk_malem.`SN` = `sn_depo`.`SN`
+                LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '22:00:00')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '22:00:00')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR
                 AND masuk_malem.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '22:00:00')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '22:00:00')
                 ) AS DATETIME
                 ) + INTERVAL 4 HOUR
                 LIMIT 0, 1
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` <= '2020-05-30'
-                AND absensi_new.`tarikan_absen_adms`.`waktu_shift` = '24'
+                WHEN `tarikan_absen_adms`.`shift_day` <= '2020-05-30'
+                AND `tarikan_absen_adms`.`waktu_shift` = '24'
                 THEN (
-                SELECT absensi_new.`tbl_depo`.`depo_nama`
-                FROM adms_db.checkinout masuk_malem
-                LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_malem.`SN` = absensi_new.`sn_depo`.`SN`
-                LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                SELECT `tbl_depo`.`depo_nama`
+                FROM u1721210_adms_db.checkinout masuk_malem
+                LEFT JOIN `sn_depo`
+                    ON masuk_malem.`SN` = `sn_depo`.`SN`
+                LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '13:00:00')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '13:00:00')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR
                 AND masuk_malem.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '13:00:00')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '13:00:00')
                 ) AS DATETIME
                 ) + INTERVAL 4 HOUR
                 LIMIT 0, 1
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '25'
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '25'
                 THEN (
-                SELECT absensi_new.`tbl_depo`.`depo_nama`
-                FROM adms_db.checkinout masuk_malem
-                LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_malem.`SN` = absensi_new.`sn_depo`.`SN`
-                LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                SELECT `tbl_depo`.`depo_nama`
+                FROM u1721210_adms_db.checkinout masuk_malem
+                LEFT JOIN `sn_depo`
+                    ON masuk_malem.`SN` = `sn_depo`.`SN`
+                LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR
                 AND masuk_malem.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 ) AS DATETIME
                 ) + INTERVAL 4 HOUR
                 LIMIT 0, 1
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '30'
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '30'
                 THEN (
-                SELECT absensi_new.`tbl_depo`.`depo_nama`
-                FROM adms_db.checkinout masuk_malem
-                LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_malem.`SN` = absensi_new.`sn_depo`.`SN`
-                LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                SELECT `tbl_depo`.`depo_nama`
+                FROM u1721210_adms_db.checkinout masuk_malem
+                LEFT JOIN `sn_depo`
+                    ON masuk_malem.`SN` = `sn_depo`.`SN`
+                LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR
                 AND masuk_malem.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '03:00:00')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '03:00:00')
                 ) AS DATETIME
                 ) + INTERVAL 1 day
                 LIMIT 0, 1
                 )
                 ELSE (
-                SELECT absensi_new.`tbl_depo`.`depo_nama`
-                FROM adms_db.checkinout masuk_malem
-                LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_malem.`SN` = absensi_new.`sn_depo`.`SN`
-                LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                SELECT `tbl_depo`.`depo_nama`
+                FROM u1721210_adms_db.checkinout masuk_malem
+                LEFT JOIN `sn_depo`
+                    ON masuk_malem.`SN` = `sn_depo`.`SN`
+                LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR
                 AND masuk_malem.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 ) AS DATETIME
                 ) + INTERVAL 4 HOUR
                 LIMIT 0, 1
@@ -448,858 +452,858 @@ class M_Absensi extends CI_Model
                 , CAST(
                 CONCAT(
                 case 
-                when absensi_new.`tarikan_absen_adms`.`waktu_shift` = '25' 
-                    then DATE(absensi_new.`tarikan_absen_adms`.`shift_day`)
+                when `tarikan_absen_adms`.`waktu_shift` = '25' 
+                    then DATE(`tarikan_absen_adms`.`shift_day`)
                 else 
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`)
+                    DATE(`tarikan_absen_adms`.`shift_day`)
                 end, ' '
                 , CASE 
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` <= '2020-05-30' 
-                and absensi_new.`tarikan_absen_adms`.`waktu_shift` = '21' THEN '22:00:00'
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` <= '2020-05-30' 
-                AND absensi_new.`tarikan_absen_adms`.`waktu_shift` = '24' THEN '13:00:00'
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` IS NULL THEN '08:00:00'
-                ELSE TIME_FORMAT(absensi_new.tbl_shifting.waktu_masuk, '%H:%i:%S')
+                WHEN `tarikan_absen_adms`.`shift_day` <= '2020-05-30' 
+                and `tarikan_absen_adms`.`waktu_shift` = '21' THEN '22:00:00'
+                WHEN `tarikan_absen_adms`.`shift_day` <= '2020-05-30' 
+                AND `tarikan_absen_adms`.`waktu_shift` = '24' THEN '13:00:00'
+                WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL THEN '08:00:00'
+                ELSE TIME_FORMAT(tbl_shifting.waktu_masuk, '%H:%i:%S')
                 END
                 ) AS DATETIME
                 ) AS waktu_masuk
                 , CASE
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '16' THEN CAST(
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '16' THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 07:00:00'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 07:00:00'
                 ) AS DATETIME  
                 ) + INTERVAL 1 DAY 
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` <= '2020-05-30'
-                and absensi_new.`tarikan_absen_adms`.`waktu_shift` = '21' THEN CAST(
+                WHEN `tarikan_absen_adms`.`shift_day` <= '2020-05-30'
+                and `tarikan_absen_adms`.`waktu_shift` = '21' THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 07:00:00'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 07:00:00'
                 ) AS DATETIME  
                 ) + INTERVAL 1 DAY 
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` <= '2020-05-30'
-                AND absensi_new.`tarikan_absen_adms`.`waktu_shift` = '24' THEN CAST(
+                WHEN `tarikan_absen_adms`.`shift_day` <= '2020-05-30'
+                AND `tarikan_absen_adms`.`waktu_shift` = '24' THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 22:00:00'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 22:00:00'
                 ) AS DATETIME  
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '21' THEN CAST(
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '21' THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 06:00:00'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 06:00:00'
                 ) AS DATETIME  
                 ) + INTERVAL 1 DAY 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '25' THEN CAST(
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '25' THEN CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 08:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 08:00:00'
                     ) AS DATETIME  
                     ) + interval 1 day
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '27' THEN CAST(
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '27' THEN CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 01:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 01:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '28' THEN CAST(
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '28' THEN CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 06:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 06:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '29' THEN CAST(
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '29' THEN CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 01:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 01:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '30' THEN CAST(
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '30' THEN CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 08:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 08:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '31' THEN CAST(
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '31' THEN CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 04:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 04:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '35' THEN CAST(
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '35' THEN CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '37' THEN CAST(
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '37' THEN CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 08:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 08:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                WHEN absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL AND absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` > '00:00:01' 
-                AND absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` < '03:00:00' THEN CAST(
+                WHEN `tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL AND `tarikan_absen_adms`.`attendance_date_longshift` > '00:00:01' 
+                AND `tarikan_absen_adms`.`attendance_date_longshift` < '03:00:00' THEN CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`),' ',absensi_new.`tarikan_absen_adms`.`attendance_date_longshift`
+                    date(`tarikan_absen_adms`.`shift_day`),' ',`tarikan_absen_adms`.`attendance_date_longshift`
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL THEN CAST(
+                    WHEN `tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL THEN CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`),' ',absensi_new.`tarikan_absen_adms`.`attendance_date_longshift`
+                    date(`tarikan_absen_adms`.`shift_day`),' ',`tarikan_absen_adms`.`attendance_date_longshift`
                     ) AS DATETIME  
                     )
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` BETWEEN '2020-03-26'
+                WHEN `tarikan_absen_adms`.`shift_day` BETWEEN '2020-03-26'
                 AND '2020-05-31' THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
                 , CASE 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` IS NULL THEN '16:00:00'
-                ELSE TIME_FORMAT(absensi_new.tbl_shifting.waktu_keluar, '%H:%i:%S')
+                WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL THEN '16:00:00'
+                ELSE TIME_FORMAT(tbl_shifting.waktu_keluar, '%H:%i:%S')
                 END
                 ) AS DATETIME
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` BETWEEN '2020-09-18'
+                WHEN `tarikan_absen_adms`.`shift_day` BETWEEN '2020-09-18'
                 AND '2020-09-30' 
-                AND (absensi_new.`tbl_karyawan_struktur`.`dept_struktur` = 'Information Communication and Technology' 
-                OR absensi_new.`tbl_karyawan_struktur`.`dept_struktur` = 'Warehouse Operation') 
+                AND (`tbl_karyawan_struktur`.`dept_struktur` = 'Information Communication and Technology' 
+                OR `tbl_karyawan_struktur`.`dept_struktur` = 'Warehouse Operation') 
                 THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
                 , CASE 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` IS NULL THEN '17:00:00'
-                ELSE TIME_FORMAT(absensi_new.tbl_shifting.waktu_keluar, '%H:%i:%S')
+                WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL THEN '17:00:00'
+                ELSE TIME_FORMAT(tbl_shifting.waktu_keluar, '%H:%i:%S')
                 END
                 ) AS DATETIME
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` BETWEEN '2020-09-14'
+                WHEN `tarikan_absen_adms`.`shift_day` BETWEEN '2020-09-14'
                 AND '2020-09-30' THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
                 , CASE 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` IS NULL THEN '16:00:00'
-                ELSE TIME_FORMAT(absensi_new.tbl_shifting.waktu_keluar, '%H:%i:%S')
+                WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL THEN '16:00:00'
+                ELSE TIME_FORMAT(tbl_shifting.waktu_keluar, '%H:%i:%S')
                 END
                 ) AS DATETIME
                 )
                 ELSE CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
                 , CASE 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` IS NULL THEN '17:00:00'
-                ELSE TIME_FORMAT(absensi_new.tbl_shifting.waktu_keluar, '%H:%i:%S')
+                WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL THEN '17:00:00'
+                ELSE TIME_FORMAT(tbl_shifting.waktu_keluar, '%H:%i:%S')
                 END
                 ) AS DATETIME
                 )
                 END AS waktu_keluar
                 , CASE 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '18' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '18' 
                 THEN 'OFF'
-                WHEN absensi_new.`tarikan_absen_adms`.`out_manual` IS NOT NULL 
-                AND absensi_new.`tarikan_absen_adms`.`out_manual` >= '00:00:01'
-                AND absensi_new.`tarikan_absen_adms`.`out_manual` <= '12:00:00'
+                WHEN `tarikan_absen_adms`.`out_manual` IS NOT NULL 
+                AND `tarikan_absen_adms`.`out_manual` >= '00:00:01'
+                AND `tarikan_absen_adms`.`out_manual` <= '12:00:00'
                 THEN  CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , absensi_new.`tarikan_absen_adms`.`out_manual`
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , `tarikan_absen_adms`.`out_manual`
                 ) AS DATETIME
                 ) + INTERVAL 1 DAY
-                WHEN absensi_new.`tarikan_absen_adms`.`out_manual` IS NOT NULL
+                WHEN `tarikan_absen_adms`.`out_manual` IS NOT NULL
                 THEN  CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , absensi_new.`tarikan_absen_adms`.`out_manual`
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , `tarikan_absen_adms`.`out_manual`
                 ) AS DATETIME
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '16' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '16' 
                 THEN (
                 SELECT MAX(checktime)
-                FROM adms_db.checkinout masuk_normal
+                FROM u1721210_adms_db.checkinout masuk_normal
                 WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 03:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 03:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` <= '2020-05-30' 
-                and absensi_new.`tarikan_absen_adms`.`waktu_shift` = '24' 
+                WHEN `tarikan_absen_adms`.`shift_day` <= '2020-05-30' 
+                and `tarikan_absen_adms`.`waktu_shift` = '24' 
                 THEN (
                 SELECT MAX(checktime)
-                FROM adms_db.checkinout masuk_normal
+                FROM u1721210_adms_db.checkinout masuk_normal
                 WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 18:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 18:00:00'
                     ) AS DATETIME  
                     )
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '21' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '21' 
                 THEN (
                 SELECT MAX(checktime)
-                FROM adms_db.checkinout masuk_normal
+                FROM u1721210_adms_db.checkinout masuk_normal
                 WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 10:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 10:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift`= '25' 
+                WHEN `tarikan_absen_adms`.`waktu_shift`= '25' 
                     THEN (
                     SELECT MAX(checktime)
-                    FROM adms_db.checkinout masuk_normal
+                    FROM u1721210_adms_db.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 03:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 03:00:00'
                     ) AS DATETIME  
                     ) + interval 1 day
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 13:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 13:00:00'
                     ) AS DATETIME  
                     ) + interval 1 day
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '27' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '27' 
                     THEN (
                     SELECT MAX(checktime)
-                    FROM adms_db.checkinout masuk_normal
+                    FROM u1721210_adms_db.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 09:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 09:00:00'
                     ) AS DATETIME  
                     )
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '28' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '28' 
                     THEN (
                     SELECT MAX(checktime)
-                    FROM adms_db.checkinout masuk_normal
+                    FROM u1721210_adms_db.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '29' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '29' 
                     THEN (
                     SELECT max(checktime)
-                    FROM adms_db.checkinout masuk_normal
+                    FROM u1721210_adms_db.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 21:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 21:00:00'
                     ) AS DATETIME  
                     )
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '30' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '30' 
                     THEN (
                     SELECT MAX(checktime)
-                    FROM adms_db.checkinout masuk_normal
+                    FROM u1721210_adms_db.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 04:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 04:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '31' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '31' 
                     THEN (
                     SELECT max(checktime)
-                    FROM adms_db.checkinout masuk_normal
+                    FROM u1721210_adms_db.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 00:00:01'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 00:00:01'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 08:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 08:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '35' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '35' 
                     THEN (
                     SELECT MAX(checktime)
-                    FROM adms_db.checkinout masuk_normal
+                    FROM u1721210_adms_db.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 01:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 01:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 09:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 09:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '37' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '37' 
                     THEN (
                     SELECT MAX(checktime)
-                    FROM adms_db.checkinout masuk_normal
+                    FROM u1721210_adms_db.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 04:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 04:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     )
-                WHEN absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL AND absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` > '00:00:01' 
-                AND absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` < '03:00:00'
+                WHEN `tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL AND `tarikan_absen_adms`.`attendance_date_longshift` > '00:00:01' 
+                AND `tarikan_absen_adms`.`attendance_date_longshift` < '03:00:00'
                     THEN (
                     SELECT MAX(checktime)
-                    FROM adms_db.checkinout masuk_normal
+                    FROM u1721210_adms_db.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    absensi_new.`tarikan_absen_adms`.`shift_day`, ' 00:00:01'
+                    `tarikan_absen_adms`.`shift_day`, ' 00:00:01'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    absensi_new.`tarikan_absen_adms`.`shift_day`, ' 03:00:00'
+                    `tarikan_absen_adms`.`shift_day`, ' 03:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     )
-                 WHEN absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL
+                 WHEN `tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL
                     THEN (
                     SELECT MAX(checktime)
-                    FROM adms_db.checkinout masuk_normal
+                    FROM u1721210_adms_db.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                    , TIME_FORMAT(absensi_new.`tarikan_absen_adms`.`attendance_date_longshift`, '%H:%i:%S')
+                    date(`tarikan_absen_adms`.`shift_day`), ' '
+                    , TIME_FORMAT(`tarikan_absen_adms`.`attendance_date_longshift`, '%H:%i:%S')
                     ) AS DATETIME  
                     ) - INTERVAL 5 hour 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                    , TIME_FORMAT(absensi_new.`tarikan_absen_adms`.`attendance_date_longshift`, '%H:%i:%S')
+                    date(`tarikan_absen_adms`.`shift_day`), ' '
+                    , TIME_FORMAT(`tarikan_absen_adms`.`attendance_date_longshift`, '%H:%i:%S')
                     ) AS DATETIME  
                     ) + INTERVAL 5 hour 
                     )
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` IS NULL
+                WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL
                 THEN (
                 SELECT MAX(checktime)
-                FROM adms_db.checkinout masuk_normal
+                FROM u1721210_adms_db.checkinout masuk_normal
                 WHERE masuk_normal.userid=userinfo.userid
                 AND masuk_normal.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 12:01:00'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 12:01:00'
                 ) AS DATETIME
                 )
                 AND masuk_normal.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 23:59:59'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 23:59:59'
                 ) AS DATETIME
                 ) 
                 )
                 ELSE (
                 SELECT MAX(checktime)
-                FROM adms_db.checkinout keluar_malem
+                FROM u1721210_adms_db.checkinout keluar_malem
                 WHERE keluar_malem.userid=userinfo.userid
                 AND keluar_malem.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_keluar, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_keluar, '%H:%i:%S')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR
                 AND keluar_malem.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_keluar, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_keluar, '%H:%i:%S')
                 ) AS DATETIME
                 ) + INTERVAL 4 HOUR
                 )
                 END AS `f4`
                 , CASE 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '16' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '16' 
                 THEN (
-                SELECT absensi_new.`tbl_depo`.`depo_nama`
-                FROM adms_db.checkinout masuk_normal
-                LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                SELECT `tbl_depo`.`depo_nama`
+                FROM u1721210_adms_db.checkinout masuk_normal
+                LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                 WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 03:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 03:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                 LIMIT 0, 1
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`shift_day` <= '2020-05-30' 
-                and absensi_new.`tarikan_absen_adms`.`waktu_shift` = '24' 
+                WHEN `tarikan_absen_adms`.`shift_day` <= '2020-05-30' 
+                and `tarikan_absen_adms`.`waktu_shift` = '24' 
                 THEN (
-                SELECT absensi_new.`tbl_depo`.`depo_nama`
-                FROM adms_db.checkinout masuk_normal
-                LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                SELECT `tbl_depo`.`depo_nama`
+                FROM u1721210_adms_db.checkinout masuk_normal
+                LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                 WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 18:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 18:00:00'
                     ) AS DATETIME  
                     )
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                 LIMIT 0, 1
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '21' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '21' 
                 THEN (
-                SELECT absensi_new.`tbl_depo`.`depo_nama`
-                FROM adms_db.checkinout masuk_normal
-                LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                SELECT `tbl_depo`.`depo_nama`
+                FROM u1721210_adms_db.checkinout masuk_normal
+                LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                 WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 10:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 10:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                 LIMIT 0, 1
                 )
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift`= '25' 
+                WHEN `tarikan_absen_adms`.`waktu_shift`= '25' 
                     THEN (
-                    SELECT absensi_new.`tbl_depo`.`depo_nama`
-                    FROM adms_db.checkinout masuk_normal
-                    LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                    LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                    SELECT `tbl_depo`.`depo_nama`
+                    FROM u1721210_adms_db.checkinout masuk_normal
+                    LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                    LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 03:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 03:00:00'
                     ) AS DATETIME  
                     ) + interval 1 day
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 13:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 13:00:00'
                     ) AS DATETIME  
                     ) + interval 1 day
                     LIMIT 0, 1
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '27' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '27' 
                     THEN (
-                    SELECT absensi_new.`tbl_depo`.`depo_nama`
-                    FROM adms_db.checkinout masuk_normal
-                    LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                    LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                    SELECT `tbl_depo`.`depo_nama`
+                    FROM u1721210_adms_db.checkinout masuk_normal
+                    LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                    LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 09:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 09:00:00'
                     ) AS DATETIME  
                     )
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     LIMIT 0, 1
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '28' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '28' 
                     THEN (
-                    SELECT absensi_new.`tbl_depo`.`depo_nama`
-                    FROM adms_db.checkinout masuk_normal
-                    LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                    LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                    SELECT `tbl_depo`.`depo_nama`
+                    FROM u1721210_adms_db.checkinout masuk_normal
+                    LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                    LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     LIMIT 0, 1
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '29' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '29' 
                     THEN (
-                    SELECT absensi_new.`tbl_depo`.`depo_nama`
-                    FROM adms_db.checkinout masuk_normal
-                    LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                    LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                    SELECT `tbl_depo`.`depo_nama`
+                    FROM u1721210_adms_db.checkinout masuk_normal
+                    LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                    LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 21:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 21:00:00'
                     ) AS DATETIME  
                     )
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     LIMIT 0, 1
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '30' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '30' 
                     THEN (
-                    SELECT absensi_new.`tbl_depo`.`depo_nama`
-                    FROM adms_db.checkinout masuk_normal
-                    LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                    LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                    SELECT `tbl_depo`.`depo_nama`
+                    FROM u1721210_adms_db.checkinout masuk_normal
+                    LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                    LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 04:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 04:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     LIMIT 0, 1
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '31' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '31' 
                     THEN (
-                    SELECT absensi_new.`tbl_depo`.`depo_nama`
-                    FROM adms_db.checkinout masuk_normal
-                    LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                    LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                    SELECT `tbl_depo`.`depo_nama`
+                    FROM u1721210_adms_db.checkinout masuk_normal
+                    LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                    LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 00:00:01'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 00:00:01'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 08:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 08:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     LIMIT 0, 1
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '35' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '35' 
                     THEN (
-                    SELECT absensi_new.`tbl_depo`.`depo_nama`
-                    FROM adms_db.checkinout masuk_normal
-                    LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                    LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                    SELECT `tbl_depo`.`depo_nama`
+                    FROM u1721210_adms_db.checkinout masuk_normal
+                    LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                    LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 01:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 01:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 09:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 09:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     LIMIT 0, 1
                     )
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '37' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '37' 
                     THEN (
-                    SELECT absensi_new.`tbl_depo`.`depo_nama`
-                    FROM adms_db.checkinout masuk_normal
-                    LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                    LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                    SELECT `tbl_depo`.`depo_nama`
+                    FROM u1721210_adms_db.checkinout masuk_normal
+                    LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                    LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 04:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 04:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     LIMIT 0, 1
                     )
-                WHEN absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL AND absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` > '00:00:01' 
-                AND absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` < '03:00:00'
+                WHEN `tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL AND `tarikan_absen_adms`.`attendance_date_longshift` > '00:00:01' 
+                AND `tarikan_absen_adms`.`attendance_date_longshift` < '03:00:00'
                     THEN (
-                    SELECT absensi_new.`tbl_depo`.`depo_nama`
-                    FROM adms_db.checkinout masuk_normal
-                    LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                    LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                    SELECT `tbl_depo`.`depo_nama`
+                    FROM u1721210_adms_db.checkinout masuk_normal
+                    LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                    LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    absensi_new.`tarikan_absen_adms`.`shift_day`, ' 00:00:01'
+                    `tarikan_absen_adms`.`shift_day`, ' 00:00:01'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    absensi_new.`tarikan_absen_adms`.`shift_day`, ' 03:00:00'
+                    `tarikan_absen_adms`.`shift_day`, ' 03:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                     LIMIT 0, 1
                     )
-                 WHEN absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL
+                 WHEN `tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL
                     THEN (
-                    SELECT absensi_new.`tbl_depo`.`depo_nama`
-                    FROM adms_db.checkinout masuk_normal
-                    LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                    LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                    SELECT `tbl_depo`.`depo_nama`
+                    FROM u1721210_adms_db.checkinout masuk_normal
+                    LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                    LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                    , TIME_FORMAT(absensi_new.`tarikan_absen_adms`.`attendance_date_longshift`, '%H:%i:%S')
+                    date(`tarikan_absen_adms`.`shift_day`), ' '
+                    , TIME_FORMAT(`tarikan_absen_adms`.`attendance_date_longshift`, '%H:%i:%S')
                     ) AS DATETIME  
                     ) - INTERVAL 5 hour 
                     AND masuk_normal.checktime<=CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                    , TIME_FORMAT(absensi_new.`tarikan_absen_adms`.`attendance_date_longshift`, '%H:%i:%S')
+                    date(`tarikan_absen_adms`.`shift_day`), ' '
+                    , TIME_FORMAT(`tarikan_absen_adms`.`attendance_date_longshift`, '%H:%i:%S')
                     ) AS DATETIME  
                     ) + INTERVAL 5 hour 
                     LIMIT 0, 1
                     )
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` IS NULL
+                WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL
                 THEN (
-                SELECT absensi_new.`tbl_depo`.`depo_nama`
-                FROM adms_db.checkinout masuk_normal
-                LEFT JOIN absensi_new.`sn_depo`
-                    ON masuk_normal.`SN` = absensi_new.`sn_depo`.`SN`
-                LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                SELECT `tbl_depo`.`depo_nama`
+                FROM u1721210_adms_db.checkinout masuk_normal
+                LEFT JOIN `sn_depo`
+                    ON masuk_normal.`SN` = `sn_depo`.`SN`
+                LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                 WHERE masuk_normal.userid=userinfo.userid
                 AND masuk_normal.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 12:01:00'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 12:01:00'
                 ) AS DATETIME
                 )
                 AND masuk_normal.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 23:59:59'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 23:59:59'
                 ) AS DATETIME
                 )
                 LIMIT 0, 1 
                 )
                 ELSE (
-                SELECT absensi_new.`tbl_depo`.`depo_nama`
-                FROM adms_db.checkinout keluar_malem
-                LEFT JOIN absensi_new.`sn_depo`
-                    ON keluar_malem.`SN` = absensi_new.`sn_depo`.`SN`
-                LEFT JOIN absensi_new.`tbl_depo`
-                    ON absensi_new.`sn_depo`.`depo_id` = absensi_new.`tbl_depo`.`depo_id`
+                SELECT `tbl_depo`.`depo_nama`
+                FROM u1721210_adms_db.checkinout keluar_malem
+                LEFT JOIN `sn_depo`
+                    ON keluar_malem.`SN` = `sn_depo`.`SN`
+                LEFT JOIN `tbl_depo`
+                    ON `sn_depo`.`depo_id` = `tbl_depo`.`depo_id`
                 WHERE keluar_malem.userid=userinfo.userid
                 AND keluar_malem.checktime>=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_keluar, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_keluar, '%H:%i:%S')
                 ) AS DATETIME
                 ) - INTERVAL 4 HOUR
                 AND keluar_malem.checktime<=CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_keluar, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_keluar, '%H:%i:%S')
                 ) AS DATETIME
                 ) + INTERVAL 4 HOUR
                 LIMIT 0, 1
                 )
                 END AS `depo_f4`
                 , CASE
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '9' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '9' 
                 THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' '
-                , TIME_FORMAT(absensi_new.tbl_shifting.waktu_keluar, '%H:%i:%S')
+                DATE(`tarikan_absen_adms`.`shift_day`), ' '
+                , TIME_FORMAT(tbl_shifting.waktu_keluar, '%H:%i:%S')
                 ) AS DATETIME
                 ) + INTERVAL 4 HOUR
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '12' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '12' 
                 THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 03:00:00'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 03:00:00'
                 ) AS DATETIME  
                 ) + INTERVAL 1 DAY 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '14' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '14' 
                 THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
                 ) AS DATETIME  
                 ) + INTERVAL 1 DAY 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '16' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '16' 
                 THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
                 ) AS DATETIME  
                 ) + INTERVAL 1 DAY 
-                WHEN DATE(absensi_new.`tarikan_absen_adms`.`shift_day`) <= '2020-05-30'
-                and absensi_new.`tarikan_absen_adms`.`waktu_shift` = '21' 
+                WHEN DATE(`tarikan_absen_adms`.`shift_day`) <= '2020-05-30'
+                and `tarikan_absen_adms`.`waktu_shift` = '21' 
                 THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
                 ) AS DATETIME  
                 ) + INTERVAL 1 DAY 
-                WHEN DATE(absensi_new.`tarikan_absen_adms`.`shift_day`) <= '2020-05-30'
-                AND absensi_new.`tarikan_absen_adms`.`waktu_shift` = '24' 
+                WHEN DATE(`tarikan_absen_adms`.`shift_day`) <= '2020-05-30'
+                AND `tarikan_absen_adms`.`waktu_shift` = '24' 
                 THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 02:00:00'
                 ) AS DATETIME  
                 ) + INTERVAL 1 DAY 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '21' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '21' 
                 THEN CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 10:00:00'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 10:00:00'
                 ) AS DATETIME  
                 ) + INTERVAL 1 DAY 
-                WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '25' 
+                WHEN `tarikan_absen_adms`.`waktu_shift` = '25' 
                     THEN CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
                     ) AS DATETIME  
                     ) + interval 1 day
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '27' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '27' 
                     THEN CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '28' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '28' 
                     THEN CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 11:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '29' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '29' 
                     THEN CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 05:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '30' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '30' 
                     THEN CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '31' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '31' 
                     THEN CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 08:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 08:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '35' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '35' 
                     THEN CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 09:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 09:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                    WHEN absensi_new.`tarikan_absen_adms`.`waktu_shift` = '37' 
+                    WHEN `tarikan_absen_adms`.`waktu_shift` = '37' 
                     THEN CAST(
                     CONCAT(
-                    DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
+                    DATE(`tarikan_absen_adms`.`shift_day`), ' 12:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
-                WHEN absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL 
-                AND absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` > '00:00:01' AND absensi_new.`tarikan_absen_adms`.`attendance_date_longshift` < '03:00:00'
+                WHEN `tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL 
+                AND `tarikan_absen_adms`.`attendance_date_longshift` > '00:00:01' AND `tarikan_absen_adms`.`attendance_date_longshift` < '03:00:00'
                     THEN CAST(
                     CONCAT(
-                    date(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 03:00:00'
+                    date(`tarikan_absen_adms`.`shift_day`), ' 03:00:00'
                     ) AS DATETIME  
                     ) + INTERVAL 1 DAY 
                 ELSE CAST(
                 CONCAT(
-                DATE(absensi_new.`tarikan_absen_adms`.`shift_day`), ' 23:59:59'
+                DATE(`tarikan_absen_adms`.`shift_day`), ' 23:59:59'
                 ) AS DATETIME
                 ) 
                 END AS maximum_out
-                , absensi_new.`tarikan_absen_adms`.`waktu_shift`
+                , `tarikan_absen_adms`.`waktu_shift`
                 , CASE 
-                WHEN absensi_new.`tarikan_absen_adms`.`jenis_full_day` IS NOT NULL
-                THEN absensi_new.`tarikan_absen_adms`.`jenis_full_day`
-                WHEN absensi_new.`tarikan_absen_adms`.`jenis_non_full_day` IS NOT NULL
-                THEN absensi_new.`tarikan_absen_adms`.`jenis_non_full_day`
-                WHEN absensi_new.`tarikan_absen_adms`.`opsi_cuti_tahunan` IS NOT NULL
+                WHEN `tarikan_absen_adms`.`jenis_full_day` IS NOT NULL
+                THEN `tarikan_absen_adms`.`jenis_full_day`
+                WHEN `tarikan_absen_adms`.`jenis_non_full_day` IS NOT NULL
+                THEN `tarikan_absen_adms`.`jenis_non_full_day`
+                WHEN `tarikan_absen_adms`.`opsi_cuti_tahunan` IS NOT NULL
                 THEN 'CU'
-                WHEN absensi_new.`tarikan_absen_adms`.`jenis_cuti_khusus` IS NOT NULL
+                WHEN `tarikan_absen_adms`.`jenis_cuti_khusus` IS NOT NULL
                 THEN 'CK'
                 END AS ket_izin
-                , absensi_new.`tmp_events`.`birth_date`
-                , absensi_new.`tbl_jabatan_karyawan`.`area`
-                FROM absensi_new.`tarikan_absen_adms`
-            LEFT JOIN absensi_new.`tbl_shifting`
-                ON absensi_new.`tarikan_absen_adms`.`waktu_shift` = absensi_new.`tbl_shifting`.`id_shifting`
-            INNER JOIN adms_db.`userinfo`
-                ON absensi_new.`tarikan_absen_adms`.`userid` = adms_db.`userinfo`.`userid`
-            INNER JOIN absensi_new.`tbl_karyawan_struktur`
-                ON absensi_new.`tbl_karyawan_struktur`.`nik_baru` = absensi_new.`tarikan_absen_adms`.`badgenumber`
-            INNER JOIN absensi_new.`tbl_jabatan_karyawan`
-                ON absensi_new.`tbl_karyawan_struktur`.`jabatan_struktur` = absensi_new.`tbl_jabatan_karyawan`.`no_jabatan_karyawan`
-            LEFT JOIN absensi_new.`tmp_events`
-                ON absensi_new.`tmp_events`.`birth_date` = absensi_new.`tarikan_absen_adms`.`shift_day`
+                , `tmp_events`.`birth_date`
+                , `tbl_jabatan_karyawan`.`area`
+                FROM `tarikan_absen_adms`
+            LEFT JOIN `tbl_shifting`
+                ON `tarikan_absen_adms`.`waktu_shift` = `tbl_shifting`.`id_shifting`
+            INNER JOIN u1721210_adms_db.`userinfo`
+                ON `tarikan_absen_adms`.`userid` = u1721210_adms_db.`userinfo`.`userid`
+            INNER JOIN `tbl_karyawan_struktur`
+                ON `tbl_karyawan_struktur`.`nik_baru` = `tarikan_absen_adms`.`badgenumber`
+            INNER JOIN `tbl_jabatan_karyawan`
+                ON `tbl_karyawan_struktur`.`jabatan_struktur` = `tbl_jabatan_karyawan`.`no_jabatan_karyawan`
+            LEFT JOIN `tmp_events`
+                ON `tmp_events`.`birth_date` = `tarikan_absen_adms`.`shift_day`
             WHERE $where
-            AND absensi_new.`tbl_karyawan_struktur`.`status_karyawan` = '0'
+            AND `tbl_karyawan_struktur`.`status_karyawan` = '0'
             ) tbl_final
         ";
         $hasil = $this->db->query($sql);
@@ -1377,19 +1381,19 @@ class M_Absensi extends CI_Model
             WHEN tbl_final.`shift_day` BETWEEN '2024-09-01' 
             AND 
             (SELECT 
-                absensi.`tbl_karyawan_struktur`.`tanggalJoin`
+                u1721210_absensi.`tbl_karyawan_struktur`.`tanggalJoin`
             FROM
-            absensi.`tbl_karyawan_struktur` 
-            WHERE absensi.`tbl_karyawan_struktur`.`nip` = tbl_final.`badgenumber` 
-            AND absensi.`tbl_karyawan_struktur`.`tanggalJoin` >= '2024-09-01') 
+            u1721210_absensi.`tbl_karyawan_struktur` 
+            WHERE u1721210_absensi.`tbl_karyawan_struktur`.`nip` = tbl_final.`badgenumber` 
+            AND u1721210_absensi.`tbl_karyawan_struktur`.`tanggalJoin` >= '2024-09-01') 
                 THEN 'NEW' 
             WHEN tbl_final.`shift_day` BETWEEN 
             (SELECT 
-                absensi.`tbl_resign`.`tanggalEfektifResign` 
+                u1721210_absensi.`tbl_resign`.`tanggalEfektifResign` 
             FROM
-            absensi.`tbl_resign` 
-            WHERE absensi.`tbl_resign`.`nip` = tbl_final.`badgenumber`
-            AND absensi.`tbl_resign`.`tanggalEfektifResign` >= '2024-09-01') 
+            u1721210_absensi.`tbl_resign` 
+            WHERE u1721210_absensi.`tbl_resign`.`nip` = tbl_final.`badgenumber`
+            AND u1721210_absensi.`tbl_resign`.`tanggalEfektifResign` >= '2024-09-01') 
             AND '2024-09-30' 
                 THEN 'RESIGN' 
             WHEN tbl_final.checkin IS NULL 
@@ -1467,7 +1471,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 MIN(checktime) 
             FROM
-                absensi.tbl_absen masuk_normal 
+                u1721210_absensi.tbl_absen masuk_normal 
             WHERE masuk_normal.noUrut = c.noUrut
                 AND masuk_normal.checktime >= CAST(
                 CONCAT(
@@ -1490,7 +1494,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 MIN(checktime) 
             FROM
-                absensi.tbl_absen masuk_malem 
+                u1721210_absensi.tbl_absen masuk_malem 
             WHERE masuk_malem.noUrut = c.noUrut
                 AND masuk_malem.checktime >= CAST(
                 CONCAT(
@@ -1524,7 +1528,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 CONCAT(masuk_normal.long,',', masuk_normal.lat)
             FROM
-                absensi.tbl_absen masuk_normal 
+                u1721210_absensi.tbl_absen masuk_normal 
             WHERE masuk_normal.noUrut = c.noUrut
                 AND masuk_normal.checktime >= CAST(
                 CONCAT(
@@ -1547,7 +1551,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 CONCAT(masuk_malem.long,' ', masuk_malem.lat)
             FROM
-                absensi.tbl_absen masuk_malem 
+                u1721210_absensi.tbl_absen masuk_malem 
             WHERE masuk_malem.noUrut = c.noUrut
                 AND masuk_malem.checktime >= CAST(
                 CONCAT(
@@ -1646,7 +1650,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 MAX(checktime) 
             FROM
-                absensi.tbl_absen masuk_normal 
+                u1721210_absensi.tbl_absen masuk_normal 
             WHERE masuk_normal.noUrut = a.userid 
                 AND masuk_normal.checktime >= CAST(
                 CONCAT(
@@ -1668,7 +1672,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 MAX(checktime) 
             FROM
-                absensi.tbl_absen keluar_malem 
+                u1721210_absensi.tbl_absen keluar_malem 
             WHERE keluar_malem.noUrut = a.userid 
                 AND keluar_malem.checktime >= CAST(
                 CONCAT(
@@ -1702,7 +1706,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 CONCAT(masuk_normal.long,' ', masuk_normal.lat)
             FROM
-                absensi.tbl_absen masuk_normal 
+                u1721210_absensi.tbl_absen masuk_normal 
             WHERE masuk_normal.noUrut = a.userid 
                 AND masuk_normal.checktime >= CAST(
                 CONCAT(
@@ -1725,7 +1729,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 CONCAT(keluar_malem.long,' ', keluar_malem.lat)
             FROM
-                absensi.tbl_absen keluar_malem 
+                u1721210_absensi.tbl_absen keluar_malem 
             WHERE keluar_malem.noUrut = a.userid 
                 AND keluar_malem.checktime >= CAST(
                 CONCAT(
@@ -1793,18 +1797,18 @@ class M_Absensi extends CI_Model
             
             g.`birth_date`
             
-        FROM absensi.`tarikan_absen_adms` a
-        LEFT JOIN absensi.`tbl_shifting` b
+        FROM u1721210_absensi.`tarikan_absen_adms` a
+        LEFT JOIN u1721210_absensi.`tbl_shifting` b
             ON a.`waktu_shift` = b.`id_shifting`
-        INNER JOIN absensi.`tbl_karyawan_struktur` c
+        INNER JOIN u1721210_absensi.`tbl_karyawan_struktur` c
             ON c.`noUrut` = a.`userId` 
-        INNER JOIN absensi.`tbl_jabatan` d
+        INNER JOIN u1721210_absensi.`tbl_jabatan` d
             ON c.`idJabatan` = d.`idJabatan`
-        LEFT JOIN absensi.`tbl_divisi` e
+        LEFT JOIN u1721210_absensi.`tbl_divisi` e
             ON c.`idDivisi` = e.`idDivisi`
-        LEFT JOIN absensi.`tbl_bagian` f
+        LEFT JOIN u1721210_absensi.`tbl_bagian` f
             ON e.`idBagian` = f.`idBagian`
-        LEFT JOIN absensi.`tmp_events` g
+        LEFT JOIN u1721210_absensi.`tmp_events` g
             ON g.`birth_date` = a.`shift_day`
         WHERE $where) tbl_final
         ORDER BY tbl_final.`shift_day` DESC ";
@@ -1941,16 +1945,16 @@ class M_Absensi extends CI_Model
             , e.`tunjangan_pph` AS tax
             , a.`bulan`
             , a.`tahun`
-        FROM payroll.`tmp_atribut_payroll` a
-        LEFT JOIN absensi.`tbl_karyawan_struktur` b ON a.`noUrut` = b.`noUrut`
-        LEFT JOIN payroll.`tbl_ptkp` c ON b.`idPtkp` = c.`id`
-        LEFT JOIN payroll.`tbl_kpp` d ON b.`idKpp` = d.`id`
-        LEFT JOIN payroll.`tbl_pph_gross_up` e ON e.`nik_baru` = a.`nip`
+        FROM $payroll.`tmp_atribut_payroll` a
+        LEFT JOIN    $absensi.`tbl_karyawan_struktur` b ON a.`noUrut` = b.`noUrut`
+        LEFT JOIN $payroll.`tbl_ptkp` c ON b.`idPtkp` = c.`id`
+        LEFT JOIN $payroll.`tbl_kpp` d ON b.`idKpp` = d.`id`
+        LEFT JOIN $payroll.`tbl_pph_gross_up` e ON e.`nik_baru` = a.`nip`
         AND e.`bulan` = '$bulan_start'
         AND e.`tahun` = '$tahun'
         AND e.`id_proses` = '1'
 
-        LEFT JOIN absensi.`tbl_karyawan_induk` f ON f.`no_urut` = b.`noUrut`
+        LEFT JOIN $absensi.`tbl_karyawan_induk` f ON f.`no_urut` = b.`noUrut`
         WHERE (a.`bulan` >= '$bulan_start' 
         AND a.`bulan` <= '$bulan_end')
         AND a.`tahun` = '$tahun'

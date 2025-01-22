@@ -13,64 +13,64 @@ class M_Cuti_tahunan extends CI_Model
 
 	public function get_index_cuti_tahunan($nik_baru = null, $id = null)
 	{
-		$where = " absensi.`tbl_karyawan_cuti_tahunan`.`no_pengajuan_tahunan` is not null";
+		$where = " `tbl_karyawan_cuti_tahunan`.`no_pengajuan_tahunan` is not null";
 		if ($id != '') {
-			$where .= " and absensi.`tbl_karyawan_cuti_tahunan`.`id_sisa_cuti` = '$id'";
+			$where .= " and `tbl_karyawan_cuti_tahunan`.`id_sisa_cuti` = '$id'";
 		}
 		if ($nik_baru != '') {
-			$where .= "  and absensi.`tbl_karyawan_cuti_tahunan`.`nik_sisa_cuti` = '$nik_baru'";
+			$where .= "  and `tbl_karyawan_cuti_tahunan`.`nik_sisa_cuti` = '$nik_baru'";
 		}
 
 		if ($nik_baru === null and $id === null) {
 			$sql = "SELECT 
-			absensi.`tbl_karyawan_cuti_tahunan`.`id_sisa_cuti`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`no_pengajuan_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`tanggal_pengajuan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
-			absensi.`tbl_karyawan_cuti_tahunan`.`nik_sisa_cuti` AS nik_baru,
-			absensi.`tbl_karyawan_struktur`.`namaKaryawan`,
-			absensi.`tbl_karyawan_struktur`.`namaKaryawan` AS nama_karyawan_struktur,
-			absensi.`tbl_karyawan_cuti_tahunan`.`jabatan_cuti_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`start_cuti_tahunan` AS tanggal_absen,
-			absensi.`tbl_karyawan_cuti_tahunan`.`ket_tambahan_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`opsi_cuti_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`status_cuti_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`tanggal_cuti_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`feedback_cuti_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`status_cuti_tahunan_2`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`tanggal_cuti_tahunan_2`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`feedback_cuti_tahunan_2`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`dok_cuti_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`lat`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`lon` 
-			FROM absensi.`tbl_karyawan_cuti_tahunan` 
+			`tbl_karyawan_cuti_tahunan`.`id_sisa_cuti`,
+			`tbl_karyawan_cuti_tahunan`.`no_pengajuan_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`tanggal_pengajuan`,
+			`tbl_karyawan_cuti_tahunan`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
+			`tbl_karyawan_cuti_tahunan`.`nik_sisa_cuti` AS nik_baru,
+			`tbl_karyawan_struktur`.`namaKaryawan`,
+			`tbl_karyawan_struktur`.`namaKaryawan` AS nama_karyawan_struktur,
+			`tbl_karyawan_cuti_tahunan`.`jabatan_cuti_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`start_cuti_tahunan` AS tanggal_absen,
+			`tbl_karyawan_cuti_tahunan`.`ket_tambahan_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`opsi_cuti_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`status_cuti_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`tanggal_cuti_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`feedback_cuti_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`status_cuti_tahunan_2`,
+			`tbl_karyawan_cuti_tahunan`.`tanggal_cuti_tahunan_2`,
+			`tbl_karyawan_cuti_tahunan`.`feedback_cuti_tahunan_2`,
+			`tbl_karyawan_cuti_tahunan`.`dok_cuti_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`lat`,
+			`tbl_karyawan_cuti_tahunan`.`lon` 
+			FROM `tbl_karyawan_cuti_tahunan` 
 			INNER JOIN `tbl_karyawan_struktur` ON tbl_karyawan_struktur.`noUrut` = tbl_karyawan_cuti_tahunan.`no_urut` 
 			WHERE $where";
 			$hasil = $this->db_absensi->query($sql);
 			return $hasil->result_array();
 		} else {
 			$sql = "SELECT 
-			absensi.`tbl_karyawan_cuti_tahunan`.`id_sisa_cuti`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`no_pengajuan_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`tanggal_pengajuan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
-			absensi.`tbl_karyawan_cuti_tahunan`.`nik_sisa_cuti` AS nik_baru,
-			absensi.`tbl_karyawan_struktur`.`namaKaryawan`,
-			absensi.`tbl_karyawan_struktur`.`namaKaryawan` AS nama_karyawan_struktur,
-			absensi.`tbl_karyawan_cuti_tahunan`.`jabatan_cuti_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`start_cuti_tahunan` AS tanggal_absen,
-			absensi.`tbl_karyawan_cuti_tahunan`.`ket_tambahan_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`opsi_cuti_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`status_cuti_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`tanggal_cuti_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`feedback_cuti_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`status_cuti_tahunan_2`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`tanggal_cuti_tahunan_2`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`feedback_cuti_tahunan_2`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`dok_cuti_tahunan`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`lat`,
-			absensi.`tbl_karyawan_cuti_tahunan`.`lon` 
-			FROM absensi.`tbl_karyawan_cuti_tahunan` 
+			`tbl_karyawan_cuti_tahunan`.`id_sisa_cuti`,
+			`tbl_karyawan_cuti_tahunan`.`no_pengajuan_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`tanggal_pengajuan`,
+			`tbl_karyawan_cuti_tahunan`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
+			`tbl_karyawan_cuti_tahunan`.`nik_sisa_cuti` AS nik_baru,
+			`tbl_karyawan_struktur`.`namaKaryawan`,
+			`tbl_karyawan_struktur`.`namaKaryawan` AS nama_karyawan_struktur,
+			`tbl_karyawan_cuti_tahunan`.`jabatan_cuti_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`start_cuti_tahunan` AS tanggal_absen,
+			`tbl_karyawan_cuti_tahunan`.`ket_tambahan_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`opsi_cuti_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`status_cuti_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`tanggal_cuti_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`feedback_cuti_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`status_cuti_tahunan_2`,
+			`tbl_karyawan_cuti_tahunan`.`tanggal_cuti_tahunan_2`,
+			`tbl_karyawan_cuti_tahunan`.`feedback_cuti_tahunan_2`,
+			`tbl_karyawan_cuti_tahunan`.`dok_cuti_tahunan`,
+			`tbl_karyawan_cuti_tahunan`.`lat`,
+			`tbl_karyawan_cuti_tahunan`.`lon` 
+			FROM `tbl_karyawan_cuti_tahunan` 
 			INNER JOIN `tbl_karyawan_struktur` ON tbl_karyawan_struktur.`noUrut` = tbl_karyawan_cuti_tahunan.`no_urut` 
 			WHERE $where";
 			$hasil = $this->db_absensi->query($sql);
@@ -130,7 +130,7 @@ class M_Cuti_tahunan extends CI_Model
 		            ,tbl_karyawan_cuti_tahunan.`feedback_cuti_tahunan_2`
 		            ,tbl_karyawan_cuti_tahunan.`hak_cuti_utuh`
 		          
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_karyawan_cuti_tahunan`
@@ -161,7 +161,7 @@ class M_Cuti_tahunan extends CI_Model
 			            ,tbl_karyawan_cuti_tahunan.`tanggal_cuti_tahunan_2`
 			            ,tbl_karyawan_cuti_tahunan.`feedback_cuti_tahunan_2`
 			            ,tbl_karyawan_cuti_tahunan.`hak_cuti_utuh`
-			        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+			        FROM `tbl_jabatan_karyawan_approval`
 			        INNER JOIN `tbl_jabatan_karyawan` 
 			            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 			        INNER JOIN `tbl_karyawan_cuti_tahunan`
@@ -196,7 +196,7 @@ class M_Cuti_tahunan extends CI_Model
 		            ,tbl_karyawan_cuti_tahunan.`feedback_cuti_tahunan_2`
 		            ,tbl_karyawan_cuti_tahunan.`hak_cuti_utuh`
 		          
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_karyawan_cuti_tahunan`
@@ -239,7 +239,7 @@ class M_Cuti_tahunan extends CI_Model
 		            ,tbl_karyawan_cuti_tahunan.`hak_cuti_utuh`
 		            ,tbl_karyawan_cuti_tahunan.`status_notifikasi`
 		          
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_karyawan_cuti_tahunan`
@@ -274,7 +274,7 @@ class M_Cuti_tahunan extends CI_Model
 		            ,tbl_karyawan_cuti_tahunan.`feedback_cuti_tahunan_2`
 		            ,tbl_karyawan_cuti_tahunan.`hak_cuti_utuh`
 		            ,tbl_karyawan_cuti_tahunan.`status_notifikasi`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_karyawan_cuti_tahunan`
@@ -293,26 +293,26 @@ class M_Cuti_tahunan extends CI_Model
 	public function get_index_tahunan_feedback($nik_baru = null, $tanggal = null)
 	{
 		$sql = "SELECT 
-				absensi_new.`tbl_karyawan_cuti_tahunan`.`id_sisa_cuti`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`no_pengajuan_tahunan`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`tanggal_pengajuan`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`nik_sisa_cuti` AS nik_baru
-				, absensi_new.`tbl_karyawan_struktur`.`nama_karyawan_struktur`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`jabatan_cuti_tahunan`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`start_cuti_tahunan` AS tanggal_absen
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`ket_tambahan_tahunan`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`opsi_cuti_tahunan`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`status_cuti_tahunan`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`tanggal_cuti_tahunan`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`feedback_cuti_tahunan`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`status_cuti_tahunan_2`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`tanggal_cuti_tahunan_2`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`feedback_cuti_tahunan_2`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`dok_cuti_tahunan`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`lat`
-				, absensi_new.`tbl_karyawan_cuti_tahunan`.`lon`
-			FROM absensi_new.`tbl_karyawan_cuti_tahunan`
+				`tbl_karyawan_cuti_tahunan`.`id_sisa_cuti`
+				, `tbl_karyawan_cuti_tahunan`.`no_pengajuan_tahunan`
+				, `tbl_karyawan_cuti_tahunan`.`tanggal_pengajuan`
+				, `tbl_karyawan_cuti_tahunan`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
+				, `tbl_karyawan_cuti_tahunan`.`nik_sisa_cuti` AS nik_baru
+				, `tbl_karyawan_struktur`.`nama_karyawan_struktur`
+				, `tbl_karyawan_cuti_tahunan`.`jabatan_cuti_tahunan`
+				, `tbl_karyawan_cuti_tahunan`.`start_cuti_tahunan` AS tanggal_absen
+				, `tbl_karyawan_cuti_tahunan`.`ket_tambahan_tahunan`
+				, `tbl_karyawan_cuti_tahunan`.`opsi_cuti_tahunan`
+				, `tbl_karyawan_cuti_tahunan`.`status_cuti_tahunan`
+				, `tbl_karyawan_cuti_tahunan`.`tanggal_cuti_tahunan`
+				, `tbl_karyawan_cuti_tahunan`.`feedback_cuti_tahunan`
+				, `tbl_karyawan_cuti_tahunan`.`status_cuti_tahunan_2`
+				, `tbl_karyawan_cuti_tahunan`.`tanggal_cuti_tahunan_2`
+				, `tbl_karyawan_cuti_tahunan`.`feedback_cuti_tahunan_2`
+				, `tbl_karyawan_cuti_tahunan`.`dok_cuti_tahunan`
+				, `tbl_karyawan_cuti_tahunan`.`lat`
+				, `tbl_karyawan_cuti_tahunan`.`lon`
+			FROM `tbl_karyawan_cuti_tahunan`
 			INNER JOIN `tbl_karyawan_struktur`
 		            ON tbl_karyawan_struktur.`nik_baru` = tbl_karyawan_cuti_tahunan.`nik_sisa_cuti`
 		WHERE nik_sisa_cuti = '$nik_baru' AND tanggal_cuti_tahunan = '$tanggal'";
@@ -347,7 +347,7 @@ class M_Cuti_tahunan extends CI_Model
 			  tbl_karyawan_cuti_tahunan.`feedback_cuti_manager`,
 			  tbl_karyawan_cuti_tahunan.`status_cuti_manager` 
 			FROM
-			  `absensi_new`.`tbl_jabatan_karyawan_approval` 
+			  `tbl_jabatan_karyawan_approval` 
 			  INNER JOIN `tbl_jabatan_karyawan` 
 			    ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan` 
 			  INNER JOIN `tbl_karyawan_cuti_tahunan` 
@@ -386,7 +386,7 @@ class M_Cuti_tahunan extends CI_Model
 				tbl_karyawan_cuti_tahunan.`feedback_cuti_tahunan_2`,
 				tbl_karyawan_cuti_tahunan.`hak_cuti_utuh` 
 				FROM
-				`absensi`.`tbl_jabatan_approval` 
+				`tbl_jabatan_approval` 
 				INNER JOIN `tbl_jabatan` 
 					ON tbl_jabatan.`idJabatan` = tbl_jabatan_approval.`idJabatan` 
 				INNER JOIN `tbl_karyawan_cuti_tahunan` 

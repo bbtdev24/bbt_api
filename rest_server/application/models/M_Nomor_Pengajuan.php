@@ -13,8 +13,8 @@ class M_Nomor_Pengajuan extends CI_Model
 
 	public function getFullday()
 	{
-		$sql = " SELECT * FROM absensi_new.`tbl_izin_full_day`
-		ORDER BY absensi_new.`tbl_izin_full_day`.`id_full_day` DESC
+		$sql = " SELECT * FROM `tbl_izin_full_day`
+		ORDER BY `tbl_izin_full_day`.`id_full_day` DESC
 		LIMIT 0, 1
 		";
 		$hasil = $this->db2->query($sql);
@@ -23,8 +23,8 @@ class M_Nomor_Pengajuan extends CI_Model
 
 	public function getNonfullday()
 	{
-		$sql = " SELECT * FROM absensi_new.`tbl_izin_non_full`
-		ORDER BY absensi_new.`tbl_izin_non_full`.`id_non_full` DESC
+		$sql = " SELECT * FROM `tbl_izin_non_full`
+		ORDER BY `tbl_izin_non_full`.`id_non_full` DESC
 		LIMIT 0, 1
 		";
 		$hasil = $this->db2->query($sql);
@@ -51,8 +51,8 @@ class M_Nomor_Pengajuan extends CI_Model
 
 	public function getKontrak()
 	{
-		$sql = " SELECT * FROM absensi_new.`tbl_karyawan_kontrak`
-		ORDER BY absensi_new.`tbl_karyawan_kontrak`.`no_urut` DESC
+		$sql = " SELECT * FROM `tbl_karyawan_kontrak`
+		ORDER BY `tbl_karyawan_kontrak`.`no_urut` DESC
 		LIMIT 0, 1
 		";
 		$hasil = $this->db2->query($sql);

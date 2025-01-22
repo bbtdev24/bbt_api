@@ -15,31 +15,31 @@ class M_Project extends CI_Model
 	{
 		if ($nik_pengajuan === null) {
 			$sql="SELECT 
-				absensi_new.`tbl_karyawan_project`.`nik_pengajuan`
-				, absensi_new.`tbl_karyawan_project`.`start_date`
-				, absensi_new.`tbl_karyawan_project`.`end_date`
-				, absensi_new.`tbl_karyawan_struktur`.`nama_karyawan_struktur`
-				, absensi_new.`tbl_karyawan_project`.`nik_karyawan`
-				, absensi_new.`tbl_karyawan_project`.`depo_karyawan`
-				, absensi_new.`tbl_karyawan_project`.`upload_dokumen`
-			FROM absensi_new.`tbl_karyawan_project`
-			INNER JOIN absensi_new.`tbl_karyawan_struktur`
-				ON absensi_new.`tbl_karyawan_struktur`.`nik_baru` = absensi_new.`tbl_karyawan_project`.`nik_karyawan`" ;
+				`tbl_karyawan_project`.`nik_pengajuan`
+				, `tbl_karyawan_project`.`start_date`
+				, `tbl_karyawan_project`.`end_date`
+				, `tbl_karyawan_struktur`.`nama_karyawan_struktur`
+				, `tbl_karyawan_project`.`nik_karyawan`
+				, `tbl_karyawan_project`.`depo_karyawan`
+				, `tbl_karyawan_project`.`upload_dokumen`
+			FROM `tbl_karyawan_project`
+			INNER JOIN `tbl_karyawan_struktur`
+				ON `tbl_karyawan_struktur`.`nik_baru` = `tbl_karyawan_project`.`nik_karyawan`" ;
 	        $hasil = $this->db2->query($sql);
 	    	return $hasil->result_array();
 		} else {
 			$sql="SELECT 
-				absensi_new.`tbl_karyawan_project`.`nik_pengajuan`
-				, absensi_new.`tbl_karyawan_project`.`start_date`
-				, absensi_new.`tbl_karyawan_project`.`end_date`
-				, absensi_new.`tbl_karyawan_struktur`.`nama_karyawan_struktur`
-				, absensi_new.`tbl_karyawan_project`.`nik_karyawan`
-				, absensi_new.`tbl_karyawan_project`.`depo_karyawan`
-				, absensi_new.`tbl_karyawan_project`.`upload_dokumen`
-			FROM absensi_new.`tbl_karyawan_project`
-			INNER JOIN absensi_new.`tbl_karyawan_struktur`
-				ON absensi_new.`tbl_karyawan_struktur`.`nik_baru` = absensi_new.`tbl_karyawan_project`.`nik_karyawan`
-			WHERE absensi_new.`tbl_karyawan_project`.`nik_pengajuan` = '$nik_pengajuan'";
+				`tbl_karyawan_project`.`nik_pengajuan`
+				, `tbl_karyawan_project`.`start_date`
+				, `tbl_karyawan_project`.`end_date`
+				, `tbl_karyawan_struktur`.`nama_karyawan_struktur`
+				, `tbl_karyawan_project`.`nik_karyawan`
+				, `tbl_karyawan_project`.`depo_karyawan`
+				, `tbl_karyawan_project`.`upload_dokumen`
+			FROM `tbl_karyawan_project`
+			INNER JOIN `tbl_karyawan_struktur`
+				ON `tbl_karyawan_struktur`.`nik_baru` = `tbl_karyawan_project`.`nik_karyawan`
+			WHERE `tbl_karyawan_project`.`nik_pengajuan` = '$nik_pengajuan'";
 	        $hasil = $this->db2->query($sql);
 	    	return $hasil->result_array();
 		}

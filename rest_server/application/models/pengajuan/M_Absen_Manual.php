@@ -44,8 +44,8 @@ class M_Absen_Manual extends CI_Model
             a.tanggal,
             a.status_2,
             a.tanggal_2 
-        FROM absensi.tbl_karyawan_absen_manual a 
-        INNER JOIN absensi.tbl_karyawan_struktur b ON b.nip = a.nik_absen 
+        FROM tbl_karyawan_absen_manual a 
+        INNER JOIN tbl_karyawan_struktur b ON b.nip = a.nik_absen 
         INNER JOIN tbl_depo c ON c.depo_id = a.lokasi_absen
         INNER JOIN tbl_depo d ON d.depo_id = b.idLokasi";
 
@@ -69,8 +69,8 @@ class M_Absen_Manual extends CI_Model
             a.tanggal,
             a.status_2,
             a.tanggal_2 
-        FROM absensi.tbl_karyawan_absen_manual a 
-        INNER JOIN absensi.tbl_karyawan_struktur b ON b.nip = a.nik_absen 
+        FROM tbl_karyawan_absen_manual a 
+        INNER JOIN tbl_karyawan_struktur b ON b.nip = a.nik_absen 
         INNER JOIN tbl_depo c ON c.depo_id = a.lokasi_absen
         INNER JOIN tbl_depo d ON d.depo_id = b.idLokasi
         WHERE $where";
@@ -85,44 +85,44 @@ class M_Absen_Manual extends CI_Model
 		// return $this->db->get('tbl_user')->result_array();
 		if ($jabatan === null) {
 			$sql = "SELECT
-		       absensi_new.`tbl_karyawan_absen_manual`.`id_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_pengajuan`
-				, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
-				, absensi_new.`tbl_karyawan_absen_manual`.`nik_absen` AS nik_baru
-				, absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur`
-				, absensi_new.`tbl_karyawan_absen_manual`.`jabatan_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`lokasi_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`jenis_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`waktu_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`ket_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`status`
-				, absensi_new.`tbl_karyawan_absen_manual`.`tanggal`
-				, absensi_new.`tbl_karyawan_absen_manual`.`status_2`
-				, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_2`
-			FROM absensi_new.`tbl_karyawan_absen_manual` 
+		       `tbl_karyawan_absen_manual`.`id_absen`
+				, `tbl_karyawan_absen_manual`.`tanggal_pengajuan`
+				, `tbl_karyawan_absen_manual`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
+				, `tbl_karyawan_absen_manual`.`nik_absen` AS nik_baru
+				, `tbl_karyawan_struktur`.`lokasi_struktur`
+				, `tbl_karyawan_absen_manual`.`jabatan_absen`
+				, `tbl_karyawan_absen_manual`.`lokasi_absen`
+				, `tbl_karyawan_absen_manual`.`jenis_absen`
+				, `tbl_karyawan_absen_manual`.`tanggal_absen`
+				, `tbl_karyawan_absen_manual`.`waktu_absen`
+				, `tbl_karyawan_absen_manual`.`ket_absen`
+				, `tbl_karyawan_absen_manual`.`status`
+				, `tbl_karyawan_absen_manual`.`tanggal`
+				, `tbl_karyawan_absen_manual`.`status_2`
+				, `tbl_karyawan_absen_manual`.`tanggal_2`
+			FROM `tbl_karyawan_absen_manual` 
 				INNER JOIN `tbl_karyawan_struktur`
 		            ON tbl_karyawan_struktur.`nik_baru` = tbl_karyawan_absen_manual.`nik_absen`";
 			$hasil = $this->db2->query($sql);
 			return $hasil->result_array();
 		} else {
 			$sql = "SELECT
-		        absensi_new.`tbl_karyawan_absen_manual`.`id_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_pengajuan`
-				, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
-				, absensi_new.`tbl_karyawan_absen_manual`.`nik_absen` AS nik_baru
-				, absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur`
-				, absensi_new.`tbl_karyawan_absen_manual`.`jabatan_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`lokasi_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`jenis_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`waktu_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`ket_absen`
-				, absensi_new.`tbl_karyawan_absen_manual`.`status`
-				, absensi_new.`tbl_karyawan_absen_manual`.`tanggal`
-				, absensi_new.`tbl_karyawan_absen_manual`.`status_2`
-				, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_2`
-		    FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        `tbl_karyawan_absen_manual`.`id_absen`
+				, `tbl_karyawan_absen_manual`.`tanggal_pengajuan`
+				, `tbl_karyawan_absen_manual`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
+				, `tbl_karyawan_absen_manual`.`nik_absen` AS nik_baru
+				, `tbl_karyawan_struktur`.`lokasi_struktur`
+				, `tbl_karyawan_absen_manual`.`jabatan_absen`
+				, `tbl_karyawan_absen_manual`.`lokasi_absen`
+				, `tbl_karyawan_absen_manual`.`jenis_absen`
+				, `tbl_karyawan_absen_manual`.`tanggal_absen`
+				, `tbl_karyawan_absen_manual`.`waktu_absen`
+				, `tbl_karyawan_absen_manual`.`ket_absen`
+				, `tbl_karyawan_absen_manual`.`status`
+				, `tbl_karyawan_absen_manual`.`tanggal`
+				, `tbl_karyawan_absen_manual`.`status_2`
+				, `tbl_karyawan_absen_manual`.`tanggal_2`
+		    FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_karyawan_absen_manual`
@@ -155,24 +155,24 @@ class M_Absen_Manual extends CI_Model
 		if ($lokasi == 'Pusat') {
 			$sql = "
 	           SELECT
-			        absensi_new.`tbl_karyawan_absen_manual`.`id_absen`
-					, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_pengajuan`
-					, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
-					, absensi_new.`tbl_karyawan_absen_manual`.`nik_absen` AS nik_baru
-					, absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur`
-					, absensi_new.`tbl_karyawan_struktur`.`nama_karyawan_struktur`
-					, absensi_new.`tbl_karyawan_absen_manual`.`jabatan_absen`
-					, absensi_new.`tbl_karyawan_absen_manual`.`lokasi_absen`
-					, absensi_new.`tbl_depo`.`depo_nama`
-					, absensi_new.`tbl_karyawan_absen_manual`.`jenis_absen`
-					, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_absen`
-					, absensi_new.`tbl_karyawan_absen_manual`.`waktu_absen`
-					, absensi_new.`tbl_karyawan_absen_manual`.`ket_absen`
-					, absensi_new.`tbl_karyawan_absen_manual`.`status`
-					, absensi_new.`tbl_karyawan_absen_manual`.`tanggal`
-					, absensi_new.`tbl_karyawan_absen_manual`.`status_2`
-					, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_2`
-			    FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+			        `tbl_karyawan_absen_manual`.`id_absen`
+					, `tbl_karyawan_absen_manual`.`tanggal_pengajuan`
+					, `tbl_karyawan_absen_manual`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
+					, `tbl_karyawan_absen_manual`.`nik_absen` AS nik_baru
+					, `tbl_karyawan_struktur`.`lokasi_struktur`
+					, `tbl_karyawan_struktur`.`nama_karyawan_struktur`
+					, `tbl_karyawan_absen_manual`.`jabatan_absen`
+					, `tbl_karyawan_absen_manual`.`lokasi_absen`
+					, `tbl_depo`.`depo_nama`
+					, `tbl_karyawan_absen_manual`.`jenis_absen`
+					, `tbl_karyawan_absen_manual`.`tanggal_absen`
+					, `tbl_karyawan_absen_manual`.`waktu_absen`
+					, `tbl_karyawan_absen_manual`.`ket_absen`
+					, `tbl_karyawan_absen_manual`.`status`
+					, `tbl_karyawan_absen_manual`.`tanggal`
+					, `tbl_karyawan_absen_manual`.`status_2`
+					, `tbl_karyawan_absen_manual`.`tanggal_2`
+			    FROM `tbl_jabatan_karyawan_approval`
 			        INNER JOIN `tbl_jabatan_karyawan` 
 			            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 			        INNER JOIN `tbl_karyawan_absen_manual`
@@ -191,24 +191,24 @@ class M_Absen_Manual extends CI_Model
 		} else {
 			$sql = "
 	           SELECT
-			        absensi_new.`tbl_karyawan_absen_manual`.`id_absen`
-					, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_pengajuan`
-					, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
-					, absensi_new.`tbl_karyawan_absen_manual`.`nik_absen` AS nik_baru
-					, absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur`
-					, absensi_new.`tbl_karyawan_struktur`.`nama_karyawan_struktur`
-					, absensi_new.`tbl_karyawan_absen_manual`.`jabatan_absen`
-					, absensi_new.`tbl_karyawan_absen_manual`.`lokasi_absen`
-					, absensi_new.`tbl_depo`.`depo_nama`
-					, absensi_new.`tbl_karyawan_absen_manual`.`jenis_absen`
-					, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_absen`
-					, absensi_new.`tbl_karyawan_absen_manual`.`waktu_absen`
-					, absensi_new.`tbl_karyawan_absen_manual`.`ket_absen`
-					, absensi_new.`tbl_karyawan_absen_manual`.`status`
-					, absensi_new.`tbl_karyawan_absen_manual`.`tanggal`
-					, absensi_new.`tbl_karyawan_absen_manual`.`status_2`
-					, absensi_new.`tbl_karyawan_absen_manual`.`tanggal_2`
-			    FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+			        `tbl_karyawan_absen_manual`.`id_absen`
+					, `tbl_karyawan_absen_manual`.`tanggal_pengajuan`
+					, `tbl_karyawan_absen_manual`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
+					, `tbl_karyawan_absen_manual`.`nik_absen` AS nik_baru
+					, `tbl_karyawan_struktur`.`lokasi_struktur`
+					, `tbl_karyawan_struktur`.`nama_karyawan_struktur`
+					, `tbl_karyawan_absen_manual`.`jabatan_absen`
+					, `tbl_karyawan_absen_manual`.`lokasi_absen`
+					, `tbl_depo`.`depo_nama`
+					, `tbl_karyawan_absen_manual`.`jenis_absen`
+					, `tbl_karyawan_absen_manual`.`tanggal_absen`
+					, `tbl_karyawan_absen_manual`.`waktu_absen`
+					, `tbl_karyawan_absen_manual`.`ket_absen`
+					, `tbl_karyawan_absen_manual`.`status`
+					, `tbl_karyawan_absen_manual`.`tanggal`
+					, `tbl_karyawan_absen_manual`.`status_2`
+					, `tbl_karyawan_absen_manual`.`tanggal_2`
+			    FROM `tbl_jabatan_karyawan_approval`
 			        INNER JOIN `tbl_jabatan_karyawan` 
 			            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 			        INNER JOIN `tbl_karyawan_absen_manual`

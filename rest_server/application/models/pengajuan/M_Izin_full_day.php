@@ -13,68 +13,68 @@ class M_Izin_full_day extends CI_Model
 
 	public function get_index_full_day($nik_baru = null, $id = null)
 	{
-		$where = " absensi.`tbl_izin_full_day`.`jenis_full_day` <> 'DN'";
+		$where = " `tbl_izin_full_day`.`jenis_full_day` <> 'DN'";
 		if ($id != '') {
-			$where .= " and absensi.`tbl_izin_full_day`.`id_full_day` = '$id'";
+			$where .= " and `tbl_izin_full_day`.`id_full_day` = '$id'";
 		}
 		if ($nik_baru != '') {
-			$where .= "  and absensi.`tbl_izin_full_day`.`nik_full_day` = '$nik_baru'";
+			$where .= "  and `tbl_izin_full_day`.`nik_full_day` = '$nik_baru'";
 		}
 
 		if ($nik_baru === null and $id === null) {
-			$sql = "SELECT absensi.`tbl_izin_full_day`.`id_full_day`,
-					absensi.`tbl_izin_full_day`.`no_pengajuan_full_day`,
-					absensi.`tbl_izin_full_day`.`tanggal_pengajuan`,
-					absensi.`tbl_izin_full_day`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
-					absensi.`tbl_izin_full_day`.`nik_full_day` AS nik_baru,
-					absensi.`tbl_karyawan_struktur`.`namaKaryawan` AS`nama_karyawan_struktur`,
-					absensi.`tbl_lokasi`.`namaLokasi` AS lokasi_struktur,
-					absensi.`tbl_izin_full_day`.`jabatan_full_day`,
-					absensi.`tbl_izin_full_day`.`jenis_full_day`,
-					absensi.`tbl_izin_full_day`.`start_full_day` AS tanggal_absen,
-					absensi.`tbl_izin_full_day`.`karyawan_pengganti`,
-					absensi.`tbl_izin_full_day`.`ket_tambahan`,
-					absensi.`tbl_izin_full_day`.`status_full_day`,
-					absensi.`tbl_izin_full_day`.`feedback_full_day`,
-					absensi.`tbl_izin_full_day`.`tanggal_approval`,
-					absensi.`tbl_izin_full_day`.`status_full_day_2`,
-					absensi.`tbl_izin_full_day`.`feedback_full_day_2`,
-					absensi.`tbl_izin_full_day`.`tanggal_approval_2`,
-					absensi.`tbl_izin_full_day`.`upload_full_day`,
-					absensi.`tbl_izin_full_day`.`lat`,
-					absensi.`tbl_izin_full_day`.`lon` 
-					FROM absensi.`tbl_izin_full_day` 
-					INNER JOIN absensi.`tbl_karyawan_struktur` ON absensi.`tbl_karyawan_struktur`.`nip` = absensi.`tbl_izin_full_day`.`nik_full_day` 
-					INNER JOIN absensi.`tbl_lokasi` ON absensi.`tbl_lokasi`.`idLokasi` = absensi.`tbl_karyawan_struktur`.`idLokasiHrd`
+			$sql = "SELECT `tbl_izin_full_day`.`id_full_day`,
+					`tbl_izin_full_day`.`no_pengajuan_full_day`,
+					`tbl_izin_full_day`.`tanggal_pengajuan`,
+					`tbl_izin_full_day`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
+					`tbl_izin_full_day`.`nik_full_day` AS nik_baru,
+					`tbl_karyawan_struktur`.`namaKaryawan` AS`nama_karyawan_struktur`,
+					`tbl_lokasi`.`namaLokasi` AS lokasi_struktur,
+					`tbl_izin_full_day`.`jabatan_full_day`,
+					`tbl_izin_full_day`.`jenis_full_day`,
+					`tbl_izin_full_day`.`start_full_day` AS tanggal_absen,
+					`tbl_izin_full_day`.`karyawan_pengganti`,
+					`tbl_izin_full_day`.`ket_tambahan`,
+					`tbl_izin_full_day`.`status_full_day`,
+					`tbl_izin_full_day`.`feedback_full_day`,
+					`tbl_izin_full_day`.`tanggal_approval`,
+					`tbl_izin_full_day`.`status_full_day_2`,
+					`tbl_izin_full_day`.`feedback_full_day_2`,
+					`tbl_izin_full_day`.`tanggal_approval_2`,
+					`tbl_izin_full_day`.`upload_full_day`,
+					`tbl_izin_full_day`.`lat`,
+					`tbl_izin_full_day`.`lon` 
+					FROM `tbl_izin_full_day` 
+					INNER JOIN `tbl_karyawan_struktur` ON `tbl_karyawan_struktur`.`nip` = `tbl_izin_full_day`.`nik_full_day` 
+					INNER JOIN `tbl_lokasi` ON `tbl_lokasi`.`idLokasi` = `tbl_karyawan_struktur`.`idLokasiHrd`
 					WHERE $where";
 
 			$hasil = $this->db_absensi->query($sql);
 			return $hasil->result_array();
 		} else {
-			$sql = "SELECT absensi.`tbl_izin_full_day`.`id_full_day`,
-					absensi.`tbl_izin_full_day`.`no_pengajuan_full_day`,
-					absensi.`tbl_izin_full_day`.`tanggal_pengajuan`,
-					absensi.`tbl_izin_full_day`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
-					absensi.`tbl_izin_full_day`.`nik_full_day` AS nik_baru,
-					absensi.`tbl_karyawan_struktur`.`namaKaryawan` AS`nama_karyawan_struktur`,
-					absensi.`tbl_lokasi`.`namaLokasi` AS lokasi_struktur,
-					absensi.`tbl_izin_full_day`.`jabatan_full_day`,
-					absensi.`tbl_izin_full_day`.`jenis_full_day`,
-					absensi.`tbl_izin_full_day`.`start_full_day` AS tanggal_absen,
-					absensi.`tbl_izin_full_day`.`karyawan_pengganti`,
-					absensi.`tbl_izin_full_day`.`ket_tambahan`,
-					absensi.`tbl_izin_full_day`.`status_full_day`,
-					absensi.`tbl_izin_full_day`.`feedback_full_day`,
-					absensi.`tbl_izin_full_day`.`tanggal_approval`,
-					absensi.`tbl_izin_full_day`.`status_full_day_2`,
-					absensi.`tbl_izin_full_day`.`feedback_full_day_2`,
-					absensi.`tbl_izin_full_day`.`tanggal_approval_2`,
-					absensi.`tbl_izin_full_day`.`upload_full_day`,
-					absensi.`tbl_izin_full_day`.`lat`,
-					absensi.`tbl_izin_full_day`.`lon` 
-					FROM absensi.`tbl_izin_full_day` 
-					INNER JOIN absensi.`tbl_karyawan_struktur` ON absensi.`tbl_karyawan_struktur`.`nip` = absensi.`tbl_izin_full_day`.`nik_full_day` 
-					INNER JOIN absensi.`tbl_lokasi` ON absensi.`tbl_lokasi`.`idLokasi` = absensi.`tbl_karyawan_struktur`.`idLokasiHrd`
+			$sql = "SELECT `tbl_izin_full_day`.`id_full_day`,
+					`tbl_izin_full_day`.`no_pengajuan_full_day`,
+					`tbl_izin_full_day`.`tanggal_pengajuan`,
+					`tbl_izin_full_day`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
+					`tbl_izin_full_day`.`nik_full_day` AS nik_baru,
+					`tbl_karyawan_struktur`.`namaKaryawan` AS`nama_karyawan_struktur`,
+					`tbl_lokasi`.`namaLokasi` AS lokasi_struktur,
+					`tbl_izin_full_day`.`jabatan_full_day`,
+					`tbl_izin_full_day`.`jenis_full_day`,
+					`tbl_izin_full_day`.`start_full_day` AS tanggal_absen,
+					`tbl_izin_full_day`.`karyawan_pengganti`,
+					`tbl_izin_full_day`.`ket_tambahan`,
+					`tbl_izin_full_day`.`status_full_day`,
+					`tbl_izin_full_day`.`feedback_full_day`,
+					`tbl_izin_full_day`.`tanggal_approval`,
+					`tbl_izin_full_day`.`status_full_day_2`,
+					`tbl_izin_full_day`.`feedback_full_day_2`,
+					`tbl_izin_full_day`.`tanggal_approval_2`,
+					`tbl_izin_full_day`.`upload_full_day`,
+					`tbl_izin_full_day`.`lat`,
+					`tbl_izin_full_day`.`lon` 
+					FROM `tbl_izin_full_day` 
+					INNER JOIN `tbl_karyawan_struktur` ON `tbl_karyawan_struktur`.`nip` = `tbl_izin_full_day`.`nik_full_day` 
+					INNER JOIN `tbl_lokasi` ON `tbl_lokasi`.`idLokasi` = `tbl_karyawan_struktur`.`idLokasiHrd`
 					WHERE $where";
 
 			$hasil = $this->db_absensi->query($sql);
@@ -126,7 +126,7 @@ class M_Izin_full_day extends CI_Model
 		            ,tbl_izin_full_day.`status_full_day_2`
 		            ,tbl_izin_full_day.`feedback_full_day_2`
 		            ,tbl_izin_full_day.`tanggal_approval_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_izin_full_day`
@@ -157,7 +157,7 @@ class M_Izin_full_day extends CI_Model
 			            ,tbl_izin_full_day.`status_full_day_2`
 			            ,tbl_izin_full_day.`feedback_full_day_2`
 			            ,tbl_izin_full_day.`tanggal_approval_2`
-			        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+			        FROM `tbl_jabatan_karyawan_approval`
 			        INNER JOIN `tbl_jabatan_karyawan` 
 			            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 			        INNER JOIN `tbl_izin_full_day`
@@ -190,7 +190,7 @@ class M_Izin_full_day extends CI_Model
 		            ,tbl_izin_full_day.`status_full_day_2`
 		            ,tbl_izin_full_day.`feedback_full_day_2`
 		            ,tbl_izin_full_day.`tanggal_approval_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_izin_full_day`
@@ -231,7 +231,7 @@ class M_Izin_full_day extends CI_Model
 		            ,tbl_izin_full_day.`status_full_day_2`
 		            ,tbl_izin_full_day.`feedback_full_day_2`
 		            ,tbl_izin_full_day.`tanggal_approval_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_izin_full_day`
@@ -265,7 +265,7 @@ class M_Izin_full_day extends CI_Model
 		            ,tbl_izin_full_day.`status_full_day_2`
 		            ,tbl_izin_full_day.`feedback_full_day_2`
 		            ,tbl_izin_full_day.`tanggal_approval_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_izin_full_day`
@@ -285,30 +285,30 @@ class M_Izin_full_day extends CI_Model
 	public function get_index_full_day_feedback($nik_baru = null, $tanggal = null)
 	{
 		$sql = "SELECT 
-			absensi_new.`tbl_izin_full_day`.`id_full_day`
-			, absensi_new.`tbl_izin_full_day`.`no_pengajuan_full_day`
-			, absensi_new.`tbl_izin_full_day`.`tanggal_pengajuan`
-			, absensi_new.`tbl_izin_full_day`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
-			, absensi_new.`tbl_izin_full_day`.`nik_full_day` AS nik_baru
-			, absensi_new.`tbl_karyawan_struktur`.`nama_karyawan_struktur`
-			, absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur`
-			, absensi_new.`tbl_izin_full_day`.`jabatan_full_day`
-			, absensi_new.`tbl_izin_full_day`.`jenis_full_day`
-			, absensi_new.`tbl_izin_full_day`.`start_full_day` AS tanggal_absen
-			, absensi_new.`tbl_izin_full_day`.`karyawan_pengganti`
-			, absensi_new.`tbl_izin_full_day`.`ket_tambahan`
-			, absensi_new.`tbl_izin_full_day`.`status_full_day`
-			, absensi_new.`tbl_izin_full_day`.`feedback_full_day`
-			, absensi_new.`tbl_izin_full_day`.`tanggal_approval`
-			, absensi_new.`tbl_izin_full_day`.`status_full_day_2`
-			, absensi_new.`tbl_izin_full_day`.`feedback_full_day_2`
-			, absensi_new.`tbl_izin_full_day`.`tanggal_approval_2`
-			, absensi_new.`tbl_izin_full_day`.`upload_full_day`
-			, absensi_new.`tbl_izin_full_day`.`lat`
-			, absensi_new.`tbl_izin_full_day`.`lon`
-		FROM absensi_new.`tbl_izin_full_day`
-		INNER JOIN absensi_new.`tbl_karyawan_struktur`
-			ON absensi_new.`tbl_karyawan_struktur`.`nik_baru` = absensi_new.`tbl_izin_full_day`.`nik_full_day`
+			`tbl_izin_full_day`.`id_full_day`
+			, `tbl_izin_full_day`.`no_pengajuan_full_day`
+			, `tbl_izin_full_day`.`tanggal_pengajuan`
+			, `tbl_izin_full_day`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline
+			, `tbl_izin_full_day`.`nik_full_day` AS nik_baru
+			, `tbl_karyawan_struktur`.`nama_karyawan_struktur`
+			, `tbl_karyawan_struktur`.`lokasi_struktur`
+			, `tbl_izin_full_day`.`jabatan_full_day`
+			, `tbl_izin_full_day`.`jenis_full_day`
+			, `tbl_izin_full_day`.`start_full_day` AS tanggal_absen
+			, `tbl_izin_full_day`.`karyawan_pengganti`
+			, `tbl_izin_full_day`.`ket_tambahan`
+			, `tbl_izin_full_day`.`status_full_day`
+			, `tbl_izin_full_day`.`feedback_full_day`
+			, `tbl_izin_full_day`.`tanggal_approval`
+			, `tbl_izin_full_day`.`status_full_day_2`
+			, `tbl_izin_full_day`.`feedback_full_day_2`
+			, `tbl_izin_full_day`.`tanggal_approval_2`
+			, `tbl_izin_full_day`.`upload_full_day`
+			, `tbl_izin_full_day`.`lat`
+			, `tbl_izin_full_day`.`lon`
+		FROM `tbl_izin_full_day`
+		INNER JOIN `tbl_karyawan_struktur`
+			ON `tbl_karyawan_struktur`.`nik_baru` = `tbl_izin_full_day`.`nik_full_day`
 		WHERE nik_full_day = '$nik_baru' AND tanggal_approval = '$tanggal'";
 		$hasil = $this->db2->query($sql);
 		return $hasil->result_array();
@@ -330,68 +330,68 @@ class M_Izin_full_day extends CI_Model
 
 	public function get_index_rekap_full_day($nik_baru = null, $id = null)
 	{
-		$where = " absensi.`tbl_izin_full_day`.`jenis_full_day` <> 'DN'";
+		$where = " `tbl_izin_full_day`.`jenis_full_day` <> 'DN'";
 
 		if ($id != '') {
-			$where .= " and absensi.`tbl_izin_full_day`.`id_full_day` = '$id'";
+			$where .= " and `tbl_izin_full_day`.`id_full_day` = '$id'";
 		}
 		if ($nik_baru != '') {
-			$where .= "  and absensi.`tbl_izin_full_day`.`nik_full_day` = '$nik_baru'";
+			$where .= "  and `tbl_izin_full_day`.`nik_full_day` = '$nik_baru'";
 		}
 
 		if ($nik_baru === null and $id === null) {
-			$sql = "SELECT absensi.`tbl_izin_full_day`.`id_full_day`,
-			absensi.`tbl_izin_full_day`.`no_pengajuan_full_day`,
-			absensi.`tbl_izin_full_day`.`tanggal_pengajuan`,
-			absensi.`tbl_izin_full_day`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
-			absensi.`tbl_izin_full_day`.`nik_full_day` AS nik_baru,
-			absensi.`tbl_karyawan_struktur`.`namaKaryawan` AS nama_karyawan_struktur,
-			absensi.`tbl_lokasi`.`namaLokasi` AS lokasi_struktur,
-			absensi.`tbl_izin_full_day`.`jabatan_full_day`,
-			absensi.`tbl_izin_full_day`.`jenis_full_day`,
-			absensi.`tbl_izin_full_day`.`start_full_day` AS tanggal_absen,
-			absensi.`tbl_izin_full_day`.`karyawan_pengganti`,
-			absensi.`tbl_izin_full_day`.`ket_tambahan`,
-			absensi.`tbl_izin_full_day`.`status_full_day`,
-			absensi.`tbl_izin_full_day`.`feedback_full_day`,
-			absensi.`tbl_izin_full_day`.`tanggal_approval`,
-			absensi.`tbl_izin_full_day`.`status_full_day_2`,
-			absensi.`tbl_izin_full_day`.`feedback_full_day_2`,
-			absensi.`tbl_izin_full_day`.`tanggal_approval_2`,
-			absensi.`tbl_izin_full_day`.`upload_full_day`,
-			absensi.`tbl_izin_full_day`.`lat`,
-			absensi.`tbl_izin_full_day`.`lon` 
-			FROM absensi.`tbl_izin_full_day` 
-			INNER JOIN absensi.`tbl_karyawan_struktur` ON absensi.`tbl_karyawan_struktur`.`nip` = absensi.`tbl_izin_full_day`.`nik_full_day` 
-			LEFT JOIN absensi.`tbl_lokasi` ON absensi.`tbl_lokasi`.`idLokasi` = absensi.`tbl_karyawan_struktur`.`idLokasi` 
+			$sql = "SELECT `tbl_izin_full_day`.`id_full_day`,
+			`tbl_izin_full_day`.`no_pengajuan_full_day`,
+			`tbl_izin_full_day`.`tanggal_pengajuan`,
+			`tbl_izin_full_day`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
+			`tbl_izin_full_day`.`nik_full_day` AS nik_baru,
+			`tbl_karyawan_struktur`.`namaKaryawan` AS nama_karyawan_struktur,
+			`tbl_lokasi`.`namaLokasi` AS lokasi_struktur,
+			`tbl_izin_full_day`.`jabatan_full_day`,
+			`tbl_izin_full_day`.`jenis_full_day`,
+			`tbl_izin_full_day`.`start_full_day` AS tanggal_absen,
+			`tbl_izin_full_day`.`karyawan_pengganti`,
+			`tbl_izin_full_day`.`ket_tambahan`,
+			`tbl_izin_full_day`.`status_full_day`,
+			`tbl_izin_full_day`.`feedback_full_day`,
+			`tbl_izin_full_day`.`tanggal_approval`,
+			`tbl_izin_full_day`.`status_full_day_2`,
+			`tbl_izin_full_day`.`feedback_full_day_2`,
+			`tbl_izin_full_day`.`tanggal_approval_2`,
+			`tbl_izin_full_day`.`upload_full_day`,
+			`tbl_izin_full_day`.`lat`,
+			`tbl_izin_full_day`.`lon` 
+			FROM `tbl_izin_full_day` 
+			INNER JOIN `tbl_karyawan_struktur` ON `tbl_karyawan_struktur`.`nip` = `tbl_izin_full_day`.`nik_full_day` 
+			LEFT JOIN `tbl_lokasi` ON `tbl_lokasi`.`idLokasi` = `tbl_karyawan_struktur`.`idLokasi` 
 			WHERE $where";
 			$hasil = $this->db_absensi->query($sql);
 			return $hasil->result_array();
 		} else {
-			$sql = "SELECT absensi.`tbl_izin_full_day`.`id_full_day`,
-			absensi.`tbl_izin_full_day`.`no_pengajuan_full_day`,
-			absensi.`tbl_izin_full_day`.`tanggal_pengajuan`,
-			absensi.`tbl_izin_full_day`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
-			absensi.`tbl_izin_full_day`.`nik_full_day` AS nik_baru,
-			absensi.`tbl_karyawan_struktur`.`namaKaryawan` AS nama_karyawan_struktur,
-			absensi.`tbl_lokasi`.`namaLokasi` AS lokasi_struktur,
-			absensi.`tbl_izin_full_day`.`jabatan_full_day`,
-			absensi.`tbl_izin_full_day`.`jenis_full_day`,
-			absensi.`tbl_izin_full_day`.`start_full_day` AS tanggal_absen,
-			absensi.`tbl_izin_full_day`.`karyawan_pengganti`,
-			absensi.`tbl_izin_full_day`.`ket_tambahan`,
-			absensi.`tbl_izin_full_day`.`status_full_day`,
-			absensi.`tbl_izin_full_day`.`feedback_full_day`,
-			absensi.`tbl_izin_full_day`.`tanggal_approval`,
-			absensi.`tbl_izin_full_day`.`status_full_day_2`,
-			absensi.`tbl_izin_full_day`.`feedback_full_day_2`,
-			absensi.`tbl_izin_full_day`.`tanggal_approval_2`,
-			absensi.`tbl_izin_full_day`.`upload_full_day`,
-			absensi.`tbl_izin_full_day`.`lat`,
-			absensi.`tbl_izin_full_day`.`lon` 
-			FROM absensi.`tbl_izin_full_day` 
-			INNER JOIN absensi.`tbl_karyawan_struktur` ON absensi.`tbl_karyawan_struktur`.`nip` = absensi.`tbl_izin_full_day`.`nik_full_day` 
-			LEFT JOIN absensi.`tbl_lokasi` ON absensi.`tbl_lokasi`.`idLokasi` = absensi.`tbl_karyawan_struktur`.`idLokasi` 
+			$sql = "SELECT `tbl_izin_full_day`.`id_full_day`,
+			`tbl_izin_full_day`.`no_pengajuan_full_day`,
+			`tbl_izin_full_day`.`tanggal_pengajuan`,
+			`tbl_izin_full_day`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
+			`tbl_izin_full_day`.`nik_full_day` AS nik_baru,
+			`tbl_karyawan_struktur`.`namaKaryawan` AS nama_karyawan_struktur,
+			`tbl_lokasi`.`namaLokasi` AS lokasi_struktur,
+			`tbl_izin_full_day`.`jabatan_full_day`,
+			`tbl_izin_full_day`.`jenis_full_day`,
+			`tbl_izin_full_day`.`start_full_day` AS tanggal_absen,
+			`tbl_izin_full_day`.`karyawan_pengganti`,
+			`tbl_izin_full_day`.`ket_tambahan`,
+			`tbl_izin_full_day`.`status_full_day`,
+			`tbl_izin_full_day`.`feedback_full_day`,
+			`tbl_izin_full_day`.`tanggal_approval`,
+			`tbl_izin_full_day`.`status_full_day_2`,
+			`tbl_izin_full_day`.`feedback_full_day_2`,
+			`tbl_izin_full_day`.`tanggal_approval_2`,
+			`tbl_izin_full_day`.`upload_full_day`,
+			`tbl_izin_full_day`.`lat`,
+			`tbl_izin_full_day`.`lon` 
+			FROM `tbl_izin_full_day` 
+			INNER JOIN `tbl_karyawan_struktur` ON `tbl_karyawan_struktur`.`nip` = `tbl_izin_full_day`.`nik_full_day` 
+			LEFT JOIN `tbl_lokasi` ON `tbl_lokasi`.`idLokasi` = `tbl_karyawan_struktur`.`idLokasi` 
 			WHERE $where";
 			$hasil = $this->db_absensi->query($sql);
 			return $hasil->result_array();
@@ -418,7 +418,7 @@ class M_Izin_full_day extends CI_Model
 				tbl_izin_full_day.`status_full_day_2`,
 				tbl_izin_full_day.`feedback_full_day_2`,
 				tbl_izin_full_day.`tanggal_approval_2`
-			FROM `absensi`.`tbl_jabatan_approval` 
+			FROM `tbl_jabatan_approval` 
 			INNER JOIN `tbl_jabatan` ON tbl_jabatan.`idJabatan` = tbl_jabatan_approval.`idJabatan` 
 			INNER JOIN `tbl_izin_full_day` ON tbl_izin_full_day.`jabatan_full_day` = tbl_jabatan_approval.`idJabatan` 
 			INNER JOIN `tbl_karyawan_struktur` ON tbl_karyawan_struktur.`nip` = tbl_izin_full_day.`nik_full_day` 

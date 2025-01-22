@@ -27,7 +27,7 @@ class M_Team extends CI_Model
 	                , `tbl_karyawan_struktur`.`level_struktur`
 	                , `tbl_karyawan_struktur`.`dept_struktur`
 	                , `tbl_karyawan_struktur`.`join_date_struktur`
-	            FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+	            FROM `tbl_jabatan_karyawan_approval`
 	            INNER JOIN `tbl_jabatan_karyawan` 
 	            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 	            INNER JOIN `tbl_karyawan_struktur`
@@ -49,7 +49,7 @@ class M_Team extends CI_Model
 	                , `tbl_karyawan_struktur`.`level_struktur`
 	                , `tbl_karyawan_struktur`.`dept_struktur`
 	                , `tbl_karyawan_struktur`.`join_date_struktur`
-	            FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+	            FROM `tbl_jabatan_karyawan_approval`
 	            INNER JOIN `tbl_jabatan_karyawan` 
 	            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 	            INNER JOIN `tbl_karyawan_struktur`
@@ -71,7 +71,7 @@ class M_Team extends CI_Model
 	                , `tbl_karyawan_struktur`.`level_struktur`
 	                , `tbl_karyawan_struktur`.`dept_struktur`
 	                , `tbl_karyawan_struktur`.`join_date_struktur`
-	            FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+	            FROM `tbl_jabatan_karyawan_approval`
 	            INNER JOIN `tbl_jabatan_karyawan` 
 	            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 	            INNER JOIN `tbl_karyawan_struktur`
@@ -96,7 +96,7 @@ class M_Team extends CI_Model
 	                , `tbl_karyawan_struktur`.`level_struktur`
 	                , `tbl_karyawan_struktur`.`dept_struktur`
 	                , `tbl_karyawan_struktur`.`join_date_struktur`
-	            FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+	            FROM `tbl_jabatan_karyawan_approval`
 	            INNER JOIN `tbl_jabatan_karyawan` 
 	            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 	            INNER JOIN `tbl_karyawan_struktur`
@@ -123,7 +123,7 @@ class M_Team extends CI_Model
 	                , `tbl_karyawan_struktur`.`level_struktur`
 	                , `tbl_karyawan_struktur`.`dept_struktur`
 	                , `tbl_karyawan_struktur`.`join_date_struktur`
-	            FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+	            FROM `tbl_jabatan_karyawan_approval`
 	            INNER JOIN `tbl_jabatan_karyawan` 
 	            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 	            INNER JOIN `tbl_karyawan_struktur`
@@ -150,7 +150,7 @@ class M_Team extends CI_Model
 				, `tbl_karyawan_struktur`.`level_struktur`
 				, `tbl_karyawan_struktur`.`dept_struktur`
 				, `tbl_karyawan_struktur`.`join_date_struktur`
-	            FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+	            FROM `tbl_jabatan_karyawan_approval`
 			    INNER JOIN `tbl_jabatan_karyawan` 
 		    ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
    				INNER JOIN `tbl_karyawan_struktur`
@@ -180,7 +180,7 @@ class M_Team extends CI_Model
 	                , `tbl_karyawan_struktur`.`level_struktur`
 	                , `tbl_karyawan_struktur`.`dept_struktur`
 	                , `tbl_karyawan_struktur`.`join_date_struktur`
-	            FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+	            FROM `tbl_jabatan_karyawan_approval`
 	            INNER JOIN `tbl_jabatan_karyawan` 
 	            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 	            INNER JOIN `tbl_karyawan_struktur`
@@ -204,7 +204,7 @@ class M_Team extends CI_Model
 	                , `tbl_karyawan_struktur`.`level_struktur`
 	                , `tbl_karyawan_struktur`.`dept_struktur`
 	                , `tbl_karyawan_struktur`.`join_date_struktur`
-	            FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+	            FROM `tbl_jabatan_karyawan_approval`
 	            INNER JOIN `tbl_jabatan_karyawan` 
 	            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 	            INNER JOIN `tbl_karyawan_struktur`

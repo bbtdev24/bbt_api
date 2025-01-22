@@ -682,55 +682,55 @@ class M_Karyawan extends CI_Model
 
 	public function get_master_karyawan($lokasi_struktur = null, $nik_baru = null, $keyword = null)
 	{
-		$where = " absensi.tbl_karyawan_struktur.statusKaryawan = '0'";
+		$where = " tbl_karyawan_struktur.statusKaryawan = '0'";
 
 		if ($lokasi_struktur != '') {
-			$where .= " and absensi.tbl_lokasi.namaLokasi = '$lokasi_struktur'";
+			$where .= " and tbl_lokasi.namaLokasi = '$lokasi_struktur'";
 		}
 		if ($nik_baru != '') {
-			$where .= "  and absensi.tbl_karyawan_struktur.nip = '$nik_baru'";
+			$where .= "  and tbl_karyawan_struktur.nip = '$nik_baru'";
 		}
 		if ($keyword != '') {
-			$where .= "  and absensi.tbl_karyawan_struktur.nip LIKE '$keyword%' ORDER BY absensi.tbl_karyawan_struktur.nip DESC LIMIT 0, 1 ";
+			$where .= "  and tbl_karyawan_struktur.nip LIKE '$keyword%' ORDER BY tbl_karyawan_struktur.nip DESC LIMIT 0, 1 ";
 		}
 
 		$sql = "
 					SELECT 
-		absensi.tbl_karyawan_struktur.id,
-		absensi.tbl_karyawan_struktur.noUrut,
-		absensi.tbl_karyawan_struktur.nip AS nik_baru,
-		absensi.tbl_karyawan_struktur.namaKaryawan AS nama_karyawan_struktur,
-		absensi.tbl_karyawan_struktur.idJabatan,
-		absensi.tbl_jabatan.jabatanKaryawan AS jabatan_karyawan,
-		absensi.tbl_karyawan_struktur.idDivisi,
-		absensi.tbl_divisi.namaDivisi AS dept_struktur,
-		absensi.tbl_bagian.namaBagian,
-		absensi.tbl_karyawan_struktur.tanggalJoin AS join_date_struktur,
-		absensi.tbl_karyawan_detail.tanggal_lahir,
-		absensi.tbl_karyawan_induk.digit_ktp,
-		absensi.tbl_karyawan_struktur.statusKaryawan,
-		absensi.tbl_karyawan_struktur.statusKepegawaian AS status_karyawan_struktur,
-		absensi.tbl_karyawan_struktur.idLokasi,
-		absensi.tbl_lokasi.namaLokasi AS lokasi_struktur,
-		absensi.tbl_perusahaan.perusahaan_nama AS perusahaan_struktur
+		tbl_karyawan_struktur.id,
+		tbl_karyawan_struktur.noUrut,
+		tbl_karyawan_struktur.nip AS nik_baru,
+		tbl_karyawan_struktur.namaKaryawan AS nama_karyawan_struktur,
+		tbl_karyawan_struktur.idJabatan,
+		tbl_jabatan.jabatanKaryawan AS jabatan_karyawan,
+		tbl_karyawan_struktur.idDivisi,
+		tbl_divisi.namaDivisi AS dept_struktur,
+		tbl_bagian.namaBagian,
+		tbl_karyawan_struktur.tanggalJoin AS join_date_struktur,
+		tbl_karyawan_detail.tanggal_lahir,
+		tbl_karyawan_induk.digit_ktp,
+		tbl_karyawan_struktur.statusKaryawan,
+		tbl_karyawan_struktur.statusKepegawaian AS status_karyawan_struktur,
+		tbl_karyawan_struktur.idLokasi,
+		tbl_lokasi.namaLokasi AS lokasi_struktur,
+		tbl_perusahaan.perusahaan_nama AS perusahaan_struktur
 		FROM
-		absensi.tbl_karyawan_struktur 
-		INNER JOIN absensi.tbl_karyawan_induk 
-			ON absensi.tbl_karyawan_struktur.noUrut = absensi.tbl_karyawan_induk.no_urut 
-		LEFT JOIN absensi.tbl_karyawan_detail 
-			ON absensi.tbl_karyawan_struktur.noUrut = absensi.tbl_karyawan_detail.no_urut 
-		INNER JOIN absensi.tbl_jabatan 
-			ON absensi.tbl_karyawan_struktur.idJabatan = absensi.tbl_jabatan.idJabatan 
-		LEFT JOIN absensi.tbl_divisi 
-			ON absensi.tbl_karyawan_struktur.idDivisi = absensi.tbl_divisi.idDivisi 
-		LEFT JOIN absensi.tbl_bagian 
-			ON absensi.tbl_divisi.idBagian = absensi.tbl_bagian.idBagian 
-		LEFT JOIN absensi.tbl_lokasi
-			ON absensi.tbl_lokasi.`idLokasi` = absensi.tbl_karyawan_struktur.idLokasiHrd
-		LEFT JOIN absensi.tbl_perusahaan
-			ON absensi.tbl_perusahaan.perusahaan_id = absensi.tbl_karyawan_struktur.idPerusahaan
+		tbl_karyawan_struktur 
+		INNER JOIN tbl_karyawan_induk 
+			ON tbl_karyawan_struktur.noUrut = tbl_karyawan_induk.no_urut 
+		LEFT JOIN tbl_karyawan_detail 
+			ON tbl_karyawan_struktur.noUrut = tbl_karyawan_detail.no_urut 
+		INNER JOIN tbl_jabatan 
+			ON tbl_karyawan_struktur.idJabatan = tbl_jabatan.idJabatan 
+		LEFT JOIN tbl_divisi 
+			ON tbl_karyawan_struktur.idDivisi = tbl_divisi.idDivisi 
+		LEFT JOIN tbl_bagian 
+			ON tbl_divisi.idBagian = tbl_bagian.idBagian 
+		LEFT JOIN tbl_lokasi
+			ON tbl_lokasi.`idLokasi` = tbl_karyawan_struktur.idLokasiHrd
+		LEFT JOIN tbl_perusahaan
+			ON tbl_perusahaan.perusahaan_id = tbl_karyawan_struktur.idPerusahaan
 		WHERE $where
-		ORDER BY absensi.tbl_karyawan_struktur.namaKaryawan ASC";
+		ORDER BY tbl_karyawan_struktur.namaKaryawan ASC";
 
 		$hasil = $this->db_absensi->query($sql);
 		return $hasil->result_array();

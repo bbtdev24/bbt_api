@@ -36,13 +36,13 @@ class M_Login extends CI_Model
 				, ks.`status_karyawan`
 				, ks.`status_update`
 			');
-			$this->db->from('absensi_new.tbl_karyawan_struktur ks');
+			$this->db->from('tbl_karyawan_struktur ks');
 			$this->db->join('userinfo u', 'u.badgenumber = ks.nik_baru', 'left');
-			$this->db->join('absensi_new.tbl_jabatan_karyawan jk', 'ks.jabatan_hrd = jk.no_jabatan_karyawan', 'left');
-			$this->db->join('absensi_new.`tbl_karyawan_detail` d', 'd.`nik_baru` = ks.`nik_baru`', 'left');
-			$this->db->join('absensi_new.`tbl_perusahaan` pr', 'pr.`perusahaan_nama` = ks.`perusahaan_struktur`', 'left');
-			$this->db->join('absensi_new.`tbl_departement` dp', 'jk.dept_jabatan_karyawan = dp.`departement_id`', 'left');
-			$this->db->join('absensi_new.`tbl_depo` dpo', 'ks.lokasi_hrd = dpo.`depo_nama`', 'left');
+			$this->db->join('tbl_jabatan_karyawan jk', 'ks.jabatan_hrd = jk.no_jabatan_karyawan', 'left');
+			$this->db->join('`tbl_karyawan_detail` d', 'd.`nik_baru` = ks.`nik_baru`', 'left');
+			$this->db->join('`tbl_perusahaan` pr', 'pr.`perusahaan_nama` = ks.`perusahaan_struktur`', 'left');
+			$this->db->join('`tbl_departement` dp', 'jk.dept_jabatan_karyawan = dp.`departement_id`', 'left');
+			$this->db->join('`tbl_depo` dpo', 'ks.lokasi_hrd = dpo.`depo_nama`', 'left');
 
 			$get = $this->db->get();
 			return $get->result_array();
@@ -68,14 +68,14 @@ class M_Login extends CI_Model
 				, ks.`status_karyawan`
 				, ks.`status_update`
 			');
-			$this->db->from('absensi_new.tbl_karyawan_struktur ks');
+			$this->db->from('tbl_karyawan_struktur ks');
 			$this->db->join('userinfo u', 'u.badgenumber = ks.nik_baru', 'left');
-			$this->db->join('absensi_new.tbl_jabatan_karyawan jk', 'ks.jabatan_hrd = jk.no_jabatan_karyawan', 'left');
-			$this->db->join('absensi_new.`tbl_karyawan_detail` d', 'd.`nik_baru` = ks.`nik_baru`', 'left');
-			$this->db->join('absensi_new.`tbl_perusahaan` pr', 'pr.`perusahaan_nama` = ks.`perusahaan_struktur`', 'left');
-			$this->db->join('absensi_new.`tbl_depo` dpo', 'ks.lokasi_hrd = dpo.`depo_nama`', 'left');
+			$this->db->join('tbl_jabatan_karyawan jk', 'ks.jabatan_hrd = jk.no_jabatan_karyawan', 'left');
+			$this->db->join('`tbl_karyawan_detail` d', 'd.`nik_baru` = ks.`nik_baru`', 'left');
+			$this->db->join('`tbl_perusahaan` pr', 'pr.`perusahaan_nama` = ks.`perusahaan_struktur`', 'left');
+			$this->db->join('`tbl_depo` dpo', 'ks.lokasi_hrd = dpo.`depo_nama`', 'left');
 			$this->db->where(['ks.nik_baru' => $id, 'ks.status_karyawan' => '0']);
-			$this->db->join('absensi_new.`tbl_departement` dp', 'jk.dept_jabatan_karyawan = dp.`departement_id`', 'left');
+			$this->db->join('`tbl_departement` dp', 'jk.dept_jabatan_karyawan = dp.`departement_id`', 'left');
 
 			$get = $this->db->get();
 			return $get->result_array();
@@ -102,9 +102,9 @@ class M_Login extends CI_Model
 				, ks.`status_karyawan`
 			');
 			$this->db->from('userinfo u');
-			$this->db->join('absensi_new.tbl_karyawan_struktur ks', 'u.badgenumber = ks.nik_baru', 'left');
-			$this->db->join('absensi_new.tbl_jabatan_karyawan jk', 'ks.jabatan_hrd = jk.no_jabatan_karyawan', 'left');
-			$this->db->join('absensi_new.`tbl_karyawan_detail` d', 'd.`nik_baru` = ks.`nik_baru`', 'left');
+			$this->db->join('tbl_karyawan_struktur ks', 'u.badgenumber = ks.nik_baru', 'left');
+			$this->db->join('tbl_jabatan_karyawan jk', 'ks.jabatan_hrd = jk.no_jabatan_karyawan', 'left');
+			$this->db->join('`tbl_karyawan_detail` d', 'd.`nik_baru` = ks.`nik_baru`', 'left');
 
 			$get = $this->db->get();
 			return $get->result_array();
@@ -125,9 +125,9 @@ class M_Login extends CI_Model
 				, ks.`status_karyawan`
 			');
 			$this->db->from('userinfo u');
-			$this->db->join('absensi_new.tbl_karyawan_struktur ks', 'u.badgenumber = ks.nik_baru', 'left');
-			$this->db->join('absensi_new.tbl_jabatan_karyawan jk', 'ks.jabatan_hrd = jk.no_jabatan_karyawan', 'left');
-			$this->db->join('absensi_new.`tbl_karyawan_detail` d', 'd.`nik_baru` = ks.`nik_baru`', 'left');
+			$this->db->join('tbl_karyawan_struktur ks', 'u.badgenumber = ks.nik_baru', 'left');
+			$this->db->join('tbl_jabatan_karyawan jk', 'ks.jabatan_hrd = jk.no_jabatan_karyawan', 'left');
+			$this->db->join('`tbl_karyawan_detail` d', 'd.`nik_baru` = ks.`nik_baru`', 'left');
 			$this->db->where(['jk.dept_jabatan_karyawan' => $depart]);
 
 			$get = $this->db->get();

@@ -13,67 +13,67 @@ class M_Izin_non_full_day extends CI_Model
 
 	public function get_index_non_full_day($nik_baru = null, $id = null)
 	{
-		$where = " absensi_new.`tbl_izin_non_full`.`jenis_non_full` <> 'DN'";
+		$where = " `tbl_izin_non_full`.`jenis_non_full` <> 'DN'";
         if ($id!='') {
-            $where .= " and absensi_new.`tbl_izin_non_full`.`id_non_full` = '$id'";
+            $where .= " and `tbl_izin_non_full`.`id_non_full` = '$id'";
         }
         if ($nik_baru!='') {
-            $where .= "  and absensi_new.`tbl_izin_non_full`.`nik_non_full` = '$nik_baru'";
+            $where .= "  and `tbl_izin_non_full`.`nik_non_full` = '$nik_baru'";
         }
 
 		if ($nik_baru === null and $id === null) {
 			$sql="SELECT 
-				absensi_new.`tbl_izin_non_full`.`id_non_full`
-				, absensi_new.`tbl_izin_non_full`.`no_pengajuan_non_full`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_pengajuan`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline 
-				, absensi_new.`tbl_izin_non_full`.`nik_non_full` AS nik_baru
-				, absensi_new.`tbl_karyawan_struktur`.`nama_karyawan_struktur`
-				, absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur`
-				, absensi_new.`tbl_izin_non_full`.`jabatan_non_full`
-				, absensi_new.`tbl_izin_non_full`.`jenis_non_full`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_non_full` AS tanggal_absen
-				, absensi_new.`tbl_izin_non_full`.`ket_tambahan_non_full`
-				, absensi_new.`tbl_izin_non_full`.`status_non_full`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_approval_non_full`
-				, absensi_new.`tbl_izin_non_full`.`feedback_non_full`
-				, absensi_new.`tbl_izin_non_full`.`status_non_full_2`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_approval_non_full_2`
-				, absensi_new.`tbl_izin_non_full`.`feedback_non_full_2`
-				, absensi_new.`tbl_izin_non_full`.`upload_non_full`
-				, absensi_new.`tbl_izin_non_full`.`lat`
-				, absensi_new.`tbl_izin_non_full`.`lon`
-			FROM absensi_new.`tbl_izin_non_full`
-			INNER JOIN absensi_new.`tbl_karyawan_struktur`
-				ON absensi_new.`tbl_karyawan_struktur`.`nik_baru` = absensi_new.`tbl_izin_non_full`.`nik_non_full`
+				`tbl_izin_non_full`.`id_non_full`
+				, `tbl_izin_non_full`.`no_pengajuan_non_full`
+				, `tbl_izin_non_full`.`tanggal_pengajuan`
+				, `tbl_izin_non_full`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline 
+				, `tbl_izin_non_full`.`nik_non_full` AS nik_baru
+				, `tbl_karyawan_struktur`.`nama_karyawan_struktur`
+				, `tbl_karyawan_struktur`.`lokasi_struktur`
+				, `tbl_izin_non_full`.`jabatan_non_full`
+				, `tbl_izin_non_full`.`jenis_non_full`
+				, `tbl_izin_non_full`.`tanggal_non_full` AS tanggal_absen
+				, `tbl_izin_non_full`.`ket_tambahan_non_full`
+				, `tbl_izin_non_full`.`status_non_full`
+				, `tbl_izin_non_full`.`tanggal_approval_non_full`
+				, `tbl_izin_non_full`.`feedback_non_full`
+				, `tbl_izin_non_full`.`status_non_full_2`
+				, `tbl_izin_non_full`.`tanggal_approval_non_full_2`
+				, `tbl_izin_non_full`.`feedback_non_full_2`
+				, `tbl_izin_non_full`.`upload_non_full`
+				, `tbl_izin_non_full`.`lat`
+				, `tbl_izin_non_full`.`lon`
+			FROM `tbl_izin_non_full`
+			INNER JOIN `tbl_karyawan_struktur`
+				ON `tbl_karyawan_struktur`.`nik_baru` = `tbl_izin_non_full`.`nik_non_full`
 			WHERE $where";
 	        $hasil = $this->db2->query($sql);
 	    	return $hasil->result_array();
 		} else {
 			$sql="SELECT 
-				absensi_new.`tbl_izin_non_full`.`id_non_full`
-				, absensi_new.`tbl_izin_non_full`.`no_pengajuan_non_full`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_pengajuan`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline 
-				, absensi_new.`tbl_izin_non_full`.`nik_non_full` AS nik_baru
-				, absensi_new.`tbl_karyawan_struktur`.`nama_karyawan_struktur`
-				, absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur`
-				, absensi_new.`tbl_izin_non_full`.`jabatan_non_full`
-				, absensi_new.`tbl_izin_non_full`.`jenis_non_full`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_non_full` AS tanggal_absen
-				, absensi_new.`tbl_izin_non_full`.`ket_tambahan_non_full`
-				, absensi_new.`tbl_izin_non_full`.`status_non_full`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_approval_non_full`
-				, absensi_new.`tbl_izin_non_full`.`feedback_non_full`
-				, absensi_new.`tbl_izin_non_full`.`status_non_full_2`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_approval_non_full_2`
-				, absensi_new.`tbl_izin_non_full`.`feedback_non_full_2`
-				, absensi_new.`tbl_izin_non_full`.`upload_non_full`
-				, absensi_new.`tbl_izin_non_full`.`lat`
-				, absensi_new.`tbl_izin_non_full`.`lon`
-			FROM absensi_new.`tbl_izin_non_full`
-			INNER JOIN absensi_new.`tbl_karyawan_struktur`
-				ON absensi_new.`tbl_karyawan_struktur`.`nik_baru` = absensi_new.`tbl_izin_non_full`.`nik_non_full`
+				`tbl_izin_non_full`.`id_non_full`
+				, `tbl_izin_non_full`.`no_pengajuan_non_full`
+				, `tbl_izin_non_full`.`tanggal_pengajuan`
+				, `tbl_izin_non_full`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline 
+				, `tbl_izin_non_full`.`nik_non_full` AS nik_baru
+				, `tbl_karyawan_struktur`.`nama_karyawan_struktur`
+				, `tbl_karyawan_struktur`.`lokasi_struktur`
+				, `tbl_izin_non_full`.`jabatan_non_full`
+				, `tbl_izin_non_full`.`jenis_non_full`
+				, `tbl_izin_non_full`.`tanggal_non_full` AS tanggal_absen
+				, `tbl_izin_non_full`.`ket_tambahan_non_full`
+				, `tbl_izin_non_full`.`status_non_full`
+				, `tbl_izin_non_full`.`tanggal_approval_non_full`
+				, `tbl_izin_non_full`.`feedback_non_full`
+				, `tbl_izin_non_full`.`status_non_full_2`
+				, `tbl_izin_non_full`.`tanggal_approval_non_full_2`
+				, `tbl_izin_non_full`.`feedback_non_full_2`
+				, `tbl_izin_non_full`.`upload_non_full`
+				, `tbl_izin_non_full`.`lat`
+				, `tbl_izin_non_full`.`lon`
+			FROM `tbl_izin_non_full`
+			INNER JOIN `tbl_karyawan_struktur`
+				ON `tbl_karyawan_struktur`.`nik_baru` = `tbl_izin_non_full`.`nik_non_full`
 			WHERE $where";
 	        $hasil = $this->db2->query($sql);
 	    	return $hasil->result_array();
@@ -122,7 +122,7 @@ class M_Izin_non_full_day extends CI_Model
 		            ,tbl_izin_non_full.`status_non_full_2`
 		            ,tbl_izin_non_full.`tanggal_approval_non_full_2`
 		            ,tbl_izin_non_full.`feedback_non_full_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_izin_non_full`
@@ -152,7 +152,7 @@ class M_Izin_non_full_day extends CI_Model
 			            ,tbl_izin_non_full.`status_non_full_2`
 			            ,tbl_izin_non_full.`tanggal_approval_non_full_2`
 			            ,tbl_izin_non_full.`feedback_non_full_2`
-			        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+			        FROM `tbl_jabatan_karyawan_approval`
 			        INNER JOIN `tbl_jabatan_karyawan` 
 			            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 			        INNER JOIN `tbl_izin_non_full`
@@ -184,7 +184,7 @@ class M_Izin_non_full_day extends CI_Model
 		            ,tbl_izin_non_full.`status_non_full_2`
 		            ,tbl_izin_non_full.`tanggal_approval_non_full_2`
 		            ,tbl_izin_non_full.`feedback_non_full_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_izin_non_full`
@@ -224,7 +224,7 @@ class M_Izin_non_full_day extends CI_Model
 		            ,tbl_izin_non_full.`status_non_full_2`
 		            ,tbl_izin_non_full.`tanggal_approval_non_full_2`
 		            ,tbl_izin_non_full.`feedback_non_full_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_izin_non_full`
@@ -257,7 +257,7 @@ class M_Izin_non_full_day extends CI_Model
 		            ,tbl_izin_non_full.`status_non_full_2`
 		            ,tbl_izin_non_full.`tanggal_approval_non_full_2`
 		            ,tbl_izin_non_full.`feedback_non_full_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_izin_non_full`
@@ -277,29 +277,29 @@ class M_Izin_non_full_day extends CI_Model
 	public function get_index_non_full_day_feedback($nik_baru = null, $tanggal = null)
 	{
 		$sql="SELECT 
-				absensi_new.`tbl_izin_non_full`.`id_non_full`
-				, absensi_new.`tbl_izin_non_full`.`no_pengajuan_non_full`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_pengajuan`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline 
-				, absensi_new.`tbl_izin_non_full`.`nik_non_full` AS nik_baru
-				, absensi_new.`tbl_karyawan_struktur`.`nama_karyawan_struktur`
-				, absensi_new.`tbl_karyawan_struktur`.`lokasi_struktur`
-				, absensi_new.`tbl_izin_non_full`.`jabatan_non_full`
-				, absensi_new.`tbl_izin_non_full`.`jenis_non_full`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_non_full` AS tanggal_absen
-				, absensi_new.`tbl_izin_non_full`.`ket_tambahan_non_full`
-				, absensi_new.`tbl_izin_non_full`.`status_non_full`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_approval_non_full`
-				, absensi_new.`tbl_izin_non_full`.`feedback_non_full`
-				, absensi_new.`tbl_izin_non_full`.`status_non_full_2`
-				, absensi_new.`tbl_izin_non_full`.`tanggal_approval_non_full_2`
-				, absensi_new.`tbl_izin_non_full`.`feedback_non_full_2`
-				, absensi_new.`tbl_izin_non_full`.`upload_non_full`
-				, absensi_new.`tbl_izin_non_full`.`lat`
-				, absensi_new.`tbl_izin_non_full`.`lon`
-			FROM absensi_new.`tbl_izin_non_full`
-			INNER JOIN absensi_new.`tbl_karyawan_struktur`
-				ON absensi_new.`tbl_karyawan_struktur`.`nik_baru` = absensi_new.`tbl_izin_non_full`.`nik_non_full`
+				`tbl_izin_non_full`.`id_non_full`
+				, `tbl_izin_non_full`.`no_pengajuan_non_full`
+				, `tbl_izin_non_full`.`tanggal_pengajuan`
+				, `tbl_izin_non_full`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline 
+				, `tbl_izin_non_full`.`nik_non_full` AS nik_baru
+				, `tbl_karyawan_struktur`.`nama_karyawan_struktur`
+				, `tbl_karyawan_struktur`.`lokasi_struktur`
+				, `tbl_izin_non_full`.`jabatan_non_full`
+				, `tbl_izin_non_full`.`jenis_non_full`
+				, `tbl_izin_non_full`.`tanggal_non_full` AS tanggal_absen
+				, `tbl_izin_non_full`.`ket_tambahan_non_full`
+				, `tbl_izin_non_full`.`status_non_full`
+				, `tbl_izin_non_full`.`tanggal_approval_non_full`
+				, `tbl_izin_non_full`.`feedback_non_full`
+				, `tbl_izin_non_full`.`status_non_full_2`
+				, `tbl_izin_non_full`.`tanggal_approval_non_full_2`
+				, `tbl_izin_non_full`.`feedback_non_full_2`
+				, `tbl_izin_non_full`.`upload_non_full`
+				, `tbl_izin_non_full`.`lat`
+				, `tbl_izin_non_full`.`lon`
+			FROM `tbl_izin_non_full`
+			INNER JOIN `tbl_karyawan_struktur`
+				ON `tbl_karyawan_struktur`.`nik_baru` = `tbl_izin_non_full`.`nik_non_full`
 			WHERE nik_non_full = '$nik_baru' AND tanggal_approval_non_full = '$tanggal'";
         $hasil = $this->db2->query($sql);
     	return $hasil->result_array();

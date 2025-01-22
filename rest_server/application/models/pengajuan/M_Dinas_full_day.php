@@ -8,7 +8,7 @@ class M_Dinas_full_day extends CI_Model
 
 	public function __construct()
 	{
-		# code...
+		    // $absensi = $this->config->item('db_absensi');
 	}
 
 	public function get_index_dinas_full_day($nik_baru = null, $id = null)

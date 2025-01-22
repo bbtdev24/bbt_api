@@ -39,8 +39,8 @@ class M_Resign extends CI_Model
 
 	public function getnomor()
 	{
-		$sql = "SELECT * FROM absensi_new.`tbl_karyawan_resign`
-		ORDER BY absensi_new.`tbl_karyawan_resign`.`id` DESC
+		$sql = "SELECT * FROM `tbl_karyawan_resign`
+		ORDER BY `tbl_karyawan_resign`.`id` DESC
 		LIMIT 0, 1
 		";
         $hasil = $this->db2->query($sql);
@@ -57,14 +57,14 @@ class M_Resign extends CI_Model
 
 	public function getid($id = null)
 	{
-		$sql = "SELECT * FROM absensi_new.`tbl_karyawan_resign` WHERE id = '$id'";
+		$sql = "SELECT * FROM `tbl_karyawan_resign` WHERE id = '$id'";
         $hasil = $this->db2->query($sql);
         return $hasil->result_array();
 	}
 
     public function getsoalexit()
     {
-        $sql = "SELECT * FROM absensi_new.`tbl_soal_exit`";
+        $sql = "SELECT * FROM `tbl_soal_exit`";
         $hasil = $this->db2->query($sql);
         return $hasil->result_array();
     }
@@ -87,7 +87,7 @@ class M_Resign extends CI_Model
 		            ,tbl_karyawan_resign.`status_exit`
 		            ,tbl_karyawan_resign.`status_atasan`
 		            ,tbl_karyawan_resign.`status_atasan_2`
-		        FROM `absensi_new`.`tbl_jabatan_karyawan_approval`
+		        FROM `tbl_jabatan_karyawan_approval`
 		        INNER JOIN `tbl_jabatan_karyawan` 
 		            ON tbl_jabatan_karyawan.`no_jabatan_karyawan` = tbl_jabatan_karyawan_approval.`no_jabatan_karyawan`
 		        INNER JOIN `tbl_karyawan_resign`

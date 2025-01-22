@@ -15,33 +15,33 @@ class M_SuratKontrak extends CI_Model
 	{
 		if ($nik_baru === null) {
 			$sql = "SELECT 
-			absensi.`tbl_karyawan_kontrak`.`id`,
-			absensi.`tbl_karyawan_kontrak`.`submit_date`,
-			absensi.`tbl_karyawan_kontrak`.`no_urut`,
-			absensi.`tbl_karyawan_kontrak`.`nik_baru`,
-			absensi.`tbl_karyawan_struktur`.`namaKaryawan`,
-			absensi.`tbl_karyawan_kontrak`.`kontrak`,
-			absensi.`tbl_karyawan_kontrak`.`tanggal_kontrak`,
-			absensi.`tbl_karyawan_kontrak`.`start_date`,
-			absensi.`tbl_karyawan_kontrak`.`end_date` 
-			FROM absensi.`tbl_karyawan_kontrak` 
-			INNER JOIN absensi.`tbl_karyawan_struktur` ON absensi.`tbl_karyawan_struktur`.`nip` = absensi.`tbl_karyawan_kontrak`.`nik_baru`";
+			`tbl_karyawan_kontrak`.`id`,
+			`tbl_karyawan_kontrak`.`submit_date`,
+			`tbl_karyawan_kontrak`.`no_urut`,
+			`tbl_karyawan_kontrak`.`nik_baru`,
+			`tbl_karyawan_struktur`.`namaKaryawan`,
+			`tbl_karyawan_kontrak`.`kontrak`,
+			`tbl_karyawan_kontrak`.`tanggal_kontrak`,
+			`tbl_karyawan_kontrak`.`start_date`,
+			`tbl_karyawan_kontrak`.`end_date` 
+			FROM `tbl_karyawan_kontrak` 
+			INNER JOIN `tbl_karyawan_struktur` ON `tbl_karyawan_struktur`.`nip` = `tbl_karyawan_kontrak`.`nik_baru`";
 			$hasil = $this->db_absensi->query($sql);
 			return $hasil->result_array();
 		} else {
 			$sql = "SELECT 
-			absensi.`tbl_karyawan_kontrak`.`id`,
-			absensi.`tbl_karyawan_kontrak`.`submit_date`,
-			absensi.`tbl_karyawan_kontrak`.`no_urut`,
-			absensi.`tbl_karyawan_kontrak`.`nik_baru`,
-			absensi.`tbl_karyawan_struktur`.`namaKaryawan`,
-			absensi.`tbl_karyawan_kontrak`.`kontrak`,
-			absensi.`tbl_karyawan_kontrak`.`tanggal_kontrak`,
-			absensi.`tbl_karyawan_kontrak`.`start_date`,
-			absensi.`tbl_karyawan_kontrak`.`end_date` 
-			FROM absensi.`tbl_karyawan_kontrak` 
-			INNER JOIN absensi.`tbl_karyawan_struktur` ON absensi.`tbl_karyawan_struktur`.`nip` = absensi.`tbl_karyawan_kontrak`.`nik_baru`
-			WHERE absensi.`tbl_karyawan_kontrak`.`nik_baru` = '$nik_baru'";
+			`tbl_karyawan_kontrak`.`id`,
+			`tbl_karyawan_kontrak`.`submit_date`,
+			`tbl_karyawan_kontrak`.`no_urut`,
+			`tbl_karyawan_kontrak`.`nik_baru`,
+			`tbl_karyawan_struktur`.`namaKaryawan`,
+			`tbl_karyawan_kontrak`.`kontrak`,
+			`tbl_karyawan_kontrak`.`tanggal_kontrak`,
+			`tbl_karyawan_kontrak`.`start_date`,
+			`tbl_karyawan_kontrak`.`end_date` 
+			FROM `tbl_karyawan_kontrak` 
+			INNER JOIN `tbl_karyawan_struktur` ON `tbl_karyawan_struktur`.`nip` = `tbl_karyawan_kontrak`.`nik_baru`
+			WHERE `tbl_karyawan_kontrak`.`nik_baru` = '$nik_baru'";
 			$hasil = $this->db_absensi->query($sql);
 			return $hasil->result_array();
 		}

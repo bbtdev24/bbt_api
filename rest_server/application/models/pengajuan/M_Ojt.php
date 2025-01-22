@@ -13,16 +13,16 @@ class M_Ojt extends CI_Model
 
     public function getOjt($nik = null)
     {
-        $where = " absensi_new.`form_ojt`.`id_ojt` is not null";
+        $where = " `form_ojt`.`id_ojt` is not null";
         if ($nik!='') {
-            $where .= " and absensi_new.`form_ojt`.`nik` = '$nik'";
+            $where .= " and `form_ojt`.`nik` = '$nik'";
         }
         if ($nik === null) {
-            $sql="SELECT * FROM absensi_new.`form_ojt`";
+            $sql="SELECT * FROM `form_ojt`";
             $hasil = $this->db2->query($sql);
             return $hasil->result_array();
         } else {
-            $sql="SELECT * FROM absensi_new.`form_ojt` WHERE $where ";
+            $sql="SELECT * FROM `form_ojt` WHERE $where ";
             $hasil = $this->db2->query($sql);
             return $hasil->result_array();
         }
