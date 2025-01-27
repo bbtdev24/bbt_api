@@ -61,8 +61,8 @@ class M_Nomor_Pengajuan extends CI_Model
 
 	public function getFullday_new()
 	{
-		$sql = " SELECT * FROM absensi.`tbl_izin_full_day`
-		ORDER BY absensi.`tbl_izin_full_day`.`id_full_day` DESC
+		$sql = " SELECT * FROM `tbl_izin_full_day`
+		ORDER BY `tbl_izin_full_day`.`id_full_day` DESC
 		LIMIT 0, 1
 		";
 		$hasil = $this->db_absensi->query($sql);
