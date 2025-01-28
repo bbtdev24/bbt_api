@@ -1,4 +1,9 @@
 <?php
+
+// Include global_path.php
+require_once 'global_path.php';
+
+
 // $no_pengajuan_tahunan = $_POST['no_pengajuan_khusus'];
 // $image = base64_decode($_POST['foto']);
 // $nama = $no_pengajuan_tahunan;
