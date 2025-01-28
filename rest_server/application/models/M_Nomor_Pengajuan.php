@@ -33,8 +33,8 @@ class M_Nomor_Pengajuan extends CI_Model
 
 	public function getCutikhusus()
 	{
-		$sql = " SELECT * FROM absensi.`tbl_karyawan_cuti_khusus`
-		ORDER BY absensi.`tbl_karyawan_cuti_khusus`.`id_cuti_khusus` DESC
+		$sql = " SELECT * FROM `tbl_karyawan_cuti_khusus`
+		ORDER BY `tbl_karyawan_cuti_khusus`.`id_cuti_khusus` DESC
 		LIMIT 0, 1";
 		$hasil = $this->db_absensi->query($sql);
 		return $hasil->result_array();
@@ -42,8 +42,8 @@ class M_Nomor_Pengajuan extends CI_Model
 
 	public function getCutitahunan()
 	{
-		$sql = " SELECT * FROM absensi.`tbl_karyawan_cuti_tahunan`
-		ORDER BY absensi.`tbl_karyawan_cuti_tahunan`.`id_sisa_cuti` DESC
+		$sql = " SELECT * FROM `tbl_karyawan_cuti_tahunan`
+		ORDER BY `tbl_karyawan_cuti_tahunan`.`id_sisa_cuti` DESC
 		LIMIT 0, 1";
 		$hasil = $this->db_absensi->query($sql);
 		return $hasil->result_array();
