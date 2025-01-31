@@ -1593,9 +1593,9 @@ class M_Absensi extends CI_Model
                 CASE
                 WHEN a.`waktu_shift` IS NULL 
                 THEN (SELECT
-                `absensi`.`tbl_shifting`.`waktu_masuk`
-                FROM `absensi`.`tbl_shifting`
-                WHERE `absensi`.`tbl_shifting`.`extend` = '2')
+                $absensi.`tbl_shifting`.`waktu_masuk`
+                FROM $absensi.`tbl_shifting`
+                WHERE $absensi.`tbl_shifting`.`extend` = '2')
                 ELSE TIME_FORMAT(
                 b.waktu_masuk,
                 '%H:%i:%S'
@@ -1619,9 +1619,9 @@ class M_Absensi extends CI_Model
                 CASE
                 WHEN a.`waktu_shift` IS NULL 
                 THEN (SELECT
-                `absensi`.`tbl_shifting`.`waktu_keluar`
-                FROM `absensi`.`tbl_shifting`
-                WHERE `absensi`.`tbl_shifting`.`extend` = '2')
+                $absensi.`tbl_shifting`.`waktu_keluar`
+                FROM $absensi.`tbl_shifting`
+                WHERE $absensi.`tbl_shifting`.`extend` = '2')
                 ELSE TIME_FORMAT(
                 b.waktu_keluar,
                 '%H:%i:%S'
