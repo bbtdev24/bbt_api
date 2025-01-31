@@ -8,7 +8,7 @@ class M_Absensi extends CI_Model
 
     public function __construct()
     {
-                    $absensi = $this->config->item('db_absensi');
+                    $this->absensi = $this->config->item('db_absensi');
                     $payroll = $this->config->item('db_payroll');
                     $adms = $this->config->item('db_adms');
     }
@@ -1379,19 +1379,19 @@ class M_Absensi extends CI_Model
             WHEN tbl_final.`shift_day` BETWEEN '2024-09-01' 
             AND 
             (SELECT 
-                $absensi.`tbl_karyawan_struktur`.`tanggalJoin`
+                $this->absensi.`tbl_karyawan_struktur`.`tanggalJoin`
             FROM
-            $absensi.`tbl_karyawan_struktur` 
-            WHERE $absensi.`tbl_karyawan_struktur`.`nip` = tbl_final.`badgenumber` 
-            AND $absensi.`tbl_karyawan_struktur`.`tanggalJoin` >= '2024-09-01') 
+            $this->absensi.`tbl_karyawan_struktur` 
+            WHERE $this->absensi.`tbl_karyawan_struktur`.`nip` = tbl_final.`badgenumber` 
+            AND $this->absensi.`tbl_karyawan_struktur`.`tanggalJoin` >= '2024-09-01') 
                 THEN 'NEW' 
             WHEN tbl_final.`shift_day` BETWEEN 
             (SELECT 
-                $absensi.`tbl_resign`.`tanggalEfektifResign` 
+                $this->absensi.`tbl_resign`.`tanggalEfektifResign` 
             FROM
-            $absensi.`tbl_resign` 
-            WHERE $absensi.`tbl_resign`.`nip` = tbl_final.`badgenumber`
-            AND $absensi.`tbl_resign`.`tanggalEfektifResign` >= '2024-09-01') 
+            $this->absensi.`tbl_resign` 
+            WHERE $this->absensi.`tbl_resign`.`nip` = tbl_final.`badgenumber`
+            AND $this->absensi.`tbl_resign`.`tanggalEfektifResign` >= '2024-09-01') 
             AND '2024-09-30' 
                 THEN 'RESIGN' 
             WHEN tbl_final.checkin IS NULL 
@@ -1469,7 +1469,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 MIN(checktime) 
             FROM
-                $absensi.tbl_absen masuk_normal 
+                $this->absensi.tbl_absen masuk_normal 
             WHERE masuk_normal.noUrut = c.noUrut
                 AND masuk_normal.checktime >= CAST(
                 CONCAT(
@@ -1492,7 +1492,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 MIN(checktime) 
             FROM
-                $absensi.tbl_absen masuk_malem 
+                $this->absensi.tbl_absen masuk_malem 
             WHERE masuk_malem.noUrut = c.noUrut
                 AND masuk_malem.checktime >= CAST(
                 CONCAT(
@@ -1526,7 +1526,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 CONCAT(masuk_normal.long,',', masuk_normal.lat)
             FROM
-                $absensi.tbl_absen masuk_normal 
+                $this->absensi.tbl_absen masuk_normal 
             WHERE masuk_normal.noUrut = c.noUrut
                 AND masuk_normal.checktime >= CAST(
                 CONCAT(
@@ -1549,7 +1549,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 CONCAT(masuk_malem.long,' ', masuk_malem.lat)
             FROM
-                $absensi.tbl_absen masuk_malem 
+                $this->absensi.tbl_absen masuk_malem 
             WHERE masuk_malem.noUrut = c.noUrut
                 AND masuk_malem.checktime >= CAST(
                 CONCAT(
@@ -1593,9 +1593,9 @@ class M_Absensi extends CI_Model
                 CASE
                 WHEN a.`waktu_shift` IS NULL 
                 THEN (SELECT
-                $absensi.`tbl_shifting`.`waktu_masuk`
-                FROM $absensi.`tbl_shifting`
-                WHERE $absensi.`tbl_shifting`.`extend` = '2')
+                $this->absensi.`tbl_shifting`.`waktu_masuk`
+                FROM $this->absensi.`tbl_shifting`
+                WHERE $this->absensi.`tbl_shifting`.`extend` = '2')
                 ELSE TIME_FORMAT(
                 b.waktu_masuk,
                 '%H:%i:%S'
@@ -1619,9 +1619,9 @@ class M_Absensi extends CI_Model
                 CASE
                 WHEN a.`waktu_shift` IS NULL 
                 THEN (SELECT
-                $absensi.`tbl_shifting`.`waktu_keluar`
-                FROM $absensi.`tbl_shifting`
-                WHERE $absensi.`tbl_shifting`.`extend` = '2')
+                $this->absensi.`tbl_shifting`.`waktu_keluar`
+                FROM $this->absensi.`tbl_shifting`
+                WHERE $this->absensi.`tbl_shifting`.`extend` = '2')
                 ELSE TIME_FORMAT(
                 b.waktu_keluar,
                 '%H:%i:%S'
@@ -1648,7 +1648,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 MAX(checktime) 
             FROM
-                $absensi.tbl_absen masuk_normal 
+                $this->absensi.tbl_absen masuk_normal 
             WHERE masuk_normal.noUrut = a.userid 
                 AND masuk_normal.checktime >= CAST(
                 CONCAT(
@@ -1670,7 +1670,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 MAX(checktime) 
             FROM
-                $absensi.tbl_absen keluar_malem 
+                $this->absensi.tbl_absen keluar_malem 
             WHERE keluar_malem.noUrut = a.userid 
                 AND keluar_malem.checktime >= CAST(
                 CONCAT(
@@ -1704,7 +1704,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 CONCAT(masuk_normal.long,' ', masuk_normal.lat)
             FROM
-                $absensi.tbl_absen masuk_normal 
+                $this->absensi.tbl_absen masuk_normal 
             WHERE masuk_normal.noUrut = a.userid 
                 AND masuk_normal.checktime >= CAST(
                 CONCAT(
@@ -1727,7 +1727,7 @@ class M_Absensi extends CI_Model
             (SELECT 
                 CONCAT(keluar_malem.long,' ', keluar_malem.lat)
             FROM
-                $absensi.tbl_absen keluar_malem 
+                $this->absensi.tbl_absen keluar_malem 
             WHERE keluar_malem.noUrut = a.userid 
                 AND keluar_malem.checktime >= CAST(
                 CONCAT(
@@ -1795,18 +1795,18 @@ class M_Absensi extends CI_Model
             
             g.`birth_date`
             
-        FROM $absensi.`tarikan_absen_adms` a
-        LEFT JOIN $absensi.`tbl_shifting` b
+        FROM $this->absensi.`tarikan_absen_adms` a
+        LEFT JOIN $this->absensi.`tbl_shifting` b
             ON a.`waktu_shift` = b.`id_shifting`
-        INNER JOIN $absensi.`tbl_karyawan_struktur` c
+        INNER JOIN $this->absensi.`tbl_karyawan_struktur` c
             ON c.`noUrut` = a.`userId` 
-        INNER JOIN $absensi.`tbl_jabatan` d
+        INNER JOIN $this->absensi.`tbl_jabatan` d
             ON c.`idJabatan` = d.`idJabatan`
-        LEFT JOIN $absensi.`tbl_divisi` e
+        LEFT JOIN $this->absensi.`tbl_divisi` e
             ON c.`idDivisi` = e.`idDivisi`
-        LEFT JOIN $absensi.`tbl_bagian` f
+        LEFT JOIN $this->absensi.`tbl_bagian` f
             ON e.`idBagian` = f.`idBagian`
-        LEFT JOIN $absensi.`tmp_events` g
+        LEFT JOIN $this->absensi.`tmp_events` g
             ON g.`birth_date` = a.`shift_day`
         WHERE $where) tbl_final
         ORDER BY tbl_final.`shift_day` DESC ";
@@ -1944,7 +1944,7 @@ class M_Absensi extends CI_Model
             , a.`bulan`
             , a.`tahun`
         FROM $payroll.`tmp_atribut_payroll` a
-        LEFT JOIN $absensi.`tbl_karyawan_struktur` b ON a.`noUrut` = b.`noUrut`
+        LEFT JOIN $this->absensi.`tbl_karyawan_struktur` b ON a.`noUrut` = b.`noUrut`
         LEFT JOIN $payroll.`tbl_ptkp` c ON b.`idPtkp` = c.`id`
         LEFT JOIN $payroll.`tbl_kpp` d ON b.`idKpp` = d.`id`
         LEFT JOIN $payroll.`tbl_pph_gross_up` e ON e.`nik_baru` = a.`nip`
@@ -1952,7 +1952,7 @@ class M_Absensi extends CI_Model
         AND e.`tahun` = '$tahun'
         AND e.`id_proses` = '1'
 
-        LEFT JOIN $absensi.`tbl_karyawan_induk` f ON f.`no_urut` = b.`noUrut`
+        LEFT JOIN $this->absensi.`tbl_karyawan_induk` f ON f.`no_urut` = b.`noUrut`
         WHERE (a.`bulan` >= '$bulan_start' 
         AND a.`bulan` <= '$bulan_end')
         AND a.`tahun` = '$tahun'
