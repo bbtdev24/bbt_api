@@ -118,8 +118,9 @@ $response = file_get_contents($tokenUri, false, stream_context_create([
         ]),
     ],
 ]));
-var_dump($response);
-exit;
+// var_dump($response);
+// exit;
+var_dump(file_get_contents('https://www.google.com'));
 
 // Tambahkan pengecekan error setelah request token
 if ($response === false) {
