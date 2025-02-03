@@ -85,6 +85,9 @@ $fcmUrl = 'https://fcm.googleapis.com/v1/projects/mobile-ess-bbt/messages:send';
 
 // Step 1: Get OAuth 2.0 Token (as described earlier)
 $serviceAccountData = json_decode(file_get_contents($serviceAccountPath), true);
+var_dump($serviceAccountData['private_key']);
+exit;
+
 if (!$serviceAccountData) {
     echo "Error parsing JSON: " . json_last_error_msg();
     exit;
