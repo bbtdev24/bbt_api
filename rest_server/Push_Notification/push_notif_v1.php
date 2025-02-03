@@ -85,8 +85,8 @@ $fcmUrl = 'https://fcm.googleapis.com/v1/projects/mobile-ess-bbt/messages:send';
 
 // Step 1: Get OAuth 2.0 Token (as described earlier)
 $serviceAccountData = json_decode(file_get_contents($serviceAccountPath), true);
-var_dump($serviceAccountData['private_key']);
-exit;
+// var_dump($serviceAccountData['private_key']);
+// exit;
 
 if (!$serviceAccountData) {
     echo "Error parsing JSON: " . json_last_error_msg();
@@ -104,8 +104,8 @@ $assertion = [
 
 $jwt = JWT::encode($assertion, $serviceAccountData['private_key'], 'RS256');
 // $jwt = JWT::encode($assertion, str_replace(["\n", "\r"], '', $serviceAccountData['private_key']), 'RS256');
-echo "JWT: " . $jwt;
-exit;
+// echo "JWT: " . $jwt;
+// exit;
 
 // Exchange JWT for OAuth 2.0 token
 $response = file_get_contents($tokenUri, false, stream_context_create([
@@ -118,6 +118,8 @@ $response = file_get_contents($tokenUri, false, stream_context_create([
         ]),
     ],
 ]));
+var_dump($response);
+exit;
 
 // Tambahkan pengecekan error setelah request token
 if ($response === false) {
