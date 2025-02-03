@@ -101,6 +101,8 @@ $assertion = [
 
 $jwt = JWT::encode($assertion, $serviceAccountData['private_key'], 'RS256');
 // $jwt = JWT::encode($assertion, str_replace(["\n", "\r"], '', $serviceAccountData['private_key']), 'RS256');
+echo "JWT: " . $jwt;
+exit;
 
 // Exchange JWT for OAuth 2.0 token
 $response = file_get_contents($tokenUri, false, stream_context_create([
