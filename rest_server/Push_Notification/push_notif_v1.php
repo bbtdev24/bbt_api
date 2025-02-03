@@ -95,7 +95,8 @@ $assertion = [
     'exp' => time() + 3600,
 ];
 
-$jwt = JWT::encode($assertion, $serviceAccountData['private_key'], 'RS256');
+// $jwt = JWT::encode($assertion, $serviceAccountData['private_key'], 'RS256');
+$jwt = JWT::encode($assertion, str_replace(["\n", "\r"], '', $serviceAccountData['private_key']), 'RS256');
 
 // Exchange JWT for OAuth 2.0 token
 $response = file_get_contents($tokenUri, false, stream_context_create([
@@ -111,7 +112,7 @@ $response = file_get_contents($tokenUri, false, stream_context_create([
 
 // Tambahkan pengecekan error setelah request token
 if ($response === false) {
-    echo "Error fetching OAuth token: " . error_get_last()['message'];
+    echo "Error fetching OAuth token : " . error_get_last()['message'];
     exit;
 }
 

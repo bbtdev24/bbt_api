@@ -9,8 +9,8 @@ class M_Absensi extends CI_Model
     public function __construct()
     {
                     $this->absensi = $this->config->item('db_absensi');
-                    $payroll = $this->config->item('db_payroll');
-                    $adms = $this->config->item('db_adms');
+                    $this->$payroll = $this->config->item('db_payroll');
+                    $this->$adms = $this->config->item('db_adms');
     }
 
     public function getKeteranganMasukMobile($nik_baru = null, $tanggal = null)
@@ -203,7 +203,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL
                 THEN (
                 SELECT MIN(checktime)
-                FROM $adms.checkinout masuk_normal
+                FROM $this->$adms.checkinout masuk_normal
                 WHERE masuk_normal.userid=userinfo.userid
                 AND masuk_normal.checktime>=CAST(
                 CONCAT(
@@ -220,7 +220,7 @@ class M_Absensi extends CI_Model
                 and `tarikan_absen_adms`.`waktu_shift` = '21'
                 THEN (
                 SELECT MIN(checktime)
-                FROM $adms.checkinout masuk_malem
+                FROM $this->$adms.checkinout masuk_malem
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
@@ -239,7 +239,7 @@ class M_Absensi extends CI_Model
                 AND `tarikan_absen_adms`.`waktu_shift` = '24'
                 THEN (
                 SELECT MIN(checktime)
-                FROM $adms.checkinout masuk_malem
+                FROM $this->$adms.checkinout masuk_malem
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
@@ -257,7 +257,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift` = '25'
                 THEN (
                 SELECT MIN(checktime)
-                FROM $adms.checkinout masuk_malem
+                FROM $this->$adms.checkinout masuk_malem
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
@@ -275,7 +275,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift` = '30'
                 THEN (
                 SELECT MIN(checktime)
-                FROM $adms.checkinout masuk_malem
+                FROM $this->$adms.checkinout masuk_malem
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
@@ -292,7 +292,7 @@ class M_Absensi extends CI_Model
                 )
                 ELSE (
                 SELECT MIN(checktime)
-                FROM $adms.checkinout masuk_malem
+                FROM $this->$adms.checkinout masuk_malem
                 WHERE masuk_malem.userid=userinfo.userid
                 AND masuk_malem.checktime>=CAST(
                 CONCAT(
@@ -312,7 +312,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL
                 THEN (
                 SELECT `tbl_depo`.`depo_nama`
-                FROM $adms.checkinout masuk_normal
+                FROM $this->$adms.checkinout masuk_normal
                 LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                 LEFT JOIN `tbl_depo`
@@ -334,7 +334,7 @@ class M_Absensi extends CI_Model
                 AND `tarikan_absen_adms`.`waktu_shift` = '21'
                 THEN (
                 SELECT `tbl_depo`.`depo_nama`
-                FROM $adms.checkinout masuk_malem
+                FROM $this->$adms.checkinout masuk_malem
                 LEFT JOIN `sn_depo`
                     ON masuk_malem.`SN` = `sn_depo`.`SN`
                 LEFT JOIN `tbl_depo`
@@ -358,7 +358,7 @@ class M_Absensi extends CI_Model
                 AND `tarikan_absen_adms`.`waktu_shift` = '24'
                 THEN (
                 SELECT `tbl_depo`.`depo_nama`
-                FROM $adms.checkinout masuk_malem
+                FROM $this->$adms.checkinout masuk_malem
                 LEFT JOIN `sn_depo`
                     ON masuk_malem.`SN` = `sn_depo`.`SN`
                 LEFT JOIN `tbl_depo`
@@ -381,7 +381,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift` = '25'
                 THEN (
                 SELECT `tbl_depo`.`depo_nama`
-                FROM $adms.checkinout masuk_malem
+                FROM $this->$adms.checkinout masuk_malem
                 LEFT JOIN `sn_depo`
                     ON masuk_malem.`SN` = `sn_depo`.`SN`
                 LEFT JOIN `tbl_depo`
@@ -404,7 +404,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift` = '30'
                 THEN (
                 SELECT `tbl_depo`.`depo_nama`
-                FROM $adms.checkinout masuk_malem
+                FROM $this->$adms.checkinout masuk_malem
                 LEFT JOIN `sn_depo`
                     ON masuk_malem.`SN` = `sn_depo`.`SN`
                 LEFT JOIN `tbl_depo`
@@ -426,7 +426,7 @@ class M_Absensi extends CI_Model
                 )
                 ELSE (
                 SELECT `tbl_depo`.`depo_nama`
-                FROM $adms.checkinout masuk_malem
+                FROM $this->$adms.checkinout masuk_malem
                 LEFT JOIN `sn_depo`
                     ON masuk_malem.`SN` = `sn_depo`.`SN`
                 LEFT JOIN `tbl_depo`
@@ -604,7 +604,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift` = '16' 
                 THEN (
                 SELECT MAX(checktime)
-                FROM $adms.checkinout masuk_normal
+                FROM $this->$adms.checkinout masuk_normal
                 WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -621,7 +621,7 @@ class M_Absensi extends CI_Model
                 and `tarikan_absen_adms`.`waktu_shift` = '24' 
                 THEN (
                 SELECT MAX(checktime)
-                FROM $adms.checkinout masuk_normal
+                FROM $this->$adms.checkinout masuk_normal
                 WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -637,7 +637,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift` = '21' 
                 THEN (
                 SELECT MAX(checktime)
-                FROM $adms.checkinout masuk_normal
+                FROM $this->$adms.checkinout masuk_normal
                 WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -653,7 +653,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift`= '25' 
                     THEN (
                     SELECT MAX(checktime)
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -669,7 +669,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '27' 
                     THEN (
                     SELECT MAX(checktime)
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -685,7 +685,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '28' 
                     THEN (
                     SELECT MAX(checktime)
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -701,7 +701,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '29' 
                     THEN (
                     SELECT max(checktime)
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -717,7 +717,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '30' 
                     THEN (
                     SELECT MAX(checktime)
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -733,7 +733,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '31' 
                     THEN (
                     SELECT max(checktime)
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -749,7 +749,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '35' 
                     THEN (
                     SELECT MAX(checktime)
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -765,7 +765,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '37' 
                     THEN (
                     SELECT MAX(checktime)
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -782,7 +782,7 @@ class M_Absensi extends CI_Model
                 AND `tarikan_absen_adms`.`attendance_date_longshift` < '03:00:00'
                     THEN (
                     SELECT MAX(checktime)
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -798,7 +798,7 @@ class M_Absensi extends CI_Model
                  WHEN `tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL
                     THEN (
                     SELECT MAX(checktime)
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     WHERE masuk_normal.userid=userinfo.userid
                     AND masuk_normal.checktime>=CAST(
                     CONCAT(
@@ -816,7 +816,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL
                 THEN (
                 SELECT MAX(checktime)
-                FROM $adms.checkinout masuk_normal
+                FROM $this->$adms.checkinout masuk_normal
                 WHERE masuk_normal.userid=userinfo.userid
                 AND masuk_normal.checktime>=CAST(
                 CONCAT(
@@ -831,7 +831,7 @@ class M_Absensi extends CI_Model
                 )
                 ELSE (
                 SELECT MAX(checktime)
-                FROM $adms.checkinout keluar_malem
+                FROM $this->$adms.checkinout keluar_malem
                 WHERE keluar_malem.userid=userinfo.userid
                 AND keluar_malem.checktime>=CAST(
                 CONCAT(
@@ -851,7 +851,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift` = '16' 
                 THEN (
                 SELECT `tbl_depo`.`depo_nama`
-                FROM $adms.checkinout masuk_normal
+                FROM $this->$adms.checkinout masuk_normal
                 LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                 LEFT JOIN `tbl_depo`
@@ -873,7 +873,7 @@ class M_Absensi extends CI_Model
                 and `tarikan_absen_adms`.`waktu_shift` = '24' 
                 THEN (
                 SELECT `tbl_depo`.`depo_nama`
-                FROM $adms.checkinout masuk_normal
+                FROM $this->$adms.checkinout masuk_normal
                 LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                 LEFT JOIN `tbl_depo`
@@ -894,7 +894,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift` = '21' 
                 THEN (
                 SELECT `tbl_depo`.`depo_nama`
-                FROM $adms.checkinout masuk_normal
+                FROM $this->$adms.checkinout masuk_normal
                 LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                 LEFT JOIN `tbl_depo`
@@ -915,7 +915,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift`= '25' 
                     THEN (
                     SELECT `tbl_depo`.`depo_nama`
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                     LEFT JOIN `tbl_depo`
@@ -936,7 +936,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '27' 
                     THEN (
                     SELECT `tbl_depo`.`depo_nama`
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                     LEFT JOIN `tbl_depo`
@@ -957,7 +957,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '28' 
                     THEN (
                     SELECT `tbl_depo`.`depo_nama`
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                     LEFT JOIN `tbl_depo`
@@ -978,7 +978,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '29' 
                     THEN (
                     SELECT `tbl_depo`.`depo_nama`
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                     LEFT JOIN `tbl_depo`
@@ -999,7 +999,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '30' 
                     THEN (
                     SELECT `tbl_depo`.`depo_nama`
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                     LEFT JOIN `tbl_depo`
@@ -1020,7 +1020,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '31' 
                     THEN (
                     SELECT `tbl_depo`.`depo_nama`
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                     LEFT JOIN `tbl_depo`
@@ -1041,7 +1041,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '35' 
                     THEN (
                     SELECT `tbl_depo`.`depo_nama`
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                     LEFT JOIN `tbl_depo`
@@ -1062,7 +1062,7 @@ class M_Absensi extends CI_Model
                     WHEN `tarikan_absen_adms`.`waktu_shift` = '37' 
                     THEN (
                     SELECT `tbl_depo`.`depo_nama`
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                     LEFT JOIN `tbl_depo`
@@ -1084,7 +1084,7 @@ class M_Absensi extends CI_Model
                 AND `tarikan_absen_adms`.`attendance_date_longshift` < '03:00:00'
                     THEN (
                     SELECT `tbl_depo`.`depo_nama`
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                     LEFT JOIN `tbl_depo`
@@ -1105,7 +1105,7 @@ class M_Absensi extends CI_Model
                  WHEN `tarikan_absen_adms`.`attendance_date_longshift` IS NOT NULL
                     THEN (
                     SELECT `tbl_depo`.`depo_nama`
-                    FROM $adms.checkinout masuk_normal
+                    FROM $this->$adms.checkinout masuk_normal
                     LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                     LEFT JOIN `tbl_depo`
@@ -1128,7 +1128,7 @@ class M_Absensi extends CI_Model
                 WHEN `tarikan_absen_adms`.`waktu_shift` IS NULL
                 THEN (
                 SELECT `tbl_depo`.`depo_nama`
-                FROM $adms.checkinout masuk_normal
+                FROM $this->$adms.checkinout masuk_normal
                 LEFT JOIN `sn_depo`
                     ON masuk_normal.`SN` = `sn_depo`.`SN`
                 LEFT JOIN `tbl_depo`
@@ -1148,7 +1148,7 @@ class M_Absensi extends CI_Model
                 )
                 ELSE (
                 SELECT `tbl_depo`.`depo_nama`
-                FROM $adms.checkinout keluar_malem
+                FROM $this->$adms.checkinout keluar_malem
                 LEFT JOIN `sn_depo`
                     ON keluar_malem.`SN` = `sn_depo`.`SN`
                 LEFT JOIN `tbl_depo`
@@ -1292,8 +1292,8 @@ class M_Absensi extends CI_Model
                 FROM `tarikan_absen_adms`
             LEFT JOIN `tbl_shifting`
                 ON `tarikan_absen_adms`.`waktu_shift` = `tbl_shifting`.`id_shifting`
-            INNER JOIN $adms.`userinfo`
-                ON `tarikan_absen_adms`.`userid` = $adms.`userinfo`.`userid`
+            INNER JOIN $this->$adms.`userinfo`
+                ON `tarikan_absen_adms`.`userid` = $this->$adms.`userinfo`.`userid`
             INNER JOIN `tbl_karyawan_struktur`
                 ON `tbl_karyawan_struktur`.`nik_baru` = `tarikan_absen_adms`.`badgenumber`
             INNER JOIN `tbl_jabatan_karyawan`
@@ -1943,11 +1943,11 @@ class M_Absensi extends CI_Model
             , e.`tunjangan_pph` AS tax
             , a.`bulan`
             , a.`tahun`
-        FROM $payroll.`tmp_atribut_payroll` a
+        FROM $this->$payroll.`tmp_atribut_payroll` a
         LEFT JOIN $this->absensi.`tbl_karyawan_struktur` b ON a.`noUrut` = b.`noUrut`
-        LEFT JOIN $payroll.`tbl_ptkp` c ON b.`idPtkp` = c.`id`
-        LEFT JOIN $payroll.`tbl_kpp` d ON b.`idKpp` = d.`id`
-        LEFT JOIN $payroll.`tbl_pph_gross_up` e ON e.`nik_baru` = a.`nip`
+        LEFT JOIN $this->$payroll.`tbl_ptkp` c ON b.`idPtkp` = c.`id`
+        LEFT JOIN $this->$payroll.`tbl_kpp` d ON b.`idKpp` = d.`id`
+        LEFT JOIN $this->$payroll.`tbl_pph_gross_up` e ON e.`nik_baru` = a.`nip`
         AND e.`bulan` = '$bulan_start'
         AND e.`tahun` = '$tahun'
         AND e.`id_proses` = '1'
