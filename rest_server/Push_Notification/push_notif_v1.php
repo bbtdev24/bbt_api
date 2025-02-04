@@ -222,6 +222,7 @@ if ($response === false) {
 }
 curl_close($ch);
 
+//responsedata
 $responseData = json_decode($response, true);
 $accessToken = $responseData['access_token'] ?? null;
 
