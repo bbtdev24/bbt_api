@@ -29,3 +29,10 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-project
 /tests/tests/
 /tests/results/
+
+# Ignore Firebase service account JSON
+*.json
+!package.json
+!composer.json
+rest_server/php/mobile-ess-bbt-*.json
+
