@@ -203,6 +203,8 @@ $assertion = [
 ];
 
 $jwt = JWT::encode($assertion, $serviceAccountData['private_key'], 'RS256');
+echo "Generated JWT: " . $jwt; 
+exit;
 
 // Exchange JWT dengan OAuth 2.0 token pakai cURL
 $ch = curl_init($tokenUri);
