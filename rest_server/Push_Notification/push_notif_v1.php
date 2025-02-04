@@ -182,7 +182,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use \Firebase\JWT\JWT;
 
 // Path ke service account JSON
-$serviceAccountPath = __DIR__ . '/mobile-ess-bbt-firebase-adminsdk-8dzrj-4be7e95384.json';
+$serviceAccountPath = __DIR__ . '/mobile-ess-bbt-17cdf98c714b.json';
 $tokenUri = 'https://oauth2.googleapis.com/token';
 $fcmUrl = 'https://fcm.googleapis.com/v1/projects/mobile-ess-bbt/messages:send';
 
@@ -203,8 +203,8 @@ $assertion = [
 ];
 
 $jwt = JWT::encode($assertion, $serviceAccountData['private_key'], 'RS256');
-echo "Generated JWT: " . $jwt; 
-exit;
+// echo "Generated JWT: " . $jwt; 
+// exit;
 
 // Exchange JWT dengan OAuth 2.0 token pakai cURL
 $ch = curl_init($tokenUri);
