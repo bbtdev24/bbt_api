@@ -202,10 +202,7 @@ $assertion = [
     'exp'   => time() + 3600,
 ];
 
-// $jwt = JWT::encode($assertion, $serviceAccountData['private_key'], 'RS256');
-$privateKey = $serviceAccountData['private_key'];
-$privateKey = str_replace(["\n", "\r"], '', $privateKey); // Hapus newline
-$jwt = JWT::encode($assertion, $privateKey, 'RS256');
+$jwt = JWT::encode($assertion, $serviceAccountData['private_key'], 'RS256');
 
 // Exchange JWT dengan OAuth 2.0 token pakai cURL
 $ch = curl_init($tokenUri);
