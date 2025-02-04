@@ -9,8 +9,8 @@ class M_Absensi extends CI_Model
     public function __construct()
     {
                     $this->absensi = $this->config->item('db_absensi');
-                    $this->$payroll = $this->config->item('db_payroll');
-                    $this->$adms = $this->config->item('db_adms');
+                    $this->payroll = $this->config->item('db_payroll');
+                    $this->adms = $this->config->item('db_adms');
     }
 
     public function getKeteranganMasukMobile($nik_baru = null, $tanggal = null)
