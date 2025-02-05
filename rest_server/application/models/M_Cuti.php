@@ -37,26 +37,19 @@ class M_Cuti extends CI_Model
 		$currentYear = date('Y'); // Mendapatkan tahun berjalan
 
 		if ($id === null) {
+
 			$sql = "SELECT 
 						a.*, 
 						b.nip 
-					FROM 
-						tbl_hak_cuti a 
-						LEFT JOIN tbl_karyawan_struktur b 
-						ON b.noUrut = a.no_urut
-					WHERE 
-						a.tahun = '$currentYear'";
+					FROM tbl_hak_cuti a LEFT JOIN tbl_karyawan_struktur b ON b.`nip` = a.`nik_sisa_cuti` 
+					WHERE a.tahun = '$currentYear'";
 		} else {
+
 			$sql = "SELECT 
 						a.*, 
 						b.nip 
-					FROM 
-						tbl_hak_cuti a 
-						LEFT JOIN tbl_karyawan_struktur b 
-						ON b.noUrut = a.no_urut 
-					WHERE 
-						b.nip = '$id' 
-						AND a.tahun = '$currentYear'";
+					FROM tbl_hak_cuti a LEFT JOIN tbl_karyawan_struktur b ON b.`nip` = a.`nik_sisa_cuti`
+					WHERE b.nip = '$id' AND a.tahun = '$currentYear'";
 		}
 
 		$hasil = $this->db_absensi->query($sql);
