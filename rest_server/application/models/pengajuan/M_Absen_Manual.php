@@ -32,9 +32,9 @@ class M_Absen_Manual extends CI_Model
             a.tanggal_pengajuan,
             a.tanggal_pengajuan + INTERVAL 1 DAY AS tanggal_deadline,
             a.nik_absen AS nik_baru,
-            d.depo_nama,
+            c.namaLokasi AS depo_nama,
             b.namaKaryawan,
-            c.depo_nama,
+            -- c.depo_nama,
             -- a.jabatan_absen,
             a.jenis_absen,
             a.tanggal_absen,
@@ -43,11 +43,12 @@ class M_Absen_Manual extends CI_Model
             a.status,
             a.tanggal,
             a.status_2,
-            a.tanggal_2 
+            a.tanggal_2,
+            a.lokasi_absen 
         FROM tbl_karyawan_absen_manual a 
         INNER JOIN tbl_karyawan_struktur b ON b.nip = a.nik_absen 
-        INNER JOIN tbl_depo c ON c.depo_id = a.lokasi_absen
-        INNER JOIN tbl_depo d ON d.depo_id = b.idLokasi";
+        INNER JOIN tbl_lokasi c ON c.idLokasi = a.lokasi_absen
+        INNER JOIN tbl_lokasi d ON d.idLokasi = b.idLokasi";
 
 			$hasil = $this->db_absensi->query($sql);
 			return $hasil->result_array();
@@ -57,9 +58,9 @@ class M_Absen_Manual extends CI_Model
             a.tanggal_pengajuan,
             a.tanggal_pengajuan + INTERVAL 1 DAY AS tanggal_deadline,
             a.nik_absen AS nik_baru,
-            d.depo_nama,
+            c.namaLokasi AS depo_nama,
             b.namaKaryawan,
-            c.depo_nama,
+            -- c.depo_nama,
             -- a.jabatan_absen,
             a.jenis_absen,
             a.tanggal_absen,
@@ -68,11 +69,12 @@ class M_Absen_Manual extends CI_Model
             a.status,
             a.tanggal,
             a.status_2,
-            a.tanggal_2 
+            a.tanggal_2,
+            a.lokasi_absen 
         FROM tbl_karyawan_absen_manual a 
         INNER JOIN tbl_karyawan_struktur b ON b.nip = a.nik_absen 
-        INNER JOIN tbl_depo c ON c.depo_id = a.lokasi_absen
-        INNER JOIN tbl_depo d ON d.depo_id = b.idLokasi
+        INNER JOIN tbl_lokasi c ON c.idLokasi = a.lokasi_absen
+        INNER JOIN tbl_lokasi d ON d.idLokasi = b.idLokasi
         WHERE $where";
 
 			$hasil = $this->db_absensi->query($sql);
