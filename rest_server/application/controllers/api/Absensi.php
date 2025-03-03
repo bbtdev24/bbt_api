@@ -118,35 +118,70 @@ class Absensi extends REST_Controller
 		}
 	}
 
+	// public function insert_absen_get_in_post()
+	// {
+	// 	$data = [
+	// 		'noUrut' => $this->post('nourut_karyawan'),
+	// 		'nip' => $this->post('nip_karyawan'),
+	// 		'checktime' => $this->post('checktime'),
+	// 		'checktype' => '0',
+	// 		'long' => $this->post('long'),
+	// 		'lat' => $this->post('lat'),
+	// 		'foto' => $this->post('url_foto'),
+	// 		'userCreate' => $this->post('userCreate'),
+	// 		'userDateCreate' => $this->post('userDateCreate'),
+	// 		'typeInsert' => 'MOBILE',
+	// 		'idlokasi' => $this->post('idlokasi'),
+	// 	];
+
+	// 	if ($this->M_Absensi->post_absen_get_in($data) > 0) {
+	// 		$this->response([
+	// 			'status' => true,
+	// 			'message' => 'new pengajuan has been created',
+	// 		], REST_Controller::HTTP_CREATED);
+	// 	} else {
+	// 		// Gagal
+	// 		$this->response([
+	// 			'status' => false,
+	// 			'message' => 'Failed to create new data'
+	// 		], REST_Controller::HTTP_BAD_REQUEST);
+	// 	}
+	// }
+
+	
+	//PAKE JAM SERVER
 	public function insert_absen_get_in_post()
 	{
-		$data = [
-			'noUrut' => $this->post('nourut_karyawan'),
-			'nip' => $this->post('nip_karyawan'),
-			'checktime' => $this->post('checktime'),
-			'checktype' => '0',
-			'long' => $this->post('long'),
-			'lat' => $this->post('lat'),
-			'foto' => $this->post('url_foto'),
-			'userCreate' => $this->post('userCreate'),
-			'userDateCreate' => $this->post('userDateCreate'),
-			'typeInsert' => 'MOBILE',
-			'idlokasi' => $this->post('idlokasi'),
-		];
+    date_default_timezone_set('Asia/Jakarta'); // Set timezone ke Jakarta
+    $current_time = date('Y-m-d H:i:s'); // Ambil waktu server
 
-		if ($this->M_Absensi->post_absen_get_in($data) > 0) {
-			$this->response([
-				'status' => true,
-				'message' => 'new pengajuan has been created',
-			], REST_Controller::HTTP_CREATED);
-		} else {
-			// Gagal
-			$this->response([
-				'status' => false,
-				'message' => 'Failed to create new data'
-			], REST_Controller::HTTP_BAD_REQUEST);
-		}
+    $data = [
+        'noUrut' => $this->post('nourut_karyawan'),
+        'nip' => $this->post('nip_karyawan'),
+        'checktime' => $current_time, // Pakai waktu server
+        'checktype' => '0',
+        'long' => $this->post('long'),
+        'lat' => $this->post('lat'),
+        'foto' => $this->post('url_foto'),
+        'userCreate' => $this->post('userCreate'),
+        'userDateCreate' => $current_time, // Pakai waktu server
+        'typeInsert' => 'MOBILE',
+        'idlokasi' => $this->post('idlokasi'),
+    ];
+
+    if ($this->M_Absensi->post_absen_get_in($data) > 0) {
+        $this->response([
+            'status' => true,
+            'message' => 'new pengajuan has been created',
+        ], REST_Controller::HTTP_CREATED);
+    } else {
+        $this->response([
+            'status' => false,
+            'message' => 'Failed to create new data'
+        ], REST_Controller::HTTP_BAD_REQUEST);
+   	}
 	}
+
 
 	public function insert_absen_get_out_post()
 	{
