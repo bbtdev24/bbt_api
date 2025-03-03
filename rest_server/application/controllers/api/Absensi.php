@@ -185,16 +185,19 @@ class Absensi extends REST_Controller
 
 	public function insert_absen_get_out_post()
 	{
+	date_default_timezone_set('Asia/Jakarta'); // Set timezone ke Jakarta
+    $current_time = date('Y-m-d H:i:s'); // Ambil waktu server
+
 		$data = [
 			'noUrut' => $this->post('nourut_karyawan'),
 			'nip' => $this->post('nip_karyawan'),
-			'checktime' => $this->post('checktime'),
+        	'checktime' => $current_time, // Pakai waktu server
 			'checktype' => '1',
 			'long' => $this->post('long'),
 			'lat' => $this->post('lat'),
 			'foto' => $this->post('url_foto'),
 			'userCreate' => $this->post('userCreate'),
-			'userDateCreate' => $this->post('userDateCreate'),
+        	'userDateCreate' => $current_time, // Pakai waktu server
 			'typeInsert' => 'MOBILE',			
 			'idlokasi' => $this->post('idlokasi'),
 		];
