@@ -244,4 +244,41 @@ class M_Absen_Manual extends CI_Model
         return $hasil->result_array();
     }
 
+
+    public function get_index_absen_manual_atasan_new($id_divisi = null, $id_bagian = null, $jabatan = null)
+    {
+        $sql = "SELECT 
+			  `tbl_karyawan_absen_manual`.`id_absen`,
+			  `tbl_karyawan_absen_manual`.`tanggal_pengajuan`,
+			  `tbl_karyawan_absen_manual`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
+			  `tbl_karyawan_absen_manual`.`nik_absen` AS nik_baru,
+			  `tbl_karyawan_struktur`.`idLokasiHrd` AS lokasi_struktur,
+			  `tbl_karyawan_absen_manual`.`jabatan_absen`,
+			  `tbl_karyawan_absen_manual`.`lokasi_absen`,
+			  `tbl_karyawan_absen_manual`.`jenis_absen`,
+			  `tbl_karyawan_absen_manual`.`tanggal_absen`,
+			  `tbl_karyawan_absen_manual`.`waktu_absen`,
+			  `tbl_karyawan_absen_manual`.`ket_absen`,
+			  `tbl_karyawan_absen_manual`.`status`,
+			  `tbl_karyawan_absen_manual`.`tanggal`,
+			  `tbl_karyawan_absen_manual`.`status_2`,
+			  `tbl_karyawan_absen_manual`.`tanggal_2` 
+  
+	FROM `tbl_jabatan_approval` 
+	INNER JOIN `tbl_jabatan` ON tbl_jabatan.`idJabatan` = tbl_jabatan_approval.`idJabatan` 
+	INNER JOIN `tbl_karyawan_absen_manual` ON tbl_karyawan_absen_manual.`jabatan_absen` = tbl_jabatan_approval.`idJabatan` 
+	INNER JOIN `tbl_karyawan_struktur` ON tbl_karyawan_struktur.`nip` = tbl_karyawan_absen_manual.`nik_absen` 
+	WHERE (
+	    tbl_karyawan_struktur.idDivisi = '$id_divisi' 
+	    OR tbl_karyawan_struktur.idBagian = '$id_bagian'
+	  ) 
+	  AND (
+	    tbl_jabatan_approval.idJabatanAtasan1 = '$jabatan' 
+	    OR tbl_jabatan_approval.idJabatanAtasan2 = '$jabatan'
+	  )";
+
+        $hasil = $this->db_absensi->query($sql);
+        return $hasil->result_array();
+    }
+
 }
