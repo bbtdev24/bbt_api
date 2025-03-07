@@ -221,7 +221,7 @@ class Absen_manual2 extends REST_Controller
 		$id_bagian = $this->get('id_bagian');
 		$jabatan   = $this->get('id_jabatan');
 
-		$get = $this->M_Dinas_full_day->get_index_absen_manual_atasan_new($id_divisi, $id_bagian, $jabatan);
+		$get = $this->M_Absen_Manual->get_index_absen_manual_atasan_new($id_divisi, $id_bagian, $jabatan);
 		$totaldata = count($get);
 		if ($get) {
 			$this->response([
