@@ -262,8 +262,8 @@ class M_Absen_Manual extends CI_Model
 			  `tbl_karyawan_absen_manual`.`status`,
 			  `tbl_karyawan_absen_manual`.`tanggal`,
 			  `tbl_karyawan_absen_manual`.`status_2`,
-			  `tbl_karyawan_absen_manual`.`tanggal_2` 
-  
+			  `tbl_karyawan_absen_manual`.`tanggal_2`,
+			  `tbl_karyawan_struktur`.`namaKaryawan` AS nama_pegawai
 	FROM `tbl_jabatan_approval` 
 	INNER JOIN `tbl_jabatan` ON tbl_jabatan.`idJabatan` = tbl_jabatan_approval.`idJabatan` 
 	INNER JOIN `tbl_karyawan_absen_manual` ON tbl_karyawan_absen_manual.`jabatan_absen` = tbl_jabatan_approval.`idJabatan` 
