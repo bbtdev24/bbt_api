@@ -21,7 +21,6 @@ class Absenmobile extends REST_Controller
 		parent::__construct();
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
-		$this->db3 = $this->load->database('db3', TRUE);
 		$this->db_absensi = $this->load->database('db_absensi', TRUE);
 
 		$this->load->model('pengajuan/M_Absenmobile');
