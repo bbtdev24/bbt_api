@@ -147,8 +147,8 @@ class M_Absen_Manual extends CI_Model
 
 	public function updateApproval($data, $id_absen)
 	{
-		$this->db2->update('tbl_karyawan_absen_manual', $data, ['id_absen' => $id_absen]);
-		return $this->db2->affected_rows();
+		$this->db_absensi->update('tbl_karyawan_absen_manual', $data, ['id_absen' => $id_absen]);
+		return $this->db_absensi->affected_rows();
 	}
 
 	public function get_index_absen_atasan_lokasi($jabatan = null, $lokasi = null)

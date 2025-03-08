@@ -22,6 +22,7 @@ class Absenmobile extends REST_Controller
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
 		$this->db3 = $this->load->database('db3', TRUE);
+		$this->db_absensi = $this->load->database('db_absensi', TRUE);
 
 		$this->load->model('pengajuan/M_Absenmobile');
 	}
@@ -428,6 +429,54 @@ class Absenmobile extends REST_Controller
 		];
 
 		if ($this->M_Absenmobile->updateketerangan($data, $id) > 0) {
+			$this->response([
+				'status' => true,
+				'message' => 'new pengajuan has been updated',
+			], REST_Controller::HTTP_OK);
+		} else {
+			// Gagal
+			$this->response([
+				'status' => false,
+				'message' => 'Failed to update data'
+			], REST_Controller::HTTP_BAD_REQUEST);
+		}
+	}
+
+
+	public function index_manualin_new_put()
+	{
+		$id = $this->put('badgenumber');
+		$shift_day = $this->put('shift_day');
+
+		$data = [
+			'in_manual' => $this->put('in_manual'),
+		];
+
+		if ($this->M_Absenmobile->updateJam_new($data, $id, $shift_day) > 0) {
+			$this->response([
+				'status' => true,
+				'message' => 'new pengajuan has been updated',
+			], REST_Controller::HTTP_OK);
+		} else {
+			// Gagal
+			$this->response([
+				'status' => false,
+				'message' => 'Failed to update data'
+			], REST_Controller::HTTP_BAD_REQUEST);
+		}
+	}
+
+
+	public function index_manualout_new_put()
+	{
+		$id = $this->put('badgenumber');
+		$shift_day = $this->put('shift_day');
+
+		$data = [
+			'out_manual' => $this->put('out_manual'),
+		];
+
+		if ($this->M_Absenmobile->updateJam_new($data, $id, $shift_day) > 0) {
 			$this->response([
 				'status' => true,
 				'message' => 'new pengajuan has been updated',

@@ -2252,6 +2252,12 @@ ORDER BY tbl_final.`shift_day` DESC ";
 	}
 
 
+  public function updateJam_new($data, $id, $shift_day)
+  {
+    $this->db_absensi->update('tarikan_absen_adms', $data, ['badgenumber' => $id, 'shift_day' => $shift_day]);
+    return $this->db_absensi->affected_rows();
+  }
+
 }
 
 ?>
