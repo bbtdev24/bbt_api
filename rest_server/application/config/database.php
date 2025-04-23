@@ -165,9 +165,9 @@ if ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.
 	$hostname = 'localhost';
 	$username = 'banktanah';
 	$password = 'Ul4rT$nah2023';
-	$database_absensi = 'absensi';
-	$database_payroll = 'payroll';
-	$database_adms = 'adms_db';
+	$database_absensi = 'u1721210_absensi';
+	$database_payroll = 'u1721210_payroll';
+	$database_adms = 'u1721210_adms_db';
 	$port = '28';
 }
 
