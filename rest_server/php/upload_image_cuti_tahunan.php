@@ -23,8 +23,11 @@ $nama = $no_pengajuan_tahunan;
 // Windows
 // $targer_dir = "C:/xampp/htdocs/project/ess-api-android-bt/rest_server/image/upload_cuti_tahunan/" . $nama . ".jpeg";
 
-// Linux
-$targer_dir = FILE_UPLOAD_PATH . "cuti_tahunan/" . $nama . ".jpeg";
+// Linux NIAGA HOSTING
+// $targer_dir = FILE_UPLOAD_PATH . "cuti_tahunan/" . $nama . ".jpeg";
+
+// Linux 36.88.110.134
+$targer_dir = "/var/www/html/bbt_api/rest_server/image/upload_cuti_tahunan/" . $nama . ".jpeg";
 
 // Tambahin pengecekan apakah direktori ada dan bisa di-write
 if (!is_writable(dirname($targer_dir))) {

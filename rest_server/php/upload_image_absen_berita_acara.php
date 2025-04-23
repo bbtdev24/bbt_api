@@ -25,7 +25,10 @@ $nama = $nama_foto;
 // $targer_dir = "C:/xampp/htdocs/project/ess-api-android-bt/rest_server/image/upload_absen_berita_acara/" . $nama . ".jpeg";
 
 // Linux
-$targer_dir = FILE_UPLOAD_PATH . "berita_acara/" . $nama . ".jpeg";
+// $targer_dir = FILE_UPLOAD_PATH . "berita_acara/" . $nama . ".jpeg";
+
+// Linux 36.88.110.134
+$targer_dir = "/var/www/html/bbt_api/rest_server/image/upload_absen_berita_acara/" . $nama . ".jpeg";
 
 // Tambahin pengecekan apakah direktori ada dan bisa di-write
 if (!is_writable(dirname($targer_dir))) {

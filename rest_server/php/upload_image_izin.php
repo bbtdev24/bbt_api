@@ -11,7 +11,10 @@ $nama = $no_pengajuan_full_day;
 // $targer_dir = "C:/xampp/htdocs/project/ess-api-android-bt/rest_server/image/upload_izin/" . $nama . ".jpeg";
 
 // Linux
-$targer_dir = FILE_UPLOAD_PATH . "izin/full_day/" . $nama . ".jpeg";
+// $targer_dir = FILE_UPLOAD_PATH . "izin/full_day/" . $nama . ".jpeg";
+
+// Linux 36.88.110.134
+$targer_dir = "/var/www/html/bbt_api/rest_server/image/upload_izin/" . $nama . ".jpeg";
 
 // Tambahin pengecekan apakah direktori ada dan bisa di-write
 if (!is_writable(dirname($targer_dir))) {
