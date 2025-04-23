@@ -164,7 +164,7 @@ if ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.
 	// Konfigurasi 36.88.110.134
 	$hostname = 'localhost';
 	$username = 'banktanah';
-	$password = 'Ul4rT$nah2023';
+	$password = 'Ul4rT$nah2025';
 	$database_absensi = 'u1721210_absensi';
 	$database_payroll = 'u1721210_payroll';
 	$database_adms = 'u1721210_adms_db';
