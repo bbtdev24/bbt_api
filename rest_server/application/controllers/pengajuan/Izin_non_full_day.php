@@ -21,6 +21,7 @@ class Izin_non_full_day extends REST_Controller
 		parent::__construct();
 		$this->db = $this->load->database('default', TRUE);
 		$this->db2 = $this->load->database('db2', TRUE);
+		$this->db_absensi = $this->load->database('db_absensi', TRUE);
 
 		$this->load->model('pengajuan/M_Izin_non_full_day');
 	}
@@ -175,6 +176,56 @@ class Izin_non_full_day extends REST_Controller
             ], REST_Controller::HTTP_NOT_FOUND);
         }
     }
+
+
+    //=================================================================================================================================
+
+    public function index_get_rekap_izin_non_full_day_get()
+	{
+		$id = $this->get('id_full_day');
+		$nik_baru = $this->get('nik_baru');
+
+		if ($nik_baru === null and $id === null) {
+			$user = $this->M_Izin_non_full_day->get_index_rekap_izin_non_full_day();
+		} else {
+			$user = $this->M_Izin_non_full_day->get_index_rekap_izin_non_full_day($nik_baru, $id);
+		}
+
+		if ($user) {
+			$this->response([
+				'status' => true,
+				'data' => $user
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => false,
+				'message' => 'Kode Nomor Not Found'
+			], REST_Controller::HTTP_NOT_FOUND);
+		}
+	}
+
+	public function index_get_izin_non_full_day_approval_atasan_get()
+	{
+		$id_divisi = $this->get('id_divisi');
+		$id_bagian = $this->get('id_bagian');
+		$jabatan   = $this->get('id_jabatan');
+
+		$get = $this->M_Izin_non_full_day->get_index_non_full_day_atasan_new($id_divisi, $id_bagian, $jabatan);
+		$totaldata = count($get);
+		if ($get) {
+			$this->response([
+				'status' => true,
+				'total_data' => $totaldata,
+				'data' => $get
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => false,
+				'total_data' => $totaldata,
+				'message' => 'Not Found'
+			], REST_Controller::HTTP_NOT_FOUND);
+		}
+	}
 
 }
 

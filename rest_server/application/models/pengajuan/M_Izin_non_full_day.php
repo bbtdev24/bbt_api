@@ -306,6 +306,119 @@ class M_Izin_non_full_day extends CI_Model
 		
 	}
 
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	public function get_index_rekap_izin_non_full_day($nik_baru = null, $id = null)
+	{
+		$where = " `tbl_izin_non_full`.`jenis_non_full` <> 'DN'";
+
+		if ($id != '') {
+			$where .= " and `tbl_izin_non_full`.`id_non_full` = '$id'";
+		}
+		if ($nik_baru != '') {
+			$where .= "  and `tbl_izin_non_full`.`nik_non_full` = '$nik_baru'";
+		}
+
+		if ($nik_baru === null and $id === null) {
+			$sql = "SELECT `tbl_izin_non_full`.`id_non_full`,
+			`tbl_izin_non_full`.`no_pengajuan_non_full`,
+			`tbl_izin_non_full`.`tanggal_pengajuan`,
+			`tbl_izin_non_full`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
+			`tbl_izin_non_full`.`nik_non_full` AS nik_baru,
+			`tbl_karyawan_struktur`.`namaKaryawan` AS nama_karyawan_struktur,
+			`tbl_lokasi`.`namaLokasi` AS lokasi_struktur,
+			`tbl_izin_non_full`.`jabatan_non_full`,
+			`tbl_izin_non_full`.`jenis_non_full`,
+			`tbl_izin_non_full`.`tanggal_non_full` AS tanggal_absen,
+			-- `tbl_izin_non_full`.`karyawan_pengganti`,
+			`tbl_izin_non_full`.`ket_tambahan_non_full`,
+			`tbl_izin_non_full`.`status_non_full`,
+			`tbl_izin_non_full`.`feedback_non_full`,
+			`tbl_izin_non_full`.`tanggal_approval_non_full`,
+			`tbl_izin_non_full`.`status_non_full_2`,
+			`tbl_izin_non_full`.`feedback_non_full_2`,
+			`tbl_izin_non_full`.`tanggal_approval_non_full_2`,
+			`tbl_izin_non_full`.`upload_non_full`,
+			`tbl_izin_non_full`.`lat`,
+			`tbl_izin_non_full`.`lon` 
+			FROM `tbl_izin_non_full` 
+			INNER JOIN `tbl_karyawan_struktur` ON `tbl_karyawan_struktur`.`nip` = `tbl_izin_non_full`.`nik_non_full` 
+			LEFT JOIN `tbl_lokasi` ON `tbl_lokasi`.`idLokasi` = `tbl_karyawan_struktur`.`idLokasi` 
+			WHERE $where";
+			$hasil = $this->db_absensi->query($sql);
+			return $hasil->result_array();
+		} else {
+			$sql = "SELECT `tbl_izin_non_full`.`id_non_full`,
+			`tbl_izin_non_full`.`no_pengajuan_non_full`,
+			`tbl_izin_non_full`.`tanggal_pengajuan`,
+			`tbl_izin_non_full`.`tanggal_pengajuan` + INTERVAL 1 DAY AS tanggal_deadline,
+			`tbl_izin_non_full`.`nik_non_full` AS nik_baru,
+			`tbl_karyawan_struktur`.`namaKaryawan` AS nama_karyawan_struktur,
+			`tbl_lokasi`.`namaLokasi` AS lokasi_struktur,
+			`tbl_izin_non_full`.`jabatan_non_full`,
+			`tbl_izin_non_full`.`jenis_non_full`,
+			`tbl_izin_non_full`.`tanggal_non_full` AS tanggal_absen,
+			-- `tbl_izin_non_full`.`karyawan_pengganti`,
+			`tbl_izin_non_full`.`ket_tambahan_non_full`,
+			`tbl_izin_non_full`.`status_non_full`,
+			`tbl_izin_non_full`.`feedback_non_full`,
+			`tbl_izin_non_full`.`tanggal_approval_non_full`,
+			`tbl_izin_non_full`.`status_non_full_2`,
+			`tbl_izin_non_full`.`feedback_non_full_2`,
+			`tbl_izin_non_full`.`tanggal_approval_non_full_2`,
+			`tbl_izin_non_full`.`upload_non_full`,
+			`tbl_izin_non_full`.`lat`,
+			`tbl_izin_non_full`.`lon` 
+			FROM `tbl_izin_non_full` 
+			INNER JOIN `tbl_karyawan_struktur` ON `tbl_karyawan_struktur`.`nip` = `tbl_izin_non_full`.`nik_non_full` 
+			LEFT JOIN `tbl_lokasi` ON `tbl_lokasi`.`idLokasi` = `tbl_karyawan_struktur`.`idLokasi` 
+			WHERE $where";
+			$hasil = $this->db_absensi->query($sql);
+			return $hasil->result_array();
+		}
+	}
+
+	public function get_index_non_full_day_atasan_new($id_divisi = null, $id_bagian = null, $jabatan = null)
+    {
+        $sql = "SELECT 
+				tbl_izin_non_full.`id_non_full`,
+				tbl_izin_non_full.`no_pengajuan_non_full`,
+				tbl_izin_non_full.`tanggal_pengajuan`,
+				tbl_izin_non_full.`nik_non_full`,
+				tbl_karyawan_struktur.namaKaryawan AS nama_karyawan_struktur,
+				tbl_jabatan.`jabatanKaryawan`,
+				tbl_karyawan_struktur.`idLokasiHrd` AS lokasi_struktur,
+				tbl_izin_non_full.`jenis_non_full`,
+				tbl_izin_non_full.`tanggal_non_full`,
+				-- tbl_izin_non_full.`karyawan_pengganti`,
+				tbl_izin_non_full.`ket_tambahan_non_full`,
+				tbl_izin_non_full.`status_non_full`,
+				tbl_izin_non_full.`feedback_non_full`,
+				tbl_izin_non_full.`tanggal_approval_non_full`,
+				tbl_izin_non_full.`status_non_full_2`,
+				tbl_izin_non_full.`feedback_non_full_2`,
+				tbl_izin_non_full.`tanggal_approval_non_full_2`
+			FROM `tbl_jabatan_approval` 
+			INNER JOIN `tbl_jabatan` ON tbl_jabatan.`idJabatan` = tbl_jabatan_approval.`idJabatan` 
+			INNER JOIN `tbl_izin_non_full` ON tbl_izin_non_full.`jabatan_non_full` = tbl_jabatan_approval.`idJabatan` 
+			INNER JOIN `tbl_karyawan_struktur` ON tbl_karyawan_struktur.`nip` = tbl_izin_non_full.`nik_non_full` 
+			WHERE (
+					tbl_karyawan_struktur.idDivisi = '$id_divisi' 
+					OR tbl_karyawan_struktur.idBagian = '$id_bagian'
+				) 
+			AND (
+					tbl_jabatan_approval.idJabatanAtasan1 = '$jabatan' 
+					OR tbl_jabatan_approval.idJabatanAtasan2 = '$jabatan'
+				) 
+		AND tbl_izin_non_full.`jenis_non_full` <> 'DN' 
+		ORDER BY tbl_izin_non_full.`id_non_full` DESC";
+
+        $hasil = $this->db_absensi->query($sql);
+        return $hasil->result_array();
+    }
+
+
 }
 
 ?>
